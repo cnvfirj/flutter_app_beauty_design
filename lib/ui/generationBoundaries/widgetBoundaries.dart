@@ -1,14 +1,15 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 
-class ListEx extends StatefulWidget{
+class BoundariesNumber extends StatefulWidget{
 
   @override
-  State createState() =>StateListEx();
+  State createState() =>StateBoundariesNumber();
 }
 
-class StateListEx extends State<ListEx>{
+class StateBoundariesNumber extends State<BoundariesNumber> {
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,13 @@ class StateListEx extends State<ListEx>{
       ),
       decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.amber,
+            color: Colors.brown,
           ),
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Colors.amber
+          color: Colors.brown
       ),
       // height: 100,
     );
   }
+
 }
