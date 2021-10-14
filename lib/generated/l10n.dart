@@ -59,6 +59,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Random values are generated in real-time in the laboratory of Australian National University by measuring vacuum state fluctuations. This service will be used if the internet connection is present.`
+  String get background_text {
+    return Intl.message(
+      'Random values are generated in real-time in the laboratory of Australian National University by measuring vacuum state fluctuations. This service will be used if the internet connection is present.',
+      name: 'background_text',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

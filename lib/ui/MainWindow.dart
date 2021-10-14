@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'mainWidget/bar.dart';
+import 'mainWidget/window.dart';
 
 class MainApp extends StatelessWidget{
 
@@ -32,6 +32,11 @@ class StateMainWindow extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
+      body: Stack(
+        children: [
+           BackgroundMainText(),
+        ],
+      ),
     );
   }
 

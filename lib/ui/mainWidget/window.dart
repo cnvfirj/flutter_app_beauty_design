@@ -20,7 +20,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget{
       elevation: 30,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(30),
+          bottom: Radius.circular(20),
         ),
       ),
       actions: [
@@ -47,5 +47,24 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget{
     } else {
       throw 'Could not launch $url';
     }
+  }
+}
+
+class BackgroundMainText extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(left: 15, right: 15),
+      child:Text(
+        S.maybeOf(context)!.background_text,
+        style: TextStyle(
+        fontSize: 30
+        ),
+        textAlign: TextAlign.center,
+    )
+    )
+    );
   }
 }
