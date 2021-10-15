@@ -1,8 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
+import 'package:flutter_app_beauty_design/help/byCode.dart';
 
 class HistoryNumber extends StatefulWidget{
+
+  final Pair<double, double> _pair;
+
+
+  HistoryNumber(this._pair);
 
   @override
   State createState() =>StateHistoryNumber();
@@ -12,12 +18,19 @@ class StateHistoryNumber extends State<HistoryNumber> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-        margin: EdgeInsets.all(10),
-        child: Text(S.maybeOf(context)!.background_text,),
-      ),
-      decoration: BoxDecoration(
+    double width = widget._pair.first<widget._pair.second?widget._pair.first:widget._pair.second;
+    double height = widget._pair.first<widget._pair.second?widget._pair.second/2:widget._pair.first/2;
+    return Positioned(
+        child: Container(
+          width: width,
+          height: height,
+          child: Container(
+             width: width,
+             height: height,
+             margin: EdgeInsets.all(10),
+              child: Text("List history"),
+          ),
+        decoration: BoxDecoration(
           border: Border.all(
             color: Colors.purpleAccent,
           ),
@@ -25,6 +38,7 @@ class StateHistoryNumber extends State<HistoryNumber> {
           color: Colors.purpleAccent
       ),
       // height: 100,
+    )
     );
   }
 

@@ -1,8 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
+import 'package:flutter_app_beauty_design/help/byCode.dart';
 
 class ListEx extends StatefulWidget{
+
+  final Pair<double, double> _pair;
+
+
+  ListEx(this._pair);
 
   @override
   State createState() =>StateListEx();
@@ -12,12 +18,17 @@ class StateListEx extends State<ListEx>{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-        margin: EdgeInsets.all(10),
-        child: Text(S.maybeOf(context)!.background_text,),
-      ),
-      decoration: BoxDecoration(
+    double width = widget._pair.first<widget._pair.second?widget._pair.first:widget._pair.second;
+    double height = widget._pair.first<widget._pair.second?widget._pair.second/5:widget._pair.first/2;
+    return Positioned(
+        child:Container(
+          width: width,
+          height: height,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Text("LIst Ex"),
+          ),
+          decoration: BoxDecoration(
           border: Border.all(
             color: Colors.amber,
           ),
@@ -25,6 +36,7 @@ class StateListEx extends State<ListEx>{
           color: Colors.amber
       ),
       // height: 100,
+    )
     );
   }
 }

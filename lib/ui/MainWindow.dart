@@ -1,7 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
+import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/ui/exclusionList/widgetExList.dart';
 import 'package:flutter_app_beauty_design/ui/generation/widgetGeneration.dart';
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/widgetBoundaries.dart';
@@ -34,27 +36,28 @@ class StateMainWindow extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppBar(),
-      body: Stack(
-        children: [
-          BackgroundMainText(),
-           Column(
-             mainAxisSize:MainAxisSize.max,
-             children: [
-               Flexible(child: BoundariesNumber(), fit: FlexFit.tight,flex: 2,),
-               SizedBox(height: 5,),
-               Flexible(child: ListEx(), fit: FlexFit.tight,flex: 3,),
-               SizedBox(height: 5,),
-               Flexible(child: GenerationNumber(), fit: FlexFit.tight, flex: 2),
-               SizedBox(height: 5,),
-               Flexible(child: HistoryNumber(), fit: FlexFit.tight,flex: 5,),
-             ],
-           )
-        ],
+    final Pair<double,double> pair = Pair(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
+    return Stack(
+      children :[
+      Scaffold(
+          appBar: MainAppBar(),
+          body: Stack(
+            fit:StackFit.loose,
+            // mainAxisSize:MainAxisSize.max,
+            children: [
+              BackgroundMainText(),
+              HistoryNumber(pair),
+              ListEx(pair),
+              BoundariesNumber(pair),
+            ],
+          )
       ),
+        GenerationNumber(pair),
+      ],
     );
   }
 
 }
+
+
 
