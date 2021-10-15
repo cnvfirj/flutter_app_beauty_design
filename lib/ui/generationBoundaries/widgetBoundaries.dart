@@ -19,8 +19,10 @@ class StateBoundariesNumber extends State<BoundariesNumber> {
   @override
   Widget build(BuildContext context) {
     double width = widget._pair.first<widget._pair.second?widget._pair.first:widget._pair.second;
-    double height = widget._pair.first<widget._pair.second?widget._pair.second/6:widget._pair.first/3;
+    double height = widget._pair.first<widget._pair.second?widget._pair.second/10:widget._pair.first/4.5;
     return Positioned(
+        top: 0,
+        left: 0,
         child:Container(
           width: width,
           height: height,

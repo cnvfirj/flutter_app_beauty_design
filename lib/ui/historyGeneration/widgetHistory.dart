@@ -21,6 +21,8 @@ class StateHistoryNumber extends State<HistoryNumber> {
     double width = widget._pair.first<widget._pair.second?widget._pair.first:widget._pair.second;
     double height = widget._pair.first<widget._pair.second?widget._pair.second/2:widget._pair.first/2;
     return Positioned(
+        bottom: 0,
+        left: 0,
         child: Container(
           width: width,
           height: height,

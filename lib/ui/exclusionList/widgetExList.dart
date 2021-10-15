@@ -21,6 +21,8 @@ class StateListEx extends State<ListEx>{
     double width = widget._pair.first<widget._pair.second?widget._pair.first:widget._pair.second;
     double height = widget._pair.first<widget._pair.second?widget._pair.second/5:widget._pair.first/2;
     return Positioned(
+        bottom: widget._pair.second/2,
+        left: 0,
         child:Container(
           width: width,
           height: height,

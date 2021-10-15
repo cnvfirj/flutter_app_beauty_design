@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
+import 'package:flutter_app_beauty_design/help/byCode.dart';
+import 'package:flutter_app_beauty_design/help/constants.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui' as grad;
@@ -9,8 +11,11 @@ import 'dart:ui' as grad;
 /*подробнее о кастомных апп барах
 * https://stackoverflow.com/questions/52678469/the-appbardesign-cant-be-assigned-to-the-parameter-type-preferredsizewidget*/
 class MainAppBar extends StatelessWidget with PreferredSizeWidget{
-
+  final Pair<double, double> _pair;
   final String url = 'https://qrng.anu.edu.au/';
+
+
+  MainAppBar(this._pair);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget{
 
 
   @override
-  Size get preferredSize => const Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(_pair.second*BuildCoefficient.H_APP_BAR);
 
   void openLink()async{
     if (await canLaunch(url)) {
