@@ -69,6 +69,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Number generator`
+  String get widget_generator {
+    return Intl.message(
+      'Number generator',
+      name: 'widget_generator',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

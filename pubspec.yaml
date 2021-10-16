@@ -50,6 +50,16 @@ flutter:
   assets:
     - assets/images/
     - assets/values/
+  fonts:
+    - family: Monserat
+      fonts:
+        - asset: fonts/Montserrat-Medium.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/RobotoCondensed-Light.ttf
+    - family: Lobster
+      fonts:
+        - asset: fonts/Lobster-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -44,7 +44,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget{
 
 
   @override
-  Size get preferredSize => Size.fromHeight(_pair.second*BuildCoefficient.H_APP_BAR);
+  Size get preferredSize => Size.fromHeight(_pair.second>_pair.first?_pair.second*BuildCoefficient.H_APP_BAR:_pair.first*BuildCoefficient.H_APP_BAR);
 
   void openLink()async{
     if (await canLaunch(url)) {

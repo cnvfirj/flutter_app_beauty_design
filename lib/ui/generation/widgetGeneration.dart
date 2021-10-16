@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
+import 'package:flutter_app_beauty_design/help/constants.dart';
 
 class GenerationNumber extends StatefulWidget {
   final Pair<double, double> _pair;
@@ -23,31 +24,42 @@ class StateGenerationNumber extends State<GenerationNumber> {
     return Positioned(
         top: widget._position.first,
         left: widget._position.second,
-        child: GestureDetector(
-            onPanDown: (d) {},
-            onPanUpdate: (d) {
-              setState(() {
-                double top = widget._position.first + d.delta.dy;
-                double left = widget._position.second + d.delta.dx;
-                widget._position.first = top>widget._side / 3?top:widget._position.first;
-                widget._position.second = left>0&&left<widget._side?left:widget._position.second;
-              });
-            },
-            onPanEnd: (d) {},
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
             child: Container(
+              color: Colors.cyan,
               width: widget._side,
               height: widget._side,
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: Text("Generation"),
-              ),
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.cyan,
+              padding: EdgeInsets.only(top: 10),
+              child: Column(children: [
+                GestureDetector(
+                  onPanUpdate: (d) {
+                    setState(() {
+                      double top = widget._position.first + d.delta.dy;
+                      double left = widget._position.second + d.delta.dx;
+                      widget._position.first =
+                          top > widget._side / 3 ? top : widget._position.first;
+                      widget._position.second = left > 0 && left < widget._side
+                          ? left
+                          : widget._position.second;
+                    });
+                  },
+                  child: Text(
+                    S.maybeOf(context)!.widget_generator,
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        color: GlobalColors.COLOR_FONT,
+                        decoration: TextDecoration.none,
+                        fontSize: widget._pair.second *
+                            BuildCoefficient.WIN_FONT_SIZE),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.cyan),
-              // height: 100,
+                ),
+                /*main generate widget*/
+                Flexible(
+                    child: Container(
+                  color: Colors.black12,
+                ))
+              ]),
             )));
   }
 

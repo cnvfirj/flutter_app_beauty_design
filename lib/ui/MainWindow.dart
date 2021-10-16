@@ -12,6 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'mainWidget/window.dart';
 
+
 class MainApp extends StatelessWidget{
 
   @override
@@ -26,6 +27,7 @@ class MainApp extends StatelessWidget{
       ],
       supportedLocales: S.delegate.supportedLocales,
       title: 'beauty design',
+      // theme: ThemeData(fontFamily: "Monserat"),
       home: StateMainWindow (),
     );
   }
@@ -56,6 +58,19 @@ class StateMainWindow extends StatelessWidget{
         GenerationNumber(pair),
       ],
     );
+  }
+
+  /*проверка на сохраненное положение,
+  * если его нет то отдаем это*/
+  Pair<double, double>_createPositionGenerationWindow(Pair p){
+    double side =
+    p.first < p.second ? p.first / 2 : p.second / 2;
+    return Pair(side / 3, side / 2);
+  }
+
+  Pair<double, double>_createPositionHistoryGrneration(Pair p){
+    double left = p.first < p.second ?0:p.first/2;
+    return Pair(0, 0);
   }
 
 }
