@@ -29,8 +29,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
           onPressed: () {
             // openLink();
           },
-          icon: Image.asset("assets/images/icon_out_link.png"),
-          color: Colors.white,
+          icon: Icon(Icons.repeat,color: Colors.white,),
         )
         // icon: Icon(Icons.ac_unit))
       ],
