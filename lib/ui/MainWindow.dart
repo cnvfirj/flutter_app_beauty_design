@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/ui/exclusionList/widgetExList.dart';
-import 'package:flutter_app_beauty_design/ui/generation/widgetGeneration.dart';
+import 'package:flutter_app_beauty_design/ui/generation/widgetGeneration.dart' as generator;
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/widgetBoundaries.dart';
-import 'package:flutter_app_beauty_design/ui/historyGeneration/widgetHistory.dart';
+import 'package:flutter_app_beauty_design/ui/historyGeneration/widgetHistory.dart' as history;
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'mainWidget/window.dart';
@@ -49,29 +49,38 @@ class StateMainWindow extends StatelessWidget{
             // mainAxisSize:MainAxisSize.max,
             children: [
               BackgroundMainText(),
-              HistoryNumber(pair),
+              _history(pair, context),
               ListEx(pair),
               BoundariesNumber(pair),
+              _generation(pair, context)
             ],
           )
       ),
-        GenerationNumber(pair),
       ],
     );
   }
 
-  /*проверка на сохраненное положение,
-  * если его нет то отдаем это*/
-  Pair<double, double>_createPositionGenerationWindow(Pair p){
-    double side =
-    p.first < p.second ? p.first / 2 : p.second / 2;
-    return Pair(side / 3, side / 2);
+  Widget _generation(Pair<double, double> params, BuildContext context){
+    Widget child = Container(color: Colors.black12,);
+    Pair<double,double>position = Pair(20, 100);
+    return generator.winGenerator(
+        child: child,
+        mainParams: params,
+        position: position,
+        text: S.maybeOf(context)!.widget_generator
+    );
   }
 
-  Pair<double, double>_createPositionHistoryGrneration(Pair p){
-    double left = p.first < p.second ?0:p.first/2;
-    return Pair(0, 0);
+  Widget _history(Pair<double, double> params, BuildContext context){
+    Widget child = Container(color: Colors.black12,);
+    Pair<double,double>position = Pair(400, 0);
+    return history.winHistory(
+        child: child,
+        mainParams: params,
+        position: position,
+        text: S.maybeOf(context)!.widget_history);
   }
+
 
 }
 

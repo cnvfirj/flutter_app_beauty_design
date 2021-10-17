@@ -79,6 +79,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Number generation history`
+  String get widget_history {
+    return Intl.message(
+      'Number generation history',
+      name: 'widget_history',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
