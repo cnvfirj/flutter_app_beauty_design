@@ -68,7 +68,6 @@ class StateMainWindow extends StatelessWidget{
   }
 
   void _actionAppBarButton(int index){
-    print('click action button');
     for(CommonParentWidget w in _children){
       w.recovery();
     }

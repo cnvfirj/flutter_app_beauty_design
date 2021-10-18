@@ -23,7 +23,7 @@ class CommonParentWidget extends StatefulWidget {
     required Pair<double, double> recovery,
     required Color color,
     // required StartAnimation startAnimation
-  })  : _child = child,
+  }) : _child = child,
         _bookmark = bookmark,
         _mainParams = mainParams,
         _widgetParams = widgetParams,
@@ -31,7 +31,7 @@ class CommonParentWidget extends StatefulWidget {
         _position = position,
         _recovery = recovery,
         _color = color,
-        // _startAnimation = startAnimation,
+  // _startAnimation = startAnimation,
         _segment = mainParams.first > mainParams.second
             ? mainParams.first
             : mainParams.second;
@@ -65,7 +65,6 @@ class StateCommonParentWidget extends State<CommonParentWidget>
                     },
                     child: widget._bookmark,
                   ),
-                  /*main generate widget*/
                   Flexible(child: widget._child),
                 ]))));
   }
@@ -84,10 +83,9 @@ class CommonBookmark extends StatelessWidget {
   final String _text;
   final Pair<double, double> _size;
 
-  CommonBookmark(
-      {required bool isCenter,
-      required String text,
-      required Pair<double, double> size})
+  CommonBookmark({required bool isCenter,
+    required String text,
+    required Pair<double, double> size})
       : _isCenter = isCenter,
         _text = text,
         _size = size;
@@ -130,8 +128,18 @@ class CommonBookmark extends StatelessWidget {
 
 class CommonAnimation extends StatefulWidget {
   final Widget _child;
+  Pair<double, double>_start;
+  Pair<double, double>_end;
 
-  CommonAnimation({required Widget child}) : _child = child;
+  CommonAnimation({
+    required Widget child,
+    required Pair<double, double>start,
+    required Pair<double, double>end
+  })
+      :
+        _child = child,
+        _start = start,
+        _end = end;
 
   @override
   State createState() => StateCommonAnimation();
@@ -140,6 +148,17 @@ class CommonAnimation extends StatefulWidget {
 class StateCommonAnimation extends State<CommonAnimation> {
   @override
   Widget build(BuildContext context) {
-    return widget._child;
+    return TweenAnimationBuilder(
+      child: widget._child,
+      tween: Tween<Pair<double,double>>(begin:widget._start,end:widget._end),
+      duration: const Duration(milliseconds: 500),
+      builder: (_, Pair<double,double> pair, Widget? child) {
+        return Positioned(
+          child: child!,
+          top: pair.first,
+          left: pair.second,
+        );
+      },
+    );
   }
 }
