@@ -8,10 +8,15 @@ import 'dart:ui' as grad;
 
 /*подробнее о кастомных апп барах
 * https://stackoverflow.com/questions/52678469/the-appbardesign-cant-be-assigned-to-the-parameter-type-preferredsizewidget*/
+typedef ActionButton = Function(int index);
+
 class MainAppBar extends StatelessWidget with PreferredSizeWidget {
   final Pair<double, double> _pair;
+  final ActionButton _actionButton;
 
-  MainAppBar(this._pair);
+  MainAppBar({required Pair<double, double>pair,required ActionButton actionButton}):
+  _pair = pair,
+  _actionButton = actionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            // openLink();
+            _actionButton(1);
           },
           icon: Icon(Icons.repeat,color: Colors.white,),
         )

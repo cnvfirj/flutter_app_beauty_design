@@ -6,26 +6,29 @@ import 'package:flutter_app_beauty_design/ui/CommonWidget.dart';
 
 CommonParentWidget winGenerator({
   required Widget child,
-  required Pair<double, double>mainParams,
-  required Pair<double,double>position,
-  required String text
-})
-{
-  double side =  mainParams.first < mainParams.second
+  required Pair<double, double> mainParams,
+  required Pair<double, double> position,
+  required Pair<double,double> recovery,
+  required String text,
+  // required StartAnimation startAnimation,
+}) {
+  double side = mainParams.first < mainParams.second
       ? mainParams.first / 2
       : mainParams.second / 2;
   return CommonParentWidget(
-      child: child,
-      bookmark: CommonBookmark(
-        isCenter: true,
-        text: text,
-        size: Pair(side,mainParams.second),
-      ),
-      mainParams: mainParams,
-      widgetParams: Pair(side,side),
-      borderShift: mainParams,
-      position: position,
-      color: Colors.green);
+    child: child,
+    bookmark: CommonBookmark(
+      isCenter: true,
+      text: text,
+      size: Pair(side, mainParams.second),
+    ),
+    mainParams: mainParams,
+    widgetParams: Pair(side, side),
+    borderShift: mainParams,
+    position: position,
+    recovery: recovery,
+    color: Colors.green,
+    // startAnimation: startAnimation,
+  );
 }
-
 

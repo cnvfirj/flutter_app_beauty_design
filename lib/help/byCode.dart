@@ -6,6 +6,10 @@ class Pair<T,K>{
   K second;
 
  Pair(this.first, this.second);
+ 
+ Pair<T,K>clone(){
+   return new Pair(first, second);
+ }
 }
 
 abstract class DragWidget{

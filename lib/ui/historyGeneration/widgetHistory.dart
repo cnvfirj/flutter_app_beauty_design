@@ -9,7 +9,9 @@ CommonParentWidget winHistory({
   required Widget child,
   required Pair<double, double>mainParams,
   required Pair<double,double>position,
-  required String text
+  required Pair<double,double> recovery,
+  required String text,
+  // required StartAnimation startAnimation,
 })
 {
   double height =  mainParams.first > mainParams.second
@@ -24,9 +26,12 @@ CommonParentWidget winHistory({
         size: Pair(width,mainParams.second),
       ),
       mainParams: mainParams,
-      widgetParams: Pair(height,width),
+      widgetParams: Pair(width,height),
       borderShift: mainParams,
       position: position,
-      color: Colors.purple);
+    recovery: recovery,
+      color: Colors.purple,
+      // startAnimation: startAnimation,
+  );
 }
 
