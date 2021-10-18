@@ -11,7 +11,11 @@ class CommonParentWidget extends StatefulWidget {
   final Pair<double, double> _recovery;
   final Color _color;
   final double _segment;
+
   Pair<double, double> _position;
+  bool _animShift = false;
+
+  late StateCommonParentWidget _state = StateCommonParentWidget();
 
   CommonParentWidget({
     required Widget child,
@@ -37,11 +41,10 @@ class CommonParentWidget extends StatefulWidget {
             : mainParams.second;
 
   @override
-  State createState() => StateCommonParentWidget();
+  State createState() => _state;
 
   void recovery() {
-    print('recovery shift ${_position.second}');
-    print('recovery rec ${_recovery.second}');
+    _state.anim();
   }
 }
 
@@ -49,24 +52,16 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     with DragWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-        top: widget._position.first,
-        left: widget._position.second,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Container(
-                color: widget._color,
-                width: widget._widgetParams.first,
-                height: widget._widgetParams.second,
-                child: Column(children: [
-                  GestureDetector(
-                    onPanUpdate: (d) {
-                      shift(d);
-                    },
-                    child: widget._bookmark,
-                  ),
-                  Flexible(child: widget._child),
-                ]))));
+    if(widget._animShift)
+      return CommonAnimation(
+          child: _clipChild(),
+          // start: widget._position,
+          end: widget._recovery);
+    else
+      return Positioned(
+          top: widget._position.first,
+          left: widget._position.second,
+          child: _clipChild());
   }
 
   @override
@@ -75,6 +70,31 @@ class StateCommonParentWidget extends State<CommonParentWidget>
       widget._position.first = widget._position.first + d.delta.dy;
       widget._position.second = widget._position.second + d.delta.dx;
     });
+  }
+
+  void anim(){
+    setState(() {
+      widget._animShift = true;
+      // widget._position = widget._recovery.clone();
+    });
+  }
+
+  Widget _clipChild(){
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+            color: widget._color,
+            width: widget._widgetParams.first,
+            height: widget._widgetParams.second,
+            child: Column(children: [
+              GestureDetector(
+                onPanUpdate: (d) {
+                  shift(d);
+                },
+                child: widget._bookmark,
+              ),
+              Flexible(child: widget._child),
+            ])));
   }
 }
 
@@ -126,39 +146,42 @@ class CommonBookmark extends StatelessWidget {
   }
 }
 
+
+
 class CommonAnimation extends StatefulWidget {
   final Widget _child;
-  Pair<double, double>_start;
+  // Pair<double, double>_start;
   Pair<double, double>_end;
 
   CommonAnimation({
     required Widget child,
-    required Pair<double, double>start,
+    // required Pair<double, double>start,
     required Pair<double, double>end
   })
       :
         _child = child,
-        _start = start,
+        // _start = start,
         _end = end;
 
   @override
   State createState() => StateCommonAnimation();
 }
 
-class StateCommonAnimation extends State<CommonAnimation> {
+/*https://api.flutter.dev/flutter/widgets/AnimatedPositioned-class.html*/
+class StateCommonAnimation extends State<CommonAnimation>{
+
   @override
   Widget build(BuildContext context) {
-    return TweenAnimationBuilder(
+    return AnimatedPositioned(
+      duration:  Duration(seconds: 1),
       child: widget._child,
-      tween: Tween<Pair<double,double>>(begin:widget._start,end:widget._end),
-      duration: const Duration(milliseconds: 500),
-      builder: (_, Pair<double,double> pair, Widget? child) {
-        return Positioned(
-          child: child!,
-          top: pair.first,
-          left: pair.second,
-        );
-      },
+      top: widget._end.first,
+      left: widget._end.second,
+      right: 20,
+      curve: Curves.linear,
+
+
     );
   }
+
 }
