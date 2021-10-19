@@ -47,7 +47,6 @@ class CommonParentWidget extends StatefulWidget {
   void recovery() {
     _state.anim();
   }
-
 }
 
 class StateCommonParentWidget extends State<CommonParentWidget>
@@ -57,7 +56,7 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     if (widget._animShift)
       return CommonAnimation(
           endAnimation: () {
-              endAnimation();
+            endAnimation();
           },
           child: _clipChild(),
           start: widget._position,
@@ -74,13 +73,16 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     double first = widget._position.first + d.delta.dy;
     double second = widget._position.second + d.delta.dx;
     bool state = false;
-    if(first>widget._borderShift.top&&first<widget._borderShift.bottom){
-         state = true;
-    }else first = widget._position.first;
-    if(second>widget._borderShift.left&&second<widget._borderShift.right){
+    if (first > widget._borderShift.top && first < widget._borderShift.bottom) {
       state = true;
-    }else second = widget._position.second;
-    if(state){
+    } else
+      first = widget._position.first;
+    if (second > widget._borderShift.left &&
+        second < widget._borderShift.right) {
+      state = true;
+    } else
+      second = widget._position.second;
+    if (state) {
       setState(() {
         widget._position.first = first;
         widget._position.second = second;
@@ -94,8 +96,8 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     });
   }
 
-  void endAnimation(){
-    setState((){
+  void endAnimation() {
+    setState(() {
       widget._position = widget._recovery.clone();
       widget._animShift = false;
     });
@@ -108,15 +110,17 @@ class StateCommonParentWidget extends State<CommonParentWidget>
             color: widget._color,
             width: widget._widgetParams.first,
             height: widget._widgetParams.second,
-            child: Column(children: [
-              GestureDetector(
-                onPanUpdate: (d) {
-                  shift(d);
-                },
-                child: widget._bookmark,
-              ),
-              Flexible(child: widget._child),
-            ])));
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  GestureDetector(
+                    onPanUpdate: (d) {
+                      shift(d);
+                    },
+                    child: widget._bookmark,
+                  ),
+                  Flexible(child: widget._child),
+                ])));
   }
 }
 
@@ -137,14 +141,15 @@ class CommonBookmark extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: _size.first,
-      height: _size.second*BuildCoefficient.H_BUK,
+      height: _size.second * BuildCoefficient.H_BUK,
       padding: _padding(),
-      child: _center(_txt()),
+      child: _txt(),
     );
   }
 
   Widget _txt() {
     return Text(_text,
+        textAlign: _isCenter?TextAlign.center:TextAlign.left,
         style: TextStyle(
             fontWeight: FontWeight.normal,
             color: GlobalColors.COLOR_FONT,
@@ -152,21 +157,12 @@ class CommonBookmark extends StatelessWidget {
             fontSize: _size.second * BuildCoefficient.WIN_FONT_SIZE));
   }
 
-  Widget _center(Widget widget) {
-    if (_isCenter)
-      return Center(
-        child: widget,
-      );
-    else
-      return widget;
-  }
-
   EdgeInsetsGeometry _padding() {
     double padding = _size.second * BuildCoefficient.H_BUKMARK;
     if (_isCenter)
       return EdgeInsets.only(top: padding);
     else
-      return EdgeInsets.only(top: padding, left: padding*2);
+      return EdgeInsets.only(top: padding, left: padding * 2);
   }
 }
 
