@@ -55,7 +55,7 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     if(widget._animShift)
       return CommonAnimation(
           child: _clipChild(),
-          // start: widget._position,
+          start: widget._position,
           end: widget._recovery);
     else
       return Positioned(
@@ -150,17 +150,17 @@ class CommonBookmark extends StatelessWidget {
 
 class CommonAnimation extends StatefulWidget {
   final Widget _child;
-  // Pair<double, double>_start;
+  Pair<double, double>_start;
   Pair<double, double>_end;
 
   CommonAnimation({
     required Widget child,
-    // required Pair<double, double>start,
+    required Pair<double, double>start,
     required Pair<double, double>end
   })
       :
         _child = child,
-        // _start = start,
+        _start = start,
         _end = end;
 
   @override
@@ -172,16 +172,37 @@ class StateCommonAnimation extends State<CommonAnimation>{
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedPositioned(
-      duration:  Duration(seconds: 1),
+    return TweenAnimationBuilder(
       child: widget._child,
-      top: widget._end.first,
-      left: widget._end.second,
-      right: 20,
-      curve: Curves.linear,
-
-
+      tween: TweenPair(begin:widget._start,end:widget._end),
+      duration: const Duration(milliseconds: 500),
+      builder: (_, Pair<double,double> pair, Widget? child) {
+        return Positioned(
+          child: child!,
+          top: pair.first,
+          left: pair.second,
+        );
+      },
     );
   }
+}
+
+class TweenPair extends Tween<Pair<double,double>>{
+
+  TweenPair({required Pair<double,double>begin, required Pair<double,double> end}):
+        super(begin: begin,end: end);
+
+  @override
+  Pair<double, double> lerp(double t) {
+    assert(begin != null);
+    assert(end != null);
+    Pair<double,double> start = begin as Pair<double,double>;
+    Pair<double,double> fin = end as Pair<double,double>;
+    double first = start.first+(fin.first-start.first)*t;
+    double second = start.second+(fin.second-start.second)*t;
+
+    return Pair(first,second);
+  }
+
 
 }
