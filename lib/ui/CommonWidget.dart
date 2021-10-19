@@ -137,6 +137,7 @@ class CommonBookmark extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: _size.first,
+      height: _size.second*BuildCoefficient.H_BUK,
       padding: _padding(),
       child: _center(_txt()),
     );
@@ -163,9 +164,9 @@ class CommonBookmark extends StatelessWidget {
   EdgeInsetsGeometry _padding() {
     double padding = _size.second * BuildCoefficient.H_BUKMARK;
     if (_isCenter)
-      return EdgeInsets.only(top: padding, bottom: padding);
+      return EdgeInsets.only(top: padding);
     else
-      return EdgeInsets.only(top: padding, bottom: padding, left: padding*2);
+      return EdgeInsets.only(top: padding, left: padding*2);
   }
 }
 

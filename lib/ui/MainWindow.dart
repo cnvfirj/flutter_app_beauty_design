@@ -19,6 +19,7 @@ class MainApp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, overlays: [SystemUiOverlay.top]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [

@@ -15,8 +15,14 @@ CommonParentWidget winGenerator({
   double side = mainParams.first < mainParams.second
       ? mainParams.first / 2
       : mainParams.second / 2;
-
-  Rect rect = Rect.fromLTRB(0,0,mainParams.first-side,mainParams.second-side);
+  double bottom = mainParams.first > mainParams.second
+      ? mainParams.first*BuildCoefficient.H_BOTTOM_BAR
+      : mainParams.second*BuildCoefficient.H_BOTTOM_BAR;
+  Rect rect = Rect.fromLTRB(
+      0,
+      0,
+      mainParams.first-side,
+      mainParams.second-bottom);
   return CommonParentWidget(
     child: child,
     bookmark: CommonBookmark(

@@ -10,6 +10,9 @@ class BuildCoefficient{
   static final double WIN_FONT_SIZE = 0.018;
   static final double SIDE_SHIFT_WIN = 0.9;
   static final double H_BUKMARK = 0.010;
+  static final double H_BUK = 0.04;
+  static final double H_BOTTOM_BAR = 0.3;
+
 }
 
 class GlobalColors{

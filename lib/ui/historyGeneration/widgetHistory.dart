@@ -18,6 +18,9 @@ CommonParentWidget winHistory({
       ? mainParams.first / 2
       : mainParams.second / 2;
   double width = mainParams.first < mainParams.second?mainParams.first:mainParams.second;
+  double step = mainParams.first > mainParams.second
+      ? mainParams.first*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*6
+      : mainParams.second*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*6;
   return CommonParentWidget(
       child: child,
       bookmark: CommonBookmark(
@@ -27,7 +30,7 @@ CommonParentWidget winHistory({
       ),
       mainParams: mainParams,
       widgetParams: Pair(width,height),
-      borderShift: Rect.fromLTRB(0,0,0,0),
+      borderShift: Rect.fromLTRB(0,0,0,mainParams.second-step),
       position: position,
     recovery: recovery,
       color: Colors.purple,
