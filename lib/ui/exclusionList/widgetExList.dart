@@ -1,44 +1,33 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 
-class ListEx extends StatefulWidget{
+import '../CommonWidget.dart';
 
-  final Pair<double, double> _pair;
-
-
-  ListEx(this._pair);
-
-  @override
-  State createState() =>StateListEx();
-}
-
-class StateListEx extends State<ListEx>{
-
-  @override
-  Widget build(BuildContext context) {
-    double width = widget._pair.first<widget._pair.second?widget._pair.first:widget._pair.second;
-    double height = widget._pair.first<widget._pair.second?widget._pair.second/5:widget._pair.first/2;
-    return Positioned(
-        bottom: widget._pair.second/2,
-        left: 0,
-        child:Container(
-          width: width,
-          height: height,
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Text("LIst Ex"),
-          ),
-          decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.amber,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Colors.amber
-      ),
-      // height: 100,
-    )
-    );
-  }
+CommonParentWidget winExcludes({
+  required Widget child,
+  required Pair<double, double>mainParams,
+  required Pair<double,double>position,
+  required Pair<double,double> recovery,
+  required String text,
+})
+{
+  double height =  mainParams.first > mainParams.second
+      ? mainParams.first / 4
+      : mainParams.second / 4;
+  double width = mainParams.first < mainParams.second?mainParams.first:mainParams.second;
+  return CommonParentWidget(
+    child: child,
+    bookmark: CommonBookmark(
+      isCenter: false,
+      text: text,
+      size: Pair(width,mainParams.second),
+    ),
+    mainParams: mainParams,
+    widgetParams: Pair(width,height),
+    borderShift: mainParams,
+    position: position,
+    recovery: recovery,
+    color: Colors.brown,
+  );
 }

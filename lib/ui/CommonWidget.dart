@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 
+typedef EndAnimation = void Function();
+
 class CommonParentWidget extends StatefulWidget {
   final Widget _child;
   final CommonBookmark _bookmark;
@@ -26,8 +28,7 @@ class CommonParentWidget extends StatefulWidget {
     required Pair<double, double> position,
     required Pair<double, double> recovery,
     required Color color,
-    // required StartAnimation startAnimation
-  }) : _child = child,
+  })  : _child = child,
         _bookmark = bookmark,
         _mainParams = mainParams,
         _widgetParams = widgetParams,
@@ -35,7 +36,7 @@ class CommonParentWidget extends StatefulWidget {
         _position = position,
         _recovery = recovery,
         _color = color,
-  // _startAnimation = startAnimation,
+        // _startAnimation = startAnimation,
         _segment = mainParams.first > mainParams.second
             ? mainParams.first
             : mainParams.second;
@@ -46,14 +47,18 @@ class CommonParentWidget extends StatefulWidget {
   void recovery() {
     _state.anim();
   }
+
 }
 
 class StateCommonParentWidget extends State<CommonParentWidget>
     with DragWidget {
   @override
   Widget build(BuildContext context) {
-    if(widget._animShift)
+    if (widget._animShift)
       return CommonAnimation(
+          endAnimation: () {
+              endAnimation();
+          },
           child: _clipChild(),
           start: widget._position,
           end: widget._recovery);
@@ -72,14 +77,20 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     });
   }
 
-  void anim(){
+  void anim() {
     setState(() {
       widget._animShift = true;
-      // widget._position = widget._recovery.clone();
     });
   }
 
-  Widget _clipChild(){
+  void endAnimation(){
+    setState((){
+      widget._position = widget._recovery.clone();
+      widget._animShift = false;
+    });
+  }
+
+  Widget _clipChild() {
     return ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Container(
@@ -103,9 +114,10 @@ class CommonBookmark extends StatelessWidget {
   final String _text;
   final Pair<double, double> _size;
 
-  CommonBookmark({required bool isCenter,
-    required String text,
-    required Pair<double, double> size})
+  CommonBookmark(
+      {required bool isCenter,
+      required String text,
+      required Pair<double, double> size})
       : _isCenter = isCenter,
         _text = text,
         _size = size;
@@ -142,67 +154,65 @@ class CommonBookmark extends StatelessWidget {
     if (_isCenter)
       return EdgeInsets.only(top: padding, bottom: padding);
     else
-      return EdgeInsets.only(top: padding, bottom: padding, left: padding);
+      return EdgeInsets.only(top: padding, bottom: padding, left: padding*2);
   }
 }
 
-
-
 class CommonAnimation extends StatefulWidget {
   final Widget _child;
-  Pair<double, double>_start;
-  Pair<double, double>_end;
+  Pair<double, double> _start;
+  Pair<double, double> _end;
+  EndAnimation _endAnimation;
 
   CommonAnimation({
     required Widget child,
-    required Pair<double, double>start,
-    required Pair<double, double>end
-  })
-      :
-        _child = child,
+    required Pair<double, double> start,
+    required Pair<double, double> end,
+    required EndAnimation endAnimation,
+  })  : _child = child,
         _start = start,
-        _end = end;
+        _end = end,
+        _endAnimation = endAnimation;
 
   @override
   State createState() => StateCommonAnimation();
 }
 
-/*https://api.flutter.dev/flutter/widgets/AnimatedPositioned-class.html*/
-class StateCommonAnimation extends State<CommonAnimation>{
-
+class StateCommonAnimation extends State<CommonAnimation> {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
       child: widget._child,
-      tween: TweenPair(begin:widget._start,end:widget._end),
+      tween: TweenPair(begin: widget._start, end: widget._end),
       duration: const Duration(milliseconds: 500),
-      builder: (_, Pair<double,double> pair, Widget? child) {
+      builder:
+          (BuildContext context, Pair<double, double> pair, Widget? child) {
         return Positioned(
           child: child!,
           top: pair.first,
           left: pair.second,
         );
       },
+      onEnd: () {
+        widget._endAnimation();
+      },
     );
   }
 }
 
-class TweenPair extends Tween<Pair<double,double>>{
-
-  TweenPair({required Pair<double,double>begin, required Pair<double,double> end}):
-        super(begin: begin,end: end);
+class TweenPair extends Tween<Pair<double, double>> {
+  TweenPair(
+      {required Pair<double, double> begin, required Pair<double, double> end})
+      : super(begin: begin, end: end);
 
   @override
   Pair<double, double> lerp(double t) {
     assert(begin != null);
     assert(end != null);
-    Pair<double,double> start = begin as Pair<double,double>;
-    Pair<double,double> fin = end as Pair<double,double>;
-    double first = start.first+(fin.first-start.first)*t;
-    double second = start.second+(fin.second-start.second)*t;
-
-    return Pair(first,second);
+    Pair<double, double> start = begin as Pair<double, double>;
+    Pair<double, double> fin = end as Pair<double, double>;
+    double first = start.first + (fin.first - start.first) * t;
+    double second = start.second + (fin.second - start.second) * t;
+    return Pair(first, second);
   }
-
-
 }

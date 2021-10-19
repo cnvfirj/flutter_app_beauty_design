@@ -89,6 +89,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Excluded values`
+  String get widget_excluded {
+    return Intl.message(
+      'Excluded values',
+      name: 'widget_excluded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search boundaries`
+  String get widget_boundaries {
+    return Intl.message(
+      'Search boundaries',
+      name: 'widget_boundaries',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
