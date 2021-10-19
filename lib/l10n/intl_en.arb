@@ -4,5 +4,7 @@
   "widget_generator": "Number generator",
   "widget_history" : "Number generation history",
   "widget_excluded" : "Excluded values",
-  "widget_boundaries" : "Search boundaries"
+  "widget_boundaries" : "Search boundaries",
+  "from" : "from",
+  "to" :"to"
 }

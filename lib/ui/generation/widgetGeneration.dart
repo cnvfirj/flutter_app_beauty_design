@@ -15,6 +15,8 @@ CommonParentWidget winGenerator({
   double side = mainParams.first < mainParams.second
       ? mainParams.first / 2
       : mainParams.second / 2;
+
+  Rect rect = Rect.fromLTRB(0,0,mainParams.first-side,mainParams.second-side);
   return CommonParentWidget(
     child: child,
     bookmark: CommonBookmark(
@@ -24,7 +26,7 @@ CommonParentWidget winGenerator({
     ),
     mainParams: mainParams,
     widgetParams: Pair(side, side),
-    borderShift: mainParams,
+    borderShift: rect,
     position: position,
     recovery: recovery,
     color: Colors.green,

@@ -9,7 +9,7 @@ class CommonParentWidget extends StatefulWidget {
   final CommonBookmark _bookmark;
   final Pair<double, double> _mainParams;
   final Pair<double, double> _widgetParams;
-  final Pair<double, double> _borderShift;
+  final Rect _borderShift;
   final Pair<double, double> _recovery;
   final Color _color;
   final double _segment;
@@ -24,7 +24,7 @@ class CommonParentWidget extends StatefulWidget {
     required CommonBookmark bookmark,
     required Pair<double, double> mainParams,
     required Pair<double, double> widgetParams,
-    required Pair<double, double> borderShift,
+    required Rect borderShift,
     required Pair<double, double> position,
     required Pair<double, double> recovery,
     required Color color,
@@ -71,10 +71,22 @@ class StateCommonParentWidget extends State<CommonParentWidget>
 
   @override
   void shift(DragUpdateDetails d) {
-    setState(() {
-      widget._position.first = widget._position.first + d.delta.dy;
-      widget._position.second = widget._position.second + d.delta.dx;
-    });
+    double first = widget._position.first + d.delta.dy;
+    double second = widget._position.second + d.delta.dx;
+    bool state = false;
+    print('rect ${widget._borderShift}');
+    if(first>widget._borderShift.top&&first<widget._borderShift.bottom){
+         state = true;
+    }else first = widget._position.first;
+    if(second>widget._borderShift.left&&second<widget._borderShift.right){
+      state = true;
+    }else second = widget._position.second;
+    if(state){
+      setState(() {
+        widget._position.first = first;
+        widget._position.second = second;
+      });
+    }
   }
 
   void anim() {

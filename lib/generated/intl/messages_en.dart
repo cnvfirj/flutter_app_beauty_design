@@ -23,7 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "background_text": MessageLookupByLibrary.simpleMessage(
             "Random values are generated in real-time in the laboratory of Australian National University by measuring vacuum state fluctuations. This service will be used if the internet connection is present."),
+        "from": MessageLookupByLibrary.simpleMessage("from"),
         "title_app": MessageLookupByLibrary.simpleMessage("Any Randomizer"),
+        "to": MessageLookupByLibrary.simpleMessage("to"),
         "widget_boundaries":
             MessageLookupByLibrary.simpleMessage("Search boundaries"),
         "widget_excluded":

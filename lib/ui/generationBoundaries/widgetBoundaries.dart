@@ -27,7 +27,7 @@ CommonParentWidget winBoundaries({
     ),
     mainParams: mainParams,
     widgetParams: Pair(width,height),
-    borderShift: mainParams,
+    borderShift: Rect.fromLTRB(0,0,0,0),
     position: position,
     recovery: recovery,
     color: Colors.teal,
