@@ -41,6 +41,7 @@ class StateMainWindow extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
     final Pair<double,double> pair = Pair(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     // final Pair<double,double> pair = Pair(context.size!.width, context.size!.height);
     _readyChildren(pair,context);

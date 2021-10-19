@@ -74,7 +74,6 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     double first = widget._position.first + d.delta.dy;
     double second = widget._position.second + d.delta.dx;
     bool state = false;
-    print('rect ${widget._borderShift}');
     if(first>widget._borderShift.top&&first<widget._borderShift.bottom){
          state = true;
     }else first = widget._position.first;
