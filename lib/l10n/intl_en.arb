@@ -6,5 +6,8 @@
   "widget_excluded" : "Excluded values",
   "widget_boundaries" : "Search boundaries",
   "from" : "from",
-  "to" :"to"
+  "to" :"to",
+  "massage_blank_field_generator": "Generate or enter a number",
+  "massage_blank_fields_boundaries": "Set the boundaries of number generation",
+  "massage_error_fields_boundaries": "Adjust the number generation boundaries"
 }

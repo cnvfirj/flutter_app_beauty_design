@@ -33,7 +33,7 @@ CommonParentWidget winHistory({
       borderShift: Rect.fromLTRB(0,0,0,mainParams.second-step),
       position: position,
     recovery: recovery,
-      color: Colors.purple,
+      color: GlobalColors.COLOR_WIN_HIST,
       // startAnimation: startAnimation,
   );
 }

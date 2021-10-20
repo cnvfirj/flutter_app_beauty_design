@@ -129,6 +129,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Generate or enter a number`
+  String get massage_blank_field_generator {
+    return Intl.message(
+      'Generate or enter a number',
+      name: 'massage_blank_field_generator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set the boundaries of number generation`
+  String get massage_blank_fields_boundaries {
+    return Intl.message(
+      'Set the boundaries of number generation',
+      name: 'massage_blank_fields_boundaries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adjust the number generation boundaries`
+  String get massage_error_fields_boundaries {
+    return Intl.message(
+      'Adjust the number generation boundaries',
+      name: 'massage_error_fields_boundaries',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

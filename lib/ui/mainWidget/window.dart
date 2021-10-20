@@ -54,7 +54,9 @@ class BackgroundMainText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(children: [
+    return  Container(
+      child:Column(
+        children: [
       Container(
           margin: EdgeInsets.only(top:50,left: 15, right: 15),
           child: Text(
@@ -78,7 +80,7 @@ class BackgroundMainText extends StatelessWidget {
                   Icons.link,
                    color: Colors.black38,)
           )
-    ]);
+    ]));
   }
 
 

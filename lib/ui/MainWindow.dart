@@ -14,7 +14,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'mainWidget/window.dart';
 
-
+/*планируется три уровня программы.
+* первфй уровень - это все что связано с интерфейсом
+* взаимодействия с пользователем. В данный момент - это четыре виджета
+* Далее в каждый виджет внедряем общий хаб взаимодействия. Из него будет происходить
+* обмен данными между виджетами.
+* и третий уровень - для каждой операции своя процедура. Это запрос в бд, генерация числа и т. д.
+* это все будет происходить только из второго уровня*/
 class MainApp extends StatelessWidget{
 
   @override
@@ -48,6 +54,7 @@ class StateMainWindow extends StatelessWidget{
     _readyChildren(pair,context);
 
      return Scaffold(
+          backgroundColor: GlobalColors.COLOR_MAIN_FONT,
           appBar: MainAppBar(pair:pair,actionButton: _actionAppBarButton,),
           body: Container(
           child: Stack(
@@ -76,7 +83,9 @@ class StateMainWindow extends StatelessWidget{
   }
 
   CommonParentWidget _generation(Pair<double, double> params, BuildContext context){
-    Widget child = Container(color: Colors.black12,);
+    Widget child = Container(
+      color: Colors.white,
+      child: generator.WidgetNumberGenerator(),);
     Pair<double,double>position = _startPositionGenerate(params);
     Pair<double,double>recovery = position.clone();
     return generator.winGenerator(

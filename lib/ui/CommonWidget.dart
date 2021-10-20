@@ -105,7 +105,7 @@ class StateCommonParentWidget extends State<CommonParentWidget>
 
   Widget _clipChild() {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(BuildCoefficient.R_CIRCLE_ANGLES_WID),
         child: Container(
             color: widget._color,
             width: widget._widgetParams.first,
@@ -152,7 +152,7 @@ class CommonBookmark extends StatelessWidget {
         textAlign: _isCenter?TextAlign.center:TextAlign.left,
         style: TextStyle(
             fontWeight: FontWeight.normal,
-            color: GlobalColors.COLOR_FONT,
+            color: GlobalColors.COLOR_TEXT,
             decoration: TextDecoration.none,
             fontSize: _size.second * BuildCoefficient.WIN_FONT_SIZE));
   }
