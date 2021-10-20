@@ -8,9 +8,10 @@ class MainPresenter with PresenterGenerator{
 
   static MainPresenter get()=>_singleton;
 
+
   @override
   void actionGenerate() {
-     showMassage('str');
+
   }
 
   @override
