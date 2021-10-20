@@ -69,7 +69,9 @@ class WidgetNumberGenerator extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: Icon(Icons.add),
                 color: GlobalColors.COLOR_MAIN_FONT,
-                onPressed: () {},
+                onPressed: () {
+                  _actionGenerate();
+                },
               ),
             ),
           ),
@@ -82,7 +84,9 @@ class WidgetNumberGenerator extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: Icon(Icons.add),
                 color: GlobalColors.COLOR_MAIN_FONT,
-                onPressed: () {},
+                onPressed: () {
+                  _actionEx();
+                },
               ),
             ),
           ),
@@ -96,7 +100,15 @@ class WidgetNumberGenerator extends StatelessWidget {
   }
 
   void _showMassage(String massage){
-    _textGenerator._setText(massage);
+    _textGenerator._setMassage(massage);
+  }
+  
+  void _actionGenerate(){
+    _presenter.actionGenerate();
+  }
+  
+  void _actionEx(){
+    _presenter.actionAddEx(_textGenerator._getMassage());
   }
 }
 
@@ -112,12 +124,16 @@ class TextGenerator extends StatefulWidget {
   @override
   State createState() => _text;
 
-  void _setText(String text){
+  void _setMassage(String text){
     _text.setState(
         (){
           _massage = text;
         }
     );
+  }
+  
+  String _getMassage(){
+    return _massage;
   }
 }
 

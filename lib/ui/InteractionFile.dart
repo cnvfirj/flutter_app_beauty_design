@@ -10,7 +10,7 @@ class MainPresenter with PresenterGenerator{
 
   @override
   void actionGenerate() {
-     // showMassage('str');
+     showMassage('str');
   }
 
   @override
