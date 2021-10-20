@@ -83,13 +83,10 @@ class StateMainWindow extends StatelessWidget{
   }
 
   CommonParentWidget _generation(Pair<double, double> params, BuildContext context){
-    Widget child = Container(
-      color: Colors.white,
-      child: generator.WidgetNumberGenerator(),);
     Pair<double,double>position = _startPositionGenerate(params);
     Pair<double,double>recovery = position.clone();
     return generator.winGenerator(
-        child: child,
+        // child: child,
         mainParams: params,
         position: position,
         recovery: recovery,

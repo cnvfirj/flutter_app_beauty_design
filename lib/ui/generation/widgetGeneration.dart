@@ -4,8 +4,10 @@ import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 import 'package:flutter_app_beauty_design/ui/CommonWidget.dart';
 
+import '../InteractionFile.dart';
+import 'actionsGenerator.dart';
+
 CommonParentWidget winGenerator({
-  required Widget child,
   required Pair<double, double> mainParams,
   required Pair<double, double> position,
   required Pair<double, double> recovery,
@@ -20,7 +22,9 @@ CommonParentWidget winGenerator({
   Rect rect =
   Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom);
   return CommonParentWidget(
-    child: child,
+    child: Container(
+      color: Colors.white,
+      child: WidgetNumberGenerator(MainPresenter.get()),),
     bookmark: CommonBookmark(
       isCenter: true,
       text: text,
@@ -36,15 +40,25 @@ CommonParentWidget winGenerator({
   );
 }
 
-typedef SetMassage = Function(String massage);
-
 class WidgetNumberGenerator extends StatelessWidget {
+
+  final PresenterGenerator _presenter;
+  late TextGenerator _textGenerator;
+
+
+  WidgetNumberGenerator(this._presenter){
+    _presenter.setShowMassage(_showMassage);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _textGenerator = TextGenerator(massage:initStartMassage(context));
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: TextGenerator()),
+        Expanded(
+            child: _textGenerator
+        ),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Container(
             padding: EdgeInsets.only(left: 3, bottom: 3),
@@ -76,41 +90,52 @@ class WidgetNumberGenerator extends StatelessWidget {
       ],
     );
   }
+
+  String initStartMassage(BuildContext context){
+    return  S.maybeOf(context)!.massage_blank_field_generator;
+  }
+
+  void _showMassage(String massage){
+    _textGenerator._setText(massage);
+  }
 }
 
 class TextGenerator extends StatefulWidget {
-  late String _massage;
-  // final SetMassage _setMassage;
-  //
-  //
-  // TextGenerator({required SetMassage setMassage}):
-  // _setMassage = setMassage;
+  String _massage;
+  late StateTextGenerator _text;
+
+
+  TextGenerator({required String massage}):_massage = massage{
+    _text = StateTextGenerator();
+  }
 
   @override
-  State createState() => StateTextGenerator();
+  State createState() => _text;
+
+  void _setText(String text){
+    _text.setState(
+        (){
+          _massage = text;
+        }
+    );
+  }
 }
 
 class StateTextGenerator extends State<TextGenerator> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
       child: Center(
-          child: _text(context)
+          child: Text(
+            widget._massage,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 30,
+            ),)
       ),
     );
   }
 
-  Widget _text(BuildContext context) {
-    double size = 30;
-    String text = S.maybeOf(context)!.massage_blank_field_generator;
-
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-          fontSize: size,
-
-      ),);
-  }
 }
