@@ -46,6 +46,7 @@ CommonParentWidget winGenerator({
 class WidgetNumberGenerator extends StatelessWidget {
   final PresenterGenerator _presenter;
   late TextGenerator _textGenerator;
+  int i = 0;
 
   WidgetNumberGenerator(this._presenter) {
     _presenter.setShowMassage(_setMassage);
@@ -79,6 +80,7 @@ class WidgetNumberGenerator extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
+                  iconSize: h/2,
                   icon: Icon(
                     Icons.all_inclusive,
                     color: GlobalColors.COLOR_TEXT,
@@ -90,6 +92,7 @@ class WidgetNumberGenerator extends StatelessWidget {
                   color: GlobalColors.COLOR_TEXT,
                 ),
                 IconButton(
+                  iconSize: h/2,
                   icon: Icon(
                     Icons.add,
                     color: GlobalColors.COLOR_TEXT,
@@ -147,13 +150,6 @@ class TextGenerator extends StatefulWidget {
   @override
   State createState() => _text;
 
-  PresentIdentificator selectorText() {
-    if (_presentGenerator == PresentIdentificator.Text) {
-      _text._selectPresent(PresentIdentificator.Field);
-    }
-    return _presentGenerator;
-  }
-
   void _setPresent(PresentIdentificator presentGenerator) {
     _text._selectPresent(presentGenerator);
   }
@@ -199,3 +195,5 @@ class StateTextGenerator extends State<TextGenerator> {
       return true;
   }
 }
+
+abstract class UpdateTextGenerator {}

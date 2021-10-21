@@ -5,6 +5,8 @@ import 'package:flutter_app_beauty_design/help/constants.dart';
 typedef EndAnimation = void Function();
 
 class CommonParentWidget extends StatefulWidget {
+
+  static int index = 0;
   final Widget _child;
   final CommonBookmark _bookmark;
   final Pair<double, double> _mainParams;
@@ -36,21 +38,21 @@ class CommonParentWidget extends StatefulWidget {
         _position = position,
         _recovery = recovery,
         _color = color,
-        // _startAnimation = startAnimation,
         _segment = mainParams.first > mainParams.second
             ? mainParams.first
             : mainParams.second;
 
+
   @override
-  State createState() => _state;
+  State createState()=>_state;
 
   void recovery() {
     _state.anim();
   }
 }
-
 class StateCommonParentWidget extends State<CommonParentWidget>
     with DragWidget {
+
   @override
   Widget build(BuildContext context) {
     if (widget._animShift)
@@ -91,9 +93,10 @@ class StateCommonParentWidget extends State<CommonParentWidget>
   }
 
   void anim() {
-    setState(() {
-      widget._animShift = true;
-    });
+      setState(() {
+        widget._animShift = true;
+      });
+
   }
 
   void endAnimation() {

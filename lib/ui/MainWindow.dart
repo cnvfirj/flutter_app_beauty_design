@@ -37,12 +37,19 @@ class MainApp extends StatelessWidget{
       supportedLocales: S.delegate.supportedLocales,
       title: 'beauty design',
       // theme: ThemeData(fontFamily: "Monserat"),
-      home: StateMainWindow (),
+      home: MainWindow (),
     );
   }
 }
 
-class StateMainWindow extends StatelessWidget{
+class MainWindow extends StatefulWidget{
+
+
+  @override
+  State createState()=>StateMainWindow();
+}
+
+class StateMainWindow extends State<MainWindow>{
 
   late List<CommonParentWidget> _children;
 
@@ -75,6 +82,7 @@ class StateMainWindow extends StatelessWidget{
       _boundaries(params, context),
       _generation(params, context)
     ];
+
   }
 
   void _actionAppBarButton(int index){
@@ -84,6 +92,7 @@ class StateMainWindow extends StatelessWidget{
   }
 
   CommonParentWidget _generation(Pair<double, double> params, BuildContext context){
+
     Pair<double,double>position = _startPositionGenerate(params);
     Pair<double,double>recovery = position.clone();
     return generator.winGenerator(
