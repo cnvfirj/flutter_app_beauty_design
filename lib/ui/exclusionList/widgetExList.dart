@@ -27,7 +27,6 @@ CommonParentWidget winExcludes({
       isCenter: false,
       text: text,
       size: Pair(width,mainParams.second),
-      actions: [ActionOne()]
     ),
     mainParams: mainParams,
     widgetParams: Pair(width,height),
@@ -36,19 +35,4 @@ CommonParentWidget winExcludes({
     recovery: recovery,
     color: GlobalColors.COLOR_WIN_EX,
   );
-}
-
-class ActionOne extends StatelessWidget{
-
-  @override
-  Widget build(BuildContext context) {
-      return IconButton(
-        onPressed: (){
-          print('press add');
-        },
-        icon: Icon(Icons.add),
-        color: GlobalColors.COLOR_TEXT
-      );
-  }
-
 }

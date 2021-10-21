@@ -96,6 +96,7 @@ class WidgetNumberGenerator extends StatelessWidget {
 
   void _actionEx() {
     _textGenerator._setPresent(PresentIdentificator.Text);
+    _presenter.savePresentIdentificator(PresentIdentificator.Text);
     _presenter.actionAddEx(_textGenerator._getMassage());
   }
 
