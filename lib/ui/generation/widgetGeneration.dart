@@ -23,7 +23,7 @@ CommonParentWidget winGenerator({
       ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR;
   Rect rect =
-      Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom);
+  Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom);
   return CommonParentWidget(
     child: Container(
       color: Colors.white,
@@ -61,10 +61,10 @@ class WidgetNumberGenerator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: GestureDetector(
-          child: _textGenerator,
-          onTap: _tapText,
-        )),
+            child: GestureDetector(
+              child: _textGenerator,
+              onTap: _tapText,
+            )),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Container(
             padding: EdgeInsets.only(left: 3, bottom: 3),
@@ -175,13 +175,13 @@ class StateTextGenerator extends State<TextGenerator> {
       child: Center(
           child: _present()
               ? Text(widget._massage,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                  ))
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+              ))
               : CircularProgressIndicator(
-                  color: GlobalColors.COLOR_WIN_GENERATOR,
-                )),
+            color: GlobalColors.COLOR_WIN_GENERATOR,
+          )),
     );
   }
 
@@ -199,62 +199,4 @@ class StateTextGenerator extends State<TextGenerator> {
   }
 }
 
-// class EditText extends StatefulWidget{
-//   final Hide _hide;
-//
-//
-//   EditText({required Hide hide}):
-//         _hide = hide;
-//
-//   @override
-//   State createState() =>StateEditText();
-// }
-// typedef Hide = Function(String text);
-//
-//
-// class StateEditText extends State<EditText>
-//     // with WidgetsBindingObserver
-// {
-//
-//   final TextEditingController _controller = TextEditingController();
-//   final FocusNode _focus = FocusNode();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextFormField(
-//       keyboardType: TextInputType.number,
-//       inputFormatters: <TextInputFormatter>[
-//         FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
-//       ],
-//       controller: _controller,
-//       enableInteractiveSelection: false,
-//       textAlign: TextAlign.center,
-//       focusNode: _focus,
-//       style: TextStyle(
-//         fontSize: 30,
-//       ),
-//
-//     );
-//   }
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     // WidgetsBinding.instance!.addObserver(this);
-//     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-//       FocusScope.of(context).requestFocus(_focus);
-//     });
-//     _controller.addListener(() {
-//          widget._hide(_controller.text);
-//     });
-//   }
-//
-//   @override
-//   void dispose() {
-//     _controller.dispose();
-//     _focus.unfocus();
-//     super.dispose();
-//   }
-//
-//
-// }
+
