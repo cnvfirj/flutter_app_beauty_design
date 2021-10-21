@@ -130,10 +130,10 @@ class S {
     );
   }
 
-  /// `Generate or enter a number`
+  /// `Generate a random number`
   String get massage_blank_field_generator {
     return Intl.message(
-      'Generate or enter a number',
+      'Generate a random number',
       name: 'massage_blank_field_generator',
       desc: '',
       args: [],

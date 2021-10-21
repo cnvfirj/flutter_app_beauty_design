@@ -128,11 +128,14 @@ class CommonBookmark extends StatelessWidget {
   final bool _isCenter;
   final String _text;
   final Pair<double, double> _size;
+  List<Widget>? actions;
 
   CommonBookmark(
       {required bool isCenter,
       required String text,
-      required Pair<double, double> size})
+      required Pair<double, double> size,
+      this.actions
+      })
       : _isCenter = isCenter,
         _text = text,
         _size = size;
@@ -143,7 +146,10 @@ class CommonBookmark extends StatelessWidget {
       width: _size.first,
       height: _size.second * BuildCoefficient.H_BUK,
       padding: _padding(),
-      child: _txt(),
+      child: Row(
+        mainAxisAlignment:_isCenter?MainAxisAlignment.center:MainAxisAlignment.start,
+        children:_actionBookmark()
+      ),
     );
   }
 
@@ -155,6 +161,21 @@ class CommonBookmark extends StatelessWidget {
             color: GlobalColors.COLOR_TEXT,
             decoration: TextDecoration.none,
             fontSize: _size.second * BuildCoefficient.WIN_FONT_SIZE));
+  }
+
+  List<Widget>_actionBookmark(){
+    List<Widget> list = [_txt()];
+    if(actions!=null){
+      // for(Widget w in actions!){
+      //   w = SizedBox(
+      //     child:w,
+      //     width: _size.second * BuildCoefficient.H_BUK,
+      //     height: _size.second * BuildCoefficient.H_BUK,
+      //   );
+      // }
+      return list + actions!;
+    }
+    return list;
   }
 
   EdgeInsetsGeometry _padding() {

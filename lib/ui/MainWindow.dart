@@ -54,6 +54,7 @@ class StateMainWindow extends StatelessWidget{
     _readyChildren(pair,context);
 
      return Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: GlobalColors.COLOR_MAIN_FONT,
           appBar: MainAppBar(pair:pair,actionButton: _actionAppBarButton,),
           body: Container(

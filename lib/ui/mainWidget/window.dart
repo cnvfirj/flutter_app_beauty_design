@@ -58,7 +58,7 @@ class BackgroundMainText extends StatelessWidget {
       child:Column(
         children: [
       Container(
-          margin: EdgeInsets.only(top:50,left: 15, right: 15),
+          margin: EdgeInsets.only(top:30,left: 15, right: 15),
           child: Text(
             S.maybeOf(context)!.background_text,
             style: TextStyle(

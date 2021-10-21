@@ -40,12 +40,9 @@ CommonParentWidget winGenerator({
     position: position,
     recovery: recovery,
     color: GlobalColors.COLOR_WIN_GENERATOR,
-    // startAnimation: startAnimation,
   );
 }
 
-/*надо при вызове поля ввода показывалась клавиатура,
-* а при ее прятаньи, показывался текст с введенным числом*/
 class WidgetNumberGenerator extends StatelessWidget {
   final PresenterGenerator _presenter;
   late TextGenerator _textGenerator;
@@ -56,15 +53,18 @@ class WidgetNumberGenerator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _textGenerator = TextGenerator(massage: initStartMassage(context),presentGenerator: _presenter.presentIdentificator,);
+    _textGenerator = TextGenerator(
+      massage: initStartMassage(context),
+      presentGenerator: _presenter.presentIdentificator,
+    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: GestureDetector(
+        Expanded(
+          child: GestureDetector(
           child: _textGenerator,
           onTap: _tapText,
-        )
-        ),
+        )),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Container(
             padding: EdgeInsets.only(left: 3, bottom: 3),
@@ -85,24 +85,25 @@ class WidgetNumberGenerator extends StatelessWidget {
   /**/
   void _setMassage(String massage) {
     _presenter.savePresentIdentificator(PresentIdentificator.Text);
-    _textGenerator._setPresent(PresentIdentificator.Text);
     _textGenerator._setMassage(massage);
   }
 
   void _actionGenerate() {
+    _textGenerator._setPresent(PresentIdentificator.Progress);
     _presenter.savePresentIdentificator(PresentIdentificator.Progress);
     _presenter.actionGenerate();
-    _textGenerator._setPresent(PresentIdentificator.Progress);
   }
 
   void _actionEx() {
+    _textGenerator._setPresent(PresentIdentificator.Text);
     _presenter.actionAddEx(_textGenerator._getMassage());
   }
 
-  void _tapText(){
-    _presenter.savePresentIdentificator(_textGenerator.selectorText());
+  void _tapText() {
+    /*при нажатиии на текстовое поле*/
+    /*точнее на контейнер в котором оно находится*/
+    /*и не имеет значение что там*/
   }
-
 }
 
 typedef Click = Function();
@@ -132,38 +133,32 @@ enum PresentIdentificator { Text, Field, Progress }
 
 class TextGenerator extends StatefulWidget {
   String _massage;
-  StateTextGenerator _text = StateTextGenerator();
-  final TextEditingController _controller = new TextEditingController();
+  StateTextGenerator _text;
   PresentIdentificator _presentGenerator;
 
   TextGenerator(
       {required String massage, required PresentIdentificator presentGenerator})
       : _massage = massage,
-        _presentGenerator = presentGenerator {
-    // print('constructor $_presentGenerator');
-    // _controller.text = _massage;
-  }
+        _presentGenerator = presentGenerator,
+        _text = StateTextGenerator();
 
   @override
   State createState() => _text;
 
-  PresentIdentificator selectorText(){
-    if(_presentGenerator==PresentIdentificator.Text){
-      _text.selectPresent(PresentIdentificator.Field);
+  PresentIdentificator selectorText() {
+    if (_presentGenerator == PresentIdentificator.Text) {
+      _text._selectPresent(PresentIdentificator.Field);
     }
-    // else if(_presentGenerator==PresentIdentificator.Field){
-    //   _text.selectPresent(PresentIdentificator.Text);
-    // }
     return _presentGenerator;
   }
 
-  void _setPresent(PresentIdentificator presentGenerator){
-    _text.selectPresent(presentGenerator);
+  void _setPresent(PresentIdentificator presentGenerator) {
+    _text._selectPresent(presentGenerator);
   }
 
   void _setMassage(String text) {
-    _controller.text = text;
     _massage = text;
+    _setPresent(PresentIdentificator.Text);
   }
 
   String _getMassage() {
@@ -176,50 +171,89 @@ class StateTextGenerator extends State<TextGenerator> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      child: Center(child: _present()),
+      child: Center(
+          child: _present()
+              ? Text(widget._massage,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                  ))
+              : CircularProgressIndicator(
+                  color: GlobalColors.COLOR_WIN_GENERATOR,
+                )),
     );
   }
 
-  void selectPresent(PresentIdentificator presentGenerator){
+  void _selectPresent(PresentIdentificator presentGenerator) {
     setState(() {
       widget._presentGenerator = presentGenerator;
     });
   }
 
-  Widget _present(){
-    if(widget._presentGenerator == PresentIdentificator.Field)return _field();
-    else if(widget._presentGenerator == PresentIdentificator.Progress)return _progress();
-    else return _text();
-
-  }
-
-  Widget _text() {
-    return Text(widget._massage,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 30,
-        ));
-  }
-
-  Widget _field() {
-    return TextFormField(
-      keyboardType: TextInputType.number,
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
-      ],
-      controller: widget._controller,
-      enableInteractiveSelection: false,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 30,
-      ),
-    );
-  }
-
-  Widget _progress() {
-    return CircularProgressIndicator(
-      color: GlobalColors.COLOR_WIN_GENERATOR,
-
-    );
+  bool _present() {
+    if (widget._presentGenerator == PresentIdentificator.Progress)
+      return false;
+    else
+      return true;
   }
 }
+
+// class EditText extends StatefulWidget{
+//   final Hide _hide;
+//
+//
+//   EditText({required Hide hide}):
+//         _hide = hide;
+//
+//   @override
+//   State createState() =>StateEditText();
+// }
+// typedef Hide = Function(String text);
+//
+//
+// class StateEditText extends State<EditText>
+//     // with WidgetsBindingObserver
+// {
+//
+//   final TextEditingController _controller = TextEditingController();
+//   final FocusNode _focus = FocusNode();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextFormField(
+//       keyboardType: TextInputType.number,
+//       inputFormatters: <TextInputFormatter>[
+//         FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
+//       ],
+//       controller: _controller,
+//       enableInteractiveSelection: false,
+//       textAlign: TextAlign.center,
+//       focusNode: _focus,
+//       style: TextStyle(
+//         fontSize: 30,
+//       ),
+//
+//     );
+//   }
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     // WidgetsBinding.instance!.addObserver(this);
+//     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+//       FocusScope.of(context).requestFocus(_focus);
+//     });
+//     _controller.addListener(() {
+//          widget._hide(_controller.text);
+//     });
+//   }
+//
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     _focus.unfocus();
+//     super.dispose();
+//   }
+//
+//
+// }

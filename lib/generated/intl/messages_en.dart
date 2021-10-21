@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Random values are generated in real-time in the laboratory of Australian National University by measuring vacuum state fluctuations. This service will be used if the internet connection is present."),
         "from": MessageLookupByLibrary.simpleMessage("from"),
         "massage_blank_field_generator":
-            MessageLookupByLibrary.simpleMessage("Generate or enter a number"),
+            MessageLookupByLibrary.simpleMessage("Generate a random number"),
         "massage_blank_fields_boundaries": MessageLookupByLibrary.simpleMessage(
             "Set the boundaries of number generation"),
         "massage_error_fields_boundaries": MessageLookupByLibrary.simpleMessage(

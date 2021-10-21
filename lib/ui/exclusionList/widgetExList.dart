@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 
 import '../CommonWidget.dart';
 
@@ -26,6 +27,7 @@ CommonParentWidget winExcludes({
       isCenter: false,
       text: text,
       size: Pair(width,mainParams.second),
+      actions: [ActionOne()]
     ),
     mainParams: mainParams,
     widgetParams: Pair(width,height),
@@ -34,4 +36,19 @@ CommonParentWidget winExcludes({
     recovery: recovery,
     color: GlobalColors.COLOR_WIN_EX,
   );
+}
+
+class ActionOne extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+      return IconButton(
+        onPressed: (){
+          print('press add');
+        },
+        icon: Icon(Icons.add),
+        color: GlobalColors.COLOR_TEXT
+      );
+  }
+
 }
