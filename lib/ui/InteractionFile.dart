@@ -11,7 +11,6 @@ class MainPresenter with PresenterGenerator{
 
   @override
   void actionGenerate() {
-
   }
 
   @override

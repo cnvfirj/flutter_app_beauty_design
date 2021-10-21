@@ -23,7 +23,7 @@ CommonParentWidget winGenerator({
       ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR;
   Rect rect =
-  Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom);
+      Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom);
   return CommonParentWidget(
     child: Container(
       color: Colors.white,
@@ -57,23 +57,47 @@ class WidgetNumberGenerator extends StatelessWidget {
       massage: initStartMassage(context),
       presentGenerator: _presenter.presentIdentificator,
     );
+
+    final Pair<double, double> pair = Pair(
+        MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
+    double h = pair.first > pair.second
+        ? pair.first * BuildCoefficient.H_BUK
+        : pair.second * BuildCoefficient.H_BUK;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
             child: GestureDetector(
-              child: _textGenerator,
-              onTap: _tapText,
-            )),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Container(
-            padding: EdgeInsets.only(left: 3, bottom: 3),
-            child: CircleButton(_actionGenerate, Icon(Icons.add_box_outlined)),
-          ),
-          Container(
-              padding: EdgeInsets.only(right: 3, bottom: 3),
-              child: CircleButton(_actionEx, Icon(Icons.add_box_outlined))),
-        ])
+          child: _textGenerator,
+          onTap: _tapText,
+        )),
+        Container(
+            color: GlobalColors.COLOR_WIN_GENERATOR,
+            height: h,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.all_inclusive,
+                    color: GlobalColors.COLOR_TEXT,
+                  ),
+                  onPressed: _actionGenerate,
+                ),
+                Container(
+                  width: 2,
+                  color: GlobalColors.COLOR_TEXT,
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: GlobalColors.COLOR_TEXT,
+                  ),
+                  onPressed: _actionEx,
+                ),
+              ],
+            ))
       ],
     );
   }
@@ -104,29 +128,6 @@ class WidgetNumberGenerator extends StatelessWidget {
     /*при нажатиии на текстовое поле*/
     /*точнее на контейнер в котором оно находится*/
     /*и не имеет значение что там*/
-  }
-}
-
-typedef Click = Function();
-
-class CircleButton extends StatelessWidget {
-  final Click _click;
-  final Icon _icon;
-
-  CircleButton(this._click, this._icon);
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: GlobalColors.COLOR_WIN_GENERATOR,
-      radius: BuildCoefficient.R_CIRCLE_ANGLES_WID,
-      child: IconButton(
-        padding: EdgeInsets.zero,
-        icon: _icon,
-        color: GlobalColors.COLOR_MAIN_FONT,
-        onPressed: _click,
-      ),
-    );
   }
 }
 
@@ -175,13 +176,13 @@ class StateTextGenerator extends State<TextGenerator> {
       child: Center(
           child: _present()
               ? Text(widget._massage,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-              ))
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                  ))
               : CircularProgressIndicator(
-            color: GlobalColors.COLOR_WIN_GENERATOR,
-          )),
+                  color: GlobalColors.COLOR_WIN_GENERATOR,
+                )),
     );
   }
 
@@ -198,5 +199,3 @@ class StateTextGenerator extends State<TextGenerator> {
       return true;
   }
 }
-
-
