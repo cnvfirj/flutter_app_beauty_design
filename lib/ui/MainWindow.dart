@@ -6,11 +6,15 @@ import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 import 'package:flutter_app_beauty_design/ui/CommonWidget.dart';
+import 'package:flutter_app_beauty_design/ui/InteractionFile.dart';
+
 import 'package:flutter_app_beauty_design/ui/exclusionList/widgetExList.dart' as excludes;
+import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 import 'package:flutter_app_beauty_design/ui/generation/widgetGeneration.dart' as generator;
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/widgetBoundaries.dart' as boundaries;
 import 'package:flutter_app_beauty_design/ui/historyGeneration/widgetHistory.dart' as history;
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'mainWidget/window.dart';
 
@@ -26,7 +30,8 @@ class MainApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, overlays: [SystemUiOverlay.top]);
-    return MaterialApp(
+
+     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         S.delegate,
@@ -59,8 +64,12 @@ class StateMainWindow extends State<MainWindow>{
     final Pair<double,double> pair = Pair(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     // final Pair<double,double> pair = Pair(context.size!.width, context.size!.height);
     _readyChildren(pair,context);
-
-     return Scaffold(
+    return MultiProvider(
+      providers: [
+        Provider<PresenterGenerator>(create: (BuildContext context)=>MainPresenter.inst().context(context).generator()),
+        // Provider<MainPresenter>(create: (c)=>MainPresenter(c))
+      ],
+     child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: GlobalColors.COLOR_MAIN_FONT,
           appBar: MainAppBar(pair:pair,actionButton: _actionAppBarButton,),
@@ -72,7 +81,7 @@ class StateMainWindow extends State<MainWindow>{
           fit:StackFit.loose,
             children: _children,
           )
-          ])));
+          ]))));
   }
 
   void _readyChildren(Pair<double, double> params, BuildContext context){

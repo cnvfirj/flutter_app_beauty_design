@@ -1,28 +1,50 @@
-
+import 'package:flutter/material.dart';
+import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'generation/actionsGenerator.dart';
-
 
 class MainPresenter with PresenterGenerator{
 
-  static MainPresenter _singleton = MainPresenter();
+    static late MainPresenter _single = MainPresenter();
 
-  static MainPresenter get()=>_singleton;
+    late BuildContext _context;
 
+    static MainPresenter inst() {
+       return _single;
+    }
 
-  @override
-  void actionGenerate() {
+    MainPresenter context(BuildContext context){
+      _context = context;
+      return this;
+    }
+
+    PresenterGenerator generator(){
+       return _single;
+    }
+
+    @override
+    String getMassage(){
+      return S.maybeOf(_context)!.massage_blank_field_generator;
+    }
+
+    @override
+    void actionGenerate() {
+      super.actionGenerate();
+      print('action generate');
+    }
+
+    @override
+    void endGenerate(String massage){
+      super.endGenerate(massage);
+    }
+
+    @override
+    void actionShare() {
+    }
+
+    @override
+    void actionAddEx() {
+      print('action ex');
+
+    }
   }
 
-  @override
-  void actionShare(String massage) {
-
-
-  }
-
-  @override
-  void actionAddEx(String massage) {
-
-
-  }
-
-}
