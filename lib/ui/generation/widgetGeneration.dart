@@ -1,14 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/CommonWidget.dart';
+import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
 import 'package:provider/provider.dart';
 
-import '../InteractionFile.dart';
 import 'actionsGenerator.dart';
 
 CommonParentWidget winGenerator({

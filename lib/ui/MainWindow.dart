@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/CommonWidget.dart';
-import 'package:flutter_app_beauty_design/ui/InteractionFile.dart';
+import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
+import 'package:flutter_app_beauty_design/ui/common/InteractionFile.dart';
 
 import 'package:flutter_app_beauty_design/ui/exclusionList/widgetExList.dart' as excludes;
 import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
@@ -62,12 +62,11 @@ class StateMainWindow extends State<MainWindow>{
   Widget build(BuildContext context) {
 
     final Pair<double,double> pair = Pair(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
-    // final Pair<double,double> pair = Pair(context.size!.width, context.size!.height);
     _readyChildren(pair,context);
     return MultiProvider(
       providers: [
         Provider<PresenterGenerator>(create: (BuildContext context)=>MainPresenter.inst().context(context).generator()),
-        // Provider<MainPresenter>(create: (c)=>MainPresenter(c))
+
       ],
      child: Scaffold(
           resizeToAvoidBottomInset: false,

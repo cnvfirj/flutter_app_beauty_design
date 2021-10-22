@@ -5,7 +5,7 @@ import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 
-import '../CommonWidget.dart';
+import '../common/CommonWidget.dart';
 
 CommonParentWidget winBoundaries({
   required Widget child,

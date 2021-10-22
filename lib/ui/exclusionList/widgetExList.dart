@@ -4,7 +4,7 @@ import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 
-import '../CommonWidget.dart';
+import '../common/CommonWidget.dart';
 
 CommonParentWidget winExcludes({
   required Widget child,
