@@ -29,7 +29,6 @@ class MainPresenter with PresenterGenerator{
     @override
     void actionGenerate() {
       super.actionGenerate();
-      print('action generate');
     }
 
     @override
@@ -39,11 +38,11 @@ class MainPresenter with PresenterGenerator{
 
     @override
     void actionShare() {
+
     }
 
     @override
     void actionAddEx() {
-      print('action ex');
 
     }
   }

@@ -28,10 +28,12 @@ mixin PresenterGenerator{
   PresentIdentificator get presentIdentificator =>_presentIdentificator;
 
   void actionGenerate(){
+    savePresentIdentificator(PresentIdentificator.Progress);
     selectorState(PresentIdentificator.Progress);
   }
 
   void endGenerate(String massage){
+    savePresentIdentificator(PresentIdentificator.Text);
     selectorState(PresentIdentificator.Text);
     // showMassage(massage);
   }
