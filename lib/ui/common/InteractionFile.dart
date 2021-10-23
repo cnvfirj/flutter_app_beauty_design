@@ -34,7 +34,7 @@ class MainPresenter with PresenterGenerator{
     @override
     void actionGenerate() {
       super.actionGenerate();
-      Request('10','-4',[1,7]).generate((form) => endGenerate(form));
+      Request('1','3',[1,2,3]).generate((form) => endGenerate(form));
     }
 
     @override

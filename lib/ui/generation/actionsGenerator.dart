@@ -105,7 +105,7 @@ class Request {
         (to.length == 1&&to.substring(0, 1) == "-")) {
         _massage = FormMassage.Correct_Fields;
     }
-    checkEx();
+    if(_massage==FormMassage.Ready)checkEx();
   }
 
   void checkEx(){
@@ -174,7 +174,7 @@ class _GenerateBigNumber extends _SourceGenerate {
 
 class _GenerateCommonNumber extends _SourceGenerate {
 
-  late List<int>_arr;
+  late List<int>_arr = [];
 
   @override
   void _prepared() {
@@ -184,17 +184,22 @@ class _GenerateCommonNumber extends _SourceGenerate {
       delta = (_from - _to).abs() + 1;
       start = _to;
     }
-    List<int>d = List.generate(delta, (index) => index);
-    _arr = [];
+    List<int>d = List.generate(delta, (index) => start+index);
+
     for(int value in d){
       if(!_excludes.contains(value))_arr.add(value);
     }
     if(_arr.length==0)_check = false;
+    super._prepared();
   }
 
   @override
   int _value() {
     _prepared();
+    if(!_check){
+      _massage = FormMassage.Correct_Ex;
+      return 0;
+    }
     int index = _random().nextInt(_arr.length);
     return _arr[index];
   }
@@ -230,13 +235,9 @@ abstract class _SourceGenerate {
 
   void _generate(GetNumber number) {
     Future.delayed(const Duration(seconds: 2),(){
-      if(_check) {
+
         _future().then((value) => number(value));
-      }
-      else{
-        _massage = FormMassage.Correct_Ex;
-        number(0);
-      }
+
     });
 
   }
