@@ -185,7 +185,7 @@ class _GenerateCommonNumber extends _SourceGenerate{
 
   int _compare(int start,int index){
     int value = start+index;
-    if(_excludes.contains(value)) return _compare(start+1, index);
+    if(_excludes.contains(value)) return _compare(start++, index);
     return value;
   }
 
