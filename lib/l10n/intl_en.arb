@@ -9,5 +9,7 @@
   "to" :"to",
   "massage_blank_field_generator": "Generate a random number",
   "massage_blank_fields_boundaries": "Set the boundaries of number generation",
-  "massage_error_fields_boundaries": "Adjust the number generation boundaries"
+  "massage_error_fields_boundaries": "Adjust the number generation boundaries",
+  "massage_error_ex": "Adjust the list of exclusions",
+  "massage_blank_boundaries": "Enter the search range"
 }

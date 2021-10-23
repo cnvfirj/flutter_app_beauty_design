@@ -6,7 +6,6 @@ class MainPresenter with PresenterGenerator{
 
     static late MainPresenter _single = MainPresenter();
 
-    late RequestGeneration _generation;
 
     late BuildContext _context;
 
@@ -16,9 +15,6 @@ class MainPresenter with PresenterGenerator{
        return _single;
     }
 
-    MainPresenter(){
-      _generation = RequestGeneration(this);
-    }
 
   MainPresenter context(BuildContext context){
       _context = context;
@@ -38,7 +34,7 @@ class MainPresenter with PresenterGenerator{
     @override
     void actionGenerate() {
       super.actionGenerate();
-      _generation.excludes([1]).boundaries('-', '22').startGenerate();
+      Request('10','-4',[1,7]).generate((form) => endGenerate(form));
     }
 
     @override
@@ -51,7 +47,10 @@ class MainPresenter with PresenterGenerator{
     }
     @override
     void endGenerate(FormGenerate form){
-      if(form.source=="NON")_massage =  S.maybeOf(_context)!.massage_error_fields_boundaries;
+      if(form.massage==FormMassage.Ready)_massage = form.number.toString();
+      else if(form.massage==FormMassage.Correct_Ex)_massage = S.maybeOf(_context)!.massage_error_ex;
+      else if(form.massage==FormMassage.Fill_Fields)_massage = S.maybeOf(_context)!.massage_blank_fields_boundaries;
+      else if(form.massage==FormMassage.Correct_Fields)_massage = S.maybeOf(_context)!.massage_error_fields_boundaries;
       super.endGenerate(form);
 
     }

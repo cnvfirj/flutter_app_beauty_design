@@ -1,8 +1,8 @@
-
-
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
+import 'package:intl/intl.dart';
 
 typedef SelectorState = Function(PresentIdentificator identificator);
 enum PresentIdentificator { Text, Progress }
@@ -12,105 +12,132 @@ mixin PresenterGenerator{
   late SelectorState _selectorState;
   PresentIdentificator _presentIdentificator = PresentIdentificator.Text;
 
-  void setSelectorState(SelectorState value) =>_selectorState = value;
+  void setSelectorState(SelectorState value) => _selectorState = value;
 
-  SelectorState get selectorState =>_selectorState;
+  SelectorState get selectorState => _selectorState;
 
-  void savePresentIdentificator(PresentIdentificator p) =>_presentIdentificator = p;
+  void savePresentIdentificator(PresentIdentificator p) =>
+      _presentIdentificator = p;
 
-  PresentIdentificator get presentIdentificator =>_presentIdentificator;
+  PresentIdentificator get presentIdentificator => _presentIdentificator;
 
-  void actionGenerate(){
+  void actionGenerate() {
     savePresentIdentificator(PresentIdentificator.Progress);
     selectorState(PresentIdentificator.Progress);
   }
 
-  void endGenerate(FormGenerate form){
+  void endGenerate(FormGenerate form) {
     savePresentIdentificator(PresentIdentificator.Text);
     selectorState(PresentIdentificator.Text);
     // showMassage(massage);
   }
 
   String getMassage();
+
   void actionShare();
+
   void actionAddEx();
 }
 
-class RequestGeneration{
+enum FormMassage{Correct_Fields, Fill_Fields, Correct_Ex, Ready}
+class FormGenerate {
 
-  final PresenterGenerator _presenter;
-
-  RequestGeneration(this._presenter);
-
-  late Pair<String,String>_boundaries;
-
-  late List<int>_excludes;
-
-  RequestGeneration boundaries(String from, String to){
-    _boundaries = Pair(from, to);
-    return this;
-  }
-
-  RequestGeneration excludes(List<int>excludes){
-    _excludes = excludes;
-    return this;
-  }
+  static final String App = "Application";
+  static final String Net = "Internet";
+  static final String Non = 'NoN';
 
 
-  void startGenerate(){
-    if(checkBoundaries()){
-      generate();
-    }else{
-      _presenter.endGenerate(FormGenerate());
-    }
-  }
+  String source = Non;
+  final int number;
+  String date = Non;
+  final FormMassage massage;
 
-  bool checkBoundaries(){
-    if(_boundaries.first.length==0||_boundaries.second.length==0)return false;
-    if(_boundaries.first==_boundaries.second)return false;
-      if(_boundaries.first.length==1||_boundaries.second.length==1){
-        if(_boundaries.first.substring(0,1)=="-"||_boundaries.second.substring(0,1)=="-")
-          return false;
-      }
-    return true;
-  }
 
-   Future<bool>checkNetwork() async{
-    try{
-      final result = await InternetAddress.lookup('https://qrng.anu.edu.au');
-      return false;
-    }on SocketException catch (_){
-      return false;
-    }
-  }
+  FormGenerate(this.number, this.massage);
 
-  generate(){
-    checkNetwork().then((value) => null);
-  }
-
-}
-
-class FormGenerate{
-
-  String source = 'NON';
-  String number = 'NON';
-  String date = 'NON';
-  FormGenerate setSource(String v){
+  FormGenerate setSource(String v) {
     source = v;
     return this;
   }
-  FormGenerate setNumber(String v){
-    number = v;
-    return this;
-  }
-  FormGenerate setdate(String v){
+
+  FormGenerate setDate(String v) {
     date = v;
     return this;
   }
 
 }
 
-class _GenerateBigNumber extends _SourceGenerate{
+class Request {
+
+  final String from;
+  final String to;
+  final List<int>ex;
+  FormMassage _massage = FormMassage.Ready;
+  int _delta = 0;
+
+  Request(this.from, this.to,this.ex){
+    checkBoundaries();
+  }
+
+  void generate(ReadyForm ready){
+    if(_massage==FormMassage.Ready){
+      _MassageFormer(
+          _sourceGenerate()
+              ._setBoundaries(from: int.parse(from), to: int.parse(to))
+              ._setExcludes(ex))
+          .form(ready);
+    }else{
+      ready(FormGenerate(0, _massage));
+    }
+  }
+
+  _SourceGenerate _sourceGenerate(){
+    return _delta>1000?_GenerateBigNumber():_GenerateCommonNumber();
+  }
+
+
+
+  void checkBoundaries() {
+    if (from.length == 0 || to.length == 0)
+      _massage = FormMassage.Fill_Fields;
+    else if (from == to) _massage = FormMassage.Correct_Fields;
+    else if ((from.length == 1 && from.substring(0, 1) == "-" ) ||
+        (to.length == 1&&to.substring(0, 1) == "-")) {
+        _massage = FormMassage.Correct_Fields;
+    }
+    checkEx();
+  }
+
+  void checkEx(){
+    int start = int.parse(from)<int.parse(to)?int.parse(from):int.parse(to);
+    int fin = int.parse(from)<int.parse(to)?int.parse(to):int.parse(from);
+    _delta = fin - start;
+    if(_delta==ex.length)_massage = FormMassage.Correct_Ex;
+  }
+}
+
+typedef ReadyForm = Function(FormGenerate form);
+
+class _MassageFormer {
+
+  final _SourceGenerate _generate;
+
+  String _source = FormGenerate.App;
+
+  _MassageFormer(this._generate);
+
+  void form(ReadyForm ready) {
+    _generate._generate((number) {
+           ready(
+              FormGenerate(number, _generate._massage)
+                  .setSource(_source)
+                  .setDate(DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now())));
+    });
+  }
+
+}
+
+class _GenerateBigNumber extends _SourceGenerate {
 
   late int _delta;
   late int _start;
@@ -118,13 +145,13 @@ class _GenerateBigNumber extends _SourceGenerate{
 
   @override
   void _prepared() {
-    if(_from<_to){
-      _delta = (_to-_from).abs()+1;
+    if (_from < _to) {
+      _delta = (_to - _from).abs() + 1;
       _start = _from;
       _end = _to;
     }
     else {
-      _delta = (_from-_to).abs()+1;
+      _delta = (_from - _to).abs() + 1;
       _start = _to;
       _end = _from;
     }
@@ -134,30 +161,35 @@ class _GenerateBigNumber extends _SourceGenerate{
   int _value() {
     _prepared();
     int value = _random().nextInt(_delta);
-    return _compare(value+_start);
+    return _compare(value + _start);
   }
 
-  int _compare(int value){
-    if(_excludes.contains(value)) return _compare(value+1);
-    if(value>_end) return _compare(_start);
+  int _compare(int value) {
+    if (_excludes.contains(value)) return _compare(value + 1);
+    if (value > _end) return _compare(_start);
     return value;
   }
 
 }
 
-class _GenerateCommonNumber extends _SourceGenerate{
+class _GenerateCommonNumber extends _SourceGenerate {
 
   late List<int>_arr;
 
   @override
   void _prepared() {
-    int delta = (_to-_from).abs()+1;
-    int start = _to;
-    if(_to<_from){
-      delta = (_from-_to).abs()+1;
-      start = _from;
+    int delta = (_to - _from).abs() + 1;
+    int start = _from;
+    if (_to < _from) {
+      delta = (_from - _to).abs() + 1;
+      start = _to;
     }
-    _arr = List.generate(delta-_excludes.length, (index) => _compare(start, index));
+    List<int>d = List.generate(delta, (index) => index);
+    _arr = [];
+    for(int value in d){
+      if(!_excludes.contains(value))_arr.add(value);
+    }
+    if(_arr.length==0)_check = false;
   }
 
   @override
@@ -167,55 +199,64 @@ class _GenerateCommonNumber extends _SourceGenerate{
     return _arr[index];
   }
 
-  int _compare(int start,int index){
-    int value = start+index;
-    if(_excludes.contains(value)) return _compare(start++, index);
-    return value;
-  }
-
 }
 
 
 typedef GetNumber = Function(int number);
 
- abstract class _SourceGenerate{
+abstract class _SourceGenerate {
 
- late int _from;
- late int _to;
+  late int _from;
+  late int _to;
+  FormMassage _massage = FormMassage.Ready;
+  bool _check = true;
 
- _SourceGenerate _setBoundaries({required int from, required int to}){
-   _from = from;
-   _to = to;
-   return this;
- }
+  _SourceGenerate _setBoundaries({required int from, required int to}) {
+    _from = from;
+    _to = to;
+    return this;
+  }
 
- late List<int>_excludes;
+  late List<int>_excludes;
 
- _SourceGenerate _setExcludes(List<int>list){
+  _SourceGenerate _setExcludes(List<int>list) {
+    _excludes = list;
+    return this;
+  }
 
-   _excludes = list;
-   return this;
- }
-
-  Future<int> _future(){
-   return Future(() => _value());
+  Future<int> _future() {
+    return Future(() => _value());
   }
 
   void _generate(GetNumber number) {
-   _future().then((value) => number);
+    Future.delayed(const Duration(seconds: 2),(){
+      if(_check) {
+        _future().then((value) => number(value));
+      }
+      else{
+        _massage = FormMassage.Correct_Ex;
+        number(0);
+      }
+    });
+
   }
 
-  Random _random(){
-   Random r;
-   try{
-     r = Random.secure();
-   }on UnsupportedError catch (_){
-     r = Random();
-   }
-   return r;
+   Random _random(){
+    Random r;
+    try {
+      r = Random.secure();
+    } on UnsupportedError catch (_) {
+      r = Random();
+    }
+    return r;
   }
 
-  void _prepared();
+  FormMassage getMassage(){
+    return _massage;
+  }
+  void _prepared(){
+
+  }
 
   int _value();
 

@@ -159,6 +159,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Adjust the list of exclusions`
+  String get massage_error_ex {
+    return Intl.message(
+      'Adjust the list of exclusions',
+      name: 'massage_error_ex',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the search range`
+  String get massage_blank_boundaries {
+    return Intl.message(
+      'Enter the search range',
+      name: 'massage_blank_boundaries',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
