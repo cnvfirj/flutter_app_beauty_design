@@ -43,12 +43,14 @@ class RequestGeneration{
   RequestGeneration(this._presenter);
 
   late Pair<String,String>_boundaries;
+
   late List<int>_excludes;
 
   RequestGeneration boundaries(String from, String to){
     _boundaries = Pair(from, to);
     return this;
   }
+
   RequestGeneration excludes(List<int>excludes){
     _excludes = excludes;
     return this;
@@ -85,22 +87,6 @@ class RequestGeneration{
   generate(){
     checkNetwork().then((value) => null);
   }
-
-  //
-  //
-  // String generate(){
-  //  int from = int.parse(_boundaries.first);
-  //  int to = int.parse(_boundaries.second);
-  //  int length = (to-from).abs();
-  //  if(to<from)length = (from-to).abs();
-  //  if(length>1000){
-  //
-  //  }else{
-  //
-  //  }
-  //  return "";
-  // }
-
 
 }
 
@@ -147,8 +133,7 @@ class _GenerateBigNumber extends _SourceGenerate{
   @override
   int _value() {
     _prepared();
-    Random r = Random();
-    int value = r.nextInt(_delta);
+    int value = _random().nextInt(_delta);
     return _compare(value+_start);
   }
 
@@ -178,8 +163,7 @@ class _GenerateCommonNumber extends _SourceGenerate{
   @override
   int _value() {
     _prepared();
-    Random r = Random();
-    int index = r.nextInt(_arr.length);
+    int index = _random().nextInt(_arr.length);
     return _arr[index];
   }
 
@@ -221,8 +205,19 @@ typedef GetNumber = Function(int number);
    _future().then((value) => number);
   }
 
+  Random _random(){
+   Random r;
+   try{
+     r = Random.secure();
+   }on UnsupportedError catch (_){
+     r = Random();
+   }
+   return r;
+  }
+
   void _prepared();
 
   int _value();
+
 }
 
