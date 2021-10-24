@@ -23,6 +23,7 @@ CommonParentWidget winGenerator({
   Rect rect =
       Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom);
   return CommonParentWidget(
+    id:NamesWidgets.GENERATE,
     child: Container(
       color: Colors.white,
       child: WidgetNumberGenerator(),

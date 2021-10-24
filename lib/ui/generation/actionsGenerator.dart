@@ -29,7 +29,6 @@ mixin PresenterGenerator{
   void endGenerate(FormGenerate form) {
     savePresentIdentificator(PresentIdentificator.Text);
     selectorState(PresentIdentificator.Text);
-    // showMassage(massage);
   }
 
   String getMassage();
@@ -95,8 +94,6 @@ class Request {
     return _delta>1000?_GenerateBigNumber():_GenerateCommonNumber();
   }
 
-
-
   void checkBoundaries() {
     if (from.length == 0 || to.length == 0)
       _massage = FormMassage.Fill_Fields;
@@ -138,7 +135,6 @@ class _MassageFormer {
 }
 
 class _GenerateBigNumber extends _SourceGenerate {
-
   late int _delta;
   late int _start;
   late int _end;
@@ -185,7 +181,6 @@ class _GenerateCommonNumber extends _SourceGenerate {
       start = _to;
     }
     List<int>d = List.generate(delta, (index) => start+index);
-
     for(int value in d){
       if(!_excludes.contains(value))_arr.add(value);
     }
@@ -234,10 +229,9 @@ abstract class _SourceGenerate {
   }
 
   void _generate(GetNumber number) {
+    /*Задержка для эмуляции длительности процесса*/
     Future.delayed(const Duration(seconds: 2),(){
-
         _future().then((value) => number(value));
-
     });
 
   }

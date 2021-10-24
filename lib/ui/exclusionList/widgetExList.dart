@@ -6,6 +6,7 @@ import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 
 import '../common/CommonWidget.dart';
 
+
 CommonParentWidget winExcludes({
   required Widget child,
   required Pair<double, double>mainParams,
@@ -22,6 +23,7 @@ CommonParentWidget winExcludes({
       ? mainParams.first*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*4
       : mainParams.second*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*4;
   return CommonParentWidget(
+    id:NamesWidgets.EXCLUDES,
     child: child,
     bookmark: CommonBookmark(
       isCenter: false,

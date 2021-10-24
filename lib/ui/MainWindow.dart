@@ -123,6 +123,7 @@ class StateMainWindow extends State<MainWindow>{
         recovery: recovery,
         text: S.maybeOf(context)!.widget_history);
   }
+
   CommonParentWidget _excludes(Pair<double, double> params, BuildContext context){
     Widget child = Container(color: Colors.black12,);
     Pair<double,double>position = _startPositionEx(params);

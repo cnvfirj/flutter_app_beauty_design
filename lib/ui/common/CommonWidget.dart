@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 typedef EndAnimation = void Function();
 
 class CommonParentWidget extends StatefulWidget {
-
-  static int index = 0;
+  static final String PREF = "CommonParentWidget";
   final Widget _child;
   final CommonBookmark _bookmark;
   final Pair<double, double> _mainParams;
@@ -15,6 +15,7 @@ class CommonParentWidget extends StatefulWidget {
   final Pair<double, double> _recovery;
   final Color _color;
   final double _segment;
+  final NamesWidgets _id;
 
   Pair<double, double> _position;
   bool _animShift = false;
@@ -30,6 +31,7 @@ class CommonParentWidget extends StatefulWidget {
     required Pair<double, double> position,
     required Pair<double, double> recovery,
     required Color color,
+    required NamesWidgets id,
   })  : _child = child,
         _bookmark = bookmark,
         _mainParams = mainParams,
@@ -38,21 +40,21 @@ class CommonParentWidget extends StatefulWidget {
         _position = position,
         _recovery = recovery,
         _color = color,
+        _id = id,
         _segment = mainParams.first > mainParams.second
             ? mainParams.first
             : mainParams.second;
 
-
   @override
-  State createState()=>_state;
+  State createState() => _state;
 
   void recovery() {
     _state.anim();
   }
 }
+
 class StateCommonParentWidget extends State<CommonParentWidget>
     with DragWidget {
-
   @override
   Widget build(BuildContext context) {
     if (widget._animShift)
@@ -92,11 +94,18 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     }
   }
 
-  void anim() {
-      setState(() {
-        widget._animShift = true;
-      });
 
+  @override
+  void initState() {
+    super.initState();
+    _readPosition();
+  }
+
+
+  void anim() {
+    setState(() {
+      widget._animShift = true;
+    });
   }
 
   void endAnimation() {
@@ -108,7 +117,8 @@ class StateCommonParentWidget extends State<CommonParentWidget>
 
   Widget _clipChild() {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(BuildCoefficient.R_CIRCLE_ANGLES_WID),
+        borderRadius:
+            BorderRadius.circular(BuildCoefficient.R_CIRCLE_ANGLES_WID),
         child: Container(
             color: widget._color,
             width: widget._widgetParams.first,
@@ -120,11 +130,39 @@ class StateCommonParentWidget extends State<CommonParentWidget>
                     onPanUpdate: (d) {
                       shift(d);
                     },
+                    onPanEnd: (d){
+                      _writePosition();
+                    },
+
                     child: widget._bookmark,
                   ),
                   Flexible(child: widget._child),
                 ])));
   }
+
+  void _writePosition() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+       prefs.setDouble(_key('first'), widget._position.first);
+       prefs.setDouble(_key('second'), widget._position.second);
+  }
+
+  void _readPosition() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double? first = prefs.getDouble(_key('first'));
+    double? second = prefs.getDouble(_key('second'));
+    if(first!=null&&second!=null){
+      setState(() {
+        widget._position = Pair(first, second);
+      });
+    }
+  }
+
+
+
+  String _key(String i){
+    return '${CommonParentWidget.PREF}${widget._id.toString()}$i';
+  }
+
 }
 
 class CommonBookmark extends StatelessWidget {
@@ -132,29 +170,26 @@ class CommonBookmark extends StatelessWidget {
   final String _text;
   final Pair<double, double> _size;
 
-  CommonBookmark(
-      {required bool isCenter,
-      required String text,
-      required Pair<double, double> size,
-      })
-      : _isCenter = isCenter,
+  CommonBookmark({
+    required bool isCenter,
+    required String text,
+    required Pair<double, double> size,
+  })  : _isCenter = isCenter,
         _text = text,
         _size = size;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: _size.first,
-      height: _size.second * BuildCoefficient.H_BUK,
-      padding: _padding(),
-      child: _txt()
-
-    );
+        width: _size.first,
+        height: _size.second * BuildCoefficient.H_BUK,
+        padding: _padding(),
+        child: _txt());
   }
 
   Widget _txt() {
     return Text(_text,
-        textAlign: _isCenter?TextAlign.center:TextAlign.left,
+        textAlign: _isCenter ? TextAlign.center : TextAlign.left,
         style: TextStyle(
             fontWeight: FontWeight.normal,
             color: GlobalColors.COLOR_TEXT,

@@ -22,6 +22,7 @@ CommonParentWidget winHistory({
       ? mainParams.first*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*6
       : mainParams.second*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*6;
   return CommonParentWidget(
+    id: NamesWidgets.HISTORY,
       child: child,
       bookmark: CommonBookmark(
         isCenter: false,

@@ -26,6 +26,11 @@ class GlobalColors{
   static final Color COLOR_WIN_BOUND = Color.fromRGBO(58, 53, 128, 1.0);
   static final Color COLOR_WIN_EX = Color.fromRGBO(128, 46, 46, 1.0);
   static final Color COLOR_WIN_HIST = Color.fromRGBO(104, 55, 76, 1.0);
+}
 
-
+enum NamesWidgets{
+  GENERATE,
+  BOUNDARIES,
+  EXCLUDES,
+  HISTORY
 }

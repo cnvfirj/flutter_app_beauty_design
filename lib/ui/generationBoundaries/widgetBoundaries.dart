@@ -24,6 +24,7 @@ CommonParentWidget winBoundaries({
       : mainParams.second*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*2;
 
   return CommonParentWidget(
+    id: NamesWidgets.BOUNDARIES,
     child: child,
     bookmark: CommonBookmark(
       isCenter: false,
