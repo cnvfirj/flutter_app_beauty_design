@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
+import 'package:provider/provider.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui' as grad;
@@ -20,25 +22,28 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.orange,
-      title: Text(S.maybeOf(context)!.title_app),
-      elevation: 30,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(20),
+    return Consumer<CommonObservable>(builder:(_, CommonObservable observable, Widget? child){
+      return AppBar(
+        backgroundColor: Colors.orange,
+        title: Text(S.maybeOf(context)!.title_app),
+        elevation: 30,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          ),
         ),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            _actionButton(1);
-          },
-          icon: Icon(Icons.repeat,color: Colors.white,),
-        )
-        // icon: Icon(Icons.ac_unit))
-      ],
-    );
+        actions: [
+          IconButton(
+            onPressed: () {
+              // _actionButton(1);
+              observable.action();
+            },
+            icon: Icon(Icons.repeat,color: Colors.white,),
+          )
+          // icon: Icon(Icons.ac_unit))
+        ],
+      );
+    });
   }
 
   @override
@@ -92,3 +97,7 @@ class BackgroundMainText extends StatelessWidget {
     }
   }
 }
+//
+// abstract class ActionButton{
+//   void click(int index);
+// }

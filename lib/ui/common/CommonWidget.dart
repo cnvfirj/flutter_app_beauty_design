@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/mainWidget/window.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 typedef EndAnimation = void Function();
 
 class CommonParentWidget extends StatefulWidget {
+
   static final String PREF = "CommonParentWidget";
   final Widget _child;
   final CommonBookmark _bookmark;
@@ -17,7 +20,7 @@ class CommonParentWidget extends StatefulWidget {
   final double _segment;
   final NamesWidgets _id;
 
-  Pair<double, double> _position;
+  late Pair<double, double> _position;
   bool _animShift = false;
 
   late StateCommonParentWidget _state = StateCommonParentWidget();
@@ -57,19 +60,25 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     with DragWidget {
   @override
   Widget build(BuildContext context) {
-    if (widget._animShift)
-      return CommonAnimation(
-          endAnimation: () {
-            endAnimation();
-          },
-          child: _clipChild(),
-          start: widget._position,
-          end: widget._recovery);
-    else
-      return Positioned(
-          top: widget._position.first,
-          left: widget._position.second,
-          child: _clipChild());
+    return Consumer(builder:
+        (BuildContext context, CommonObservable observable, Widget? child) {
+      observable.observer(
+          anim,
+          widget._id);
+      if (widget._animShift)
+        return CommonAnimation(
+            endAnimation: () {
+              endAnimation();
+            },
+            child: _clipChild(),
+            start: widget._position,
+            end: widget._recovery);
+      else
+        return Positioned(
+            top: widget._position.first,
+            left: widget._position.second,
+            child: _clipChild());
+    });
   }
 
   @override
@@ -94,13 +103,12 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     }
   }
 
-
   @override
   void initState() {
     super.initState();
     _readPosition();
-  }
 
+  }
 
   void anim() {
     setState(() {
@@ -112,6 +120,7 @@ class StateCommonParentWidget extends State<CommonParentWidget>
     setState(() {
       widget._position = widget._recovery.clone();
       widget._animShift = false;
+      _writePosition();
     });
   }
 
@@ -130,10 +139,9 @@ class StateCommonParentWidget extends State<CommonParentWidget>
                     onPanUpdate: (d) {
                       shift(d);
                     },
-                    onPanEnd: (d){
+                    onPanEnd: (d) {
                       _writePosition();
                     },
-
                     child: widget._bookmark,
                   ),
                   Flexible(child: widget._child),
@@ -142,27 +150,42 @@ class StateCommonParentWidget extends State<CommonParentWidget>
 
   void _writePosition() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-       prefs.setDouble(_key('first'), widget._position.first);
-       prefs.setDouble(_key('second'), widget._position.second);
+    prefs.setDouble(_key('first'), widget._position.first);
+    prefs.setDouble(_key('second'), widget._position.second);
   }
 
-  void _readPosition() async{
+  void _readPosition() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     double? first = prefs.getDouble(_key('first'));
     double? second = prefs.getDouble(_key('second'));
-    if(first!=null&&second!=null){
+    if (first != null && second != null) {
       setState(() {
         widget._position = Pair(first, second);
       });
     }
   }
 
-
-
-  String _key(String i){
+  String _key(String i) {
     return '${CommonParentWidget.PREF}${widget._id.toString()}$i';
   }
+}
 
+typedef StartAnim = Function();
+
+class CommonObservable {
+  CommonObservable();
+
+  Map<NamesWidgets, StartAnim> _observer = {};
+
+  void observer(StartAnim value, NamesWidgets name) {
+    _observer[name] = value;
+  }
+
+  void action() {
+    for (StartAnim val in _observer.values) {
+      val();
+    }
+  }
 }
 
 class CommonBookmark extends StatelessWidget {

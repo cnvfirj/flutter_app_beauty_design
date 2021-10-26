@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_beauty_design/help/byCode.dart';
+import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BuildCoefficient{
 
@@ -34,3 +37,74 @@ enum NamesWidgets{
   EXCLUDES,
   HISTORY
 }
+
+class LoadParams{
+
+  static final LoadParams _single = LoadParams();
+
+  static LoadParams inst()=>_single;
+
+  final Map<NamesWidgets,Pair<double,double>> _positions = {};
+  final Map<NamesWidgets,bool>_readinessPos = {};
+
+
+  Map<NamesWidgets, Pair<double, double>> get positions => _positions;
+  Map<NamesWidgets, bool> get readinessPos => _readinessPos;
+
+  void reed(Function function)async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+     for(NamesWidgets name in NamesWidgets.values) {
+      _readPositions(name, pref);
+    }
+    await function();
+  }
+
+
+  void _readPositions(NamesWidgets name, final SharedPreferences pref){
+    _readinessPos[name]=false;
+    double? first = pref.getDouble(_keyPosition(name.toString(),'first'));
+    double? second = pref.getDouble(_keyPosition(name.toString(),'second'));
+    if(first!=null&&second!=null){
+      _positions[name]=Pair(first,second);
+      _readinessPos[name]=true;
+    }
+  }
+
+  String _keyPosition(String name, String pair){
+    return '${CommonParentWidget.PREF}$name$pair';
+  }
+}
+
+// class Id{
+//
+//  static Id _single = Id();
+//
+//  static inst(){
+//    return _single;
+//  }
+//
+//  late String _ID_Generate;
+//  late String _ID_Bound;
+//  late String _ID_Ex;
+//  late String _ID_Hist;
+//
+//  Id setGenerate(String value){
+//    _ID_Generate = value;
+//    return this;
+//  }
+//  Id setBound(String value){
+//    _ID_Bound = value;
+//    return this;
+//  }
+//  Id setEx(String value){
+//    _ID_Ex = value;
+//    return this;
+//  }
+//  Id setHist(String value){
+//    _ID_Hist = value;
+//    return this;
+//  }
+//
+//
+//
+// }

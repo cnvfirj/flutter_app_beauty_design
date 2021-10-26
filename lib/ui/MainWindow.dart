@@ -66,7 +66,7 @@ class StateMainWindow extends State<MainWindow>{
     return MultiProvider(
       providers: [
         Provider<PresenterGenerator>(create: (BuildContext context)=>MainPresenter.inst().context(context).generator()),
-
+        Provider<CommonObservable>(create: (_)=>CommonObservable(),)
       ],
      child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -100,9 +100,9 @@ class StateMainWindow extends State<MainWindow>{
   }
 
   CommonParentWidget _generation(Pair<double, double> params, BuildContext context){
-
-    Pair<double,double>position = _startPositionGenerate(params);
-    Pair<double,double>recovery = position.clone();
+    Pair<double,double>recovery = _startPositionGenerate(params);
+    bool r = LoadParams.inst().readinessPos[NamesWidgets.GENERATE]!;
+    Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.GENERATE]!:recovery.clone();
     return generator.winGenerator(
         // child: child,
         mainParams: params,
@@ -114,8 +114,9 @@ class StateMainWindow extends State<MainWindow>{
 
   CommonParentWidget _history(Pair<double, double> params, BuildContext context){
     Widget child = Container(color: Colors.black12,);
-    Pair<double,double>position = _startPositionHistory(params);
-    Pair<double,double>recovery = position.clone();
+    Pair<double,double>recovery = _startPositionHistory(params);
+    bool r = LoadParams.inst().readinessPos[NamesWidgets.HISTORY]!;
+    Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.HISTORY]!:recovery.clone();
     return history.winHistory(
         child: child,
         mainParams: params,
@@ -126,8 +127,9 @@ class StateMainWindow extends State<MainWindow>{
 
   CommonParentWidget _excludes(Pair<double, double> params, BuildContext context){
     Widget child = Container(color: Colors.black12,);
-    Pair<double,double>position = _startPositionEx(params);
-    Pair<double,double>recovery = position.clone();
+    Pair<double,double>recovery = _startPositionEx(params);
+    bool r = LoadParams.inst().readinessPos[NamesWidgets.EXCLUDES]!;
+    Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.EXCLUDES]!:recovery.clone();
     return excludes.winExcludes(
         child: child,
         mainParams: params,
@@ -138,8 +140,9 @@ class StateMainWindow extends State<MainWindow>{
 
   CommonParentWidget _boundaries(Pair<double, double> params, BuildContext context){
     Widget child = Container(color: Colors.black12,);
-    Pair<double,double>position = _startPositionBord(params);
-    Pair<double,double>recovery = position.clone();
+    Pair<double,double>recovery = _startPositionBord(params);
+    bool r = LoadParams.inst().readinessPos[NamesWidgets.BOUNDARIES]!;
+    Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.BOUNDARIES]!:recovery.clone();
     return boundaries.winBoundaries(
         child: child,
         mainParams: params,
