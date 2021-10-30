@@ -19,9 +19,15 @@ CommonParentWidget winExcludes({
       ? mainParams.first / 4
       : mainParams.second / 4;
   double width = mainParams.first < mainParams.second?mainParams.first:mainParams.second;
-  double step = mainParams.first > mainParams.second
-      ? mainParams.first*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*4
-      : mainParams.second*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*4;
+  // double step = mainParams.first > mainParams.second
+  //     ? mainParams.first*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*4
+  //     : mainParams.second*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*4;
+
+  double bottom = mainParams.first > mainParams.second
+      ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR +
+      mainParams.second * BuildCoefficient.H_BUK * 8
+      : mainParams.second * BuildCoefficient.H_BOTTOM_BAR +
+      mainParams.first * BuildCoefficient.H_BUK * 8;
   return CommonParentWidget(
     id:NamesWidgets.EXCLUDES,
     child: child,
@@ -32,7 +38,7 @@ CommonParentWidget winExcludes({
     ),
     mainParams: mainParams,
     widgetParams: Pair(width,height),
-    borderShift: Rect.fromLTRB(0,0,0,mainParams.second-step),
+    borderShift: Rect.fromLTRB(0,0,0,mainParams.second-bottom/2),
     position: position,
     recovery: recovery,
     color: GlobalColors.COLOR_WIN_EX,

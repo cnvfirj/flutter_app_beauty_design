@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
@@ -10,19 +8,22 @@ import '../common/CommonWidget.dart';
 
 CommonParentWidget winBoundaries({
   // required Widget child,
-  required Pair<double, double>mainParams,
-  required Pair<double,double>position,
-  required Pair<double,double> recovery,
+  required Pair<double, double> mainParams,
+  required Pair<double, double> position,
+  required Pair<double, double> recovery,
   required String text,
-})
-{
-  double height =  mainParams.first > mainParams.second
+}) {
+  double height = mainParams.first > mainParams.second
       ? mainParams.first / 7
       : mainParams.second / 7;
-  double width = mainParams.first < mainParams.second?mainParams.first:mainParams.second;
-  double step = mainParams.first > mainParams.second
-      ? mainParams.first*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*2
-      : mainParams.second*BuildCoefficient.H_BOTTOM_BAR+mainParams.first*BuildCoefficient.H_BUK*2;
+  double width = mainParams.first < mainParams.second
+      ? mainParams.first
+      : mainParams.second;
+  double bottom = mainParams.first > mainParams.second
+      ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR +
+          mainParams.second * BuildCoefficient.H_BUK * 4
+      : mainParams.second * BuildCoefficient.H_BOTTOM_BAR +
+          mainParams.first * BuildCoefficient.H_BUK * 4;
 
   return CommonParentWidget(
     id: NamesWidgets.BOUNDARIES,
@@ -30,22 +31,20 @@ CommonParentWidget winBoundaries({
     bookmark: CommonBookmark(
       isCenter: false,
       text: text,
-      size: Pair(width,mainParams.second),
+      size: Pair(width, mainParams.second),
     ),
     mainParams: mainParams,
-    widgetParams: Pair(width,height),
-    borderShift: Rect.fromLTRB(0,0,0,mainParams.second-step),
+    widgetParams: Pair(width, height),
+    borderShift: Rect.fromLTRB(0, 0, 0, mainParams.second - bottom / 2),
     position: position,
     recovery: recovery,
     color: GlobalColors.COLOR_WIN_BOUND,
   );
 }
 
-class WidgetNumberBoundaries extends StatelessWidget{
-
+class WidgetNumberBoundaries extends StatelessWidget {
   final TextEditingController _controllerFrom = TextEditingController();
   final TextEditingController _controllerTo = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,46 +52,46 @@ class WidgetNumberBoundaries extends StatelessWidget{
       color: GlobalColors.COLOR_TEXT,
       child: Row(
         children: [
-          Expanded(child: _InputBoundFields(_controllerFrom, S.maybeOf(context)!.from)),
+          Expanded(
+              child:
+                  _InputBoundFields(_controllerFrom, S.maybeOf(context)!.from)),
           Container(
             width: GlobalSizes.DELIMITER,
             color: GlobalColors.COLOR_WIN_BOUND,
           ),
-          Expanded(child: _InputBoundFields(_controllerTo, S.maybeOf(context)!.to))
+          Expanded(
+              child: _InputBoundFields(_controllerTo, S.maybeOf(context)!.to))
         ],
       ),
     );
   }
-
 }
 
-class _InputBoundFields extends StatelessWidget{
+class _InputBoundFields extends StatelessWidget {
   final TextEditingController _controller;
   final String _note;
 
-  _InputBoundFields(this._controller,this._note);
+  _InputBoundFields(this._controller, this._note);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: GlobalSizes.HORIZONTAL_PADDING),
-     child: TextFormField(
-      style: TextStyle(
-        fontSize: GlobalSizes.FONT_SIZE,
-            color: GlobalColors.CONOR_FIELDS_TEXT
-      ),
-        decoration: InputDecoration(
-          // border: OutlineInputBorder(),
-          // hintText: _note,
-          labelText: _note,
-        ),
-        keyboardType: TextInputType.number,
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
-        ],
-        controller: _controller,
-        enableInteractiveSelection: false
-    ));
+        padding:
+            EdgeInsets.symmetric(horizontal: GlobalSizes.HORIZONTAL_PADDING),
+        child: TextFormField(
+            style: TextStyle(
+                fontSize: GlobalSizes.FONT_SIZE,
+                color: GlobalColors.CONOR_FIELDS_TEXT),
+            decoration: InputDecoration(
+              // border: OutlineInputBorder(),
+              // hintText: _note,
+              labelText: _note,
+            ),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
+            ],
+            controller: _controller,
+            enableInteractiveSelection: false));
   }
-
 }

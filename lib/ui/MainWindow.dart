@@ -71,6 +71,7 @@ class StateMainWindow extends State<MainWindow>{
      child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: GlobalColors.COLOR_MAIN_FONT,
+          extendBody: true,
           appBar: MainAppBar(pair:pair,actionButton: _actionAppBarButton,),
           body: Container(
           child: Stack(
@@ -100,6 +101,9 @@ class StateMainWindow extends State<MainWindow>{
   }
 
   CommonParentWidget _generation(Pair<double, double> params, BuildContext context){
+
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+    print('$bottomPadding');
     Pair<double,double>recovery = _startPositionGenerate(params);
     bool r = LoadParams.inst().readinessPos[NamesWidgets.GENERATE]!;
     Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.GENERATE]!:recovery.clone();
@@ -139,7 +143,6 @@ class StateMainWindow extends State<MainWindow>{
   }
 
   CommonParentWidget _boundaries(Pair<double, double> params, BuildContext context){
-    Widget child = Container(color: Colors.black12,);
     Pair<double,double>recovery = _startPositionBord(params);
     bool r = LoadParams.inst().readinessPos[NamesWidgets.BOUNDARIES]!;
     Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.BOUNDARIES]!:recovery.clone();

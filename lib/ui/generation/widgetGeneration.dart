@@ -21,7 +21,7 @@ CommonParentWidget winGenerator({
       ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR;
   Rect rect =
-      Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom);
+      Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom/2);
   return CommonParentWidget(
     id:NamesWidgets.GENERATE,
     child: Container(
