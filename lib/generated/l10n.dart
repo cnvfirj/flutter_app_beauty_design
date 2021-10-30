@@ -70,20 +70,20 @@ class S {
     );
   }
 
-  /// `The minimum search boundary must not be less than -9223372036854775808.`
+  /// `The minimum search boundary must not be less than -9999999999.`
   String get background_text_2 {
     return Intl.message(
-      'The minimum search boundary must not be less than -9223372036854775808.',
+      'The minimum search boundary must not be less than -9999999999.',
       name: 'background_text_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `The maximum search boundary must not be greater than 9223372036854775807.`
+  /// `The maximum search boundary must not be greater than 9999999999.`
   String get background_text_3 {
     return Intl.message(
-      'The maximum search boundary must not be greater than 9223372036854775807.',
+      'The maximum search boundary must not be greater than 9999999999.',
       name: 'background_text_3',
       desc: '',
       args: [],
