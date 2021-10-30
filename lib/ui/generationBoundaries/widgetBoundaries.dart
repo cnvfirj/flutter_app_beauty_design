@@ -67,11 +67,19 @@ class WidgetNumberBoundaries extends StatelessWidget {
   }
 }
 
-class _InputBoundFields extends StatelessWidget {
+class _InputBoundFields extends StatefulWidget{
+
   final TextEditingController _controller;
   final String _note;
 
   _InputBoundFields(this._controller, this._note);
+
+  @override
+  State createState() =>_InputBoundFieldsState();
+}
+
+class _InputBoundFieldsState extends State<_InputBoundFields> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +93,13 @@ class _InputBoundFields extends StatelessWidget {
             decoration: InputDecoration(
               // border: OutlineInputBorder(),
               // hintText: _note,
-              labelText: _note,
+              labelText: widget._note,
             ),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
             ],
-            controller: _controller,
+            controller: widget._controller,
             enableInteractiveSelection: false));
   }
 }

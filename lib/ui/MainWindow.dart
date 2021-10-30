@@ -102,8 +102,6 @@ class StateMainWindow extends State<MainWindow>{
 
   CommonParentWidget _generation(Pair<double, double> params, BuildContext context){
 
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
-    print('$bottomPadding');
     Pair<double,double>recovery = _startPositionGenerate(params);
     bool r = LoadParams.inst().readinessPos[NamesWidgets.GENERATE]!;
     Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.GENERATE]!:recovery.clone();
