@@ -1,6 +1,9 @@
 {
   "title_app": "Any Randomizer",
-  "background_text": "Random values are generated in real-time in the laboratory of Australian National University by measuring vacuum state fluctuations. This service will be used if the internet connection is present.",
+  "background_text_1": "The search range for a random number cannot exceed 4294967295.",
+  "background_text_2": "The minimum search boundary must not be less than -9223372036854775808.",
+  "background_text_3": "The maximum search boundary must not be greater than 9223372036854775807.",
+
   "widget_generator": "Number generator",
   "widget_history" : "Number generation history",
   "widget_excluded" : "Excluded values",

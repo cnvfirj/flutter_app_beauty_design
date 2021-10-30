@@ -25,10 +25,21 @@ class BuildCoefficient{
 class GlobalColors{
   static final Color COLOR_MAIN_FONT = Color.fromRGBO(226, 226, 226, 1.0);
   static final Color COLOR_TEXT = Colors.white;
+  static final Color CONOR_FIELDS_TEXT = Colors.black;
   static final Color COLOR_WIN_GENERATOR = Color.fromRGBO(62, 130, 151, 1.0);
   static final Color COLOR_WIN_BOUND = Color.fromRGBO(58, 53, 128, 1.0);
   static final Color COLOR_WIN_EX = Color.fromRGBO(128, 46, 46, 1.0);
   static final Color COLOR_WIN_HIST = Color.fromRGBO(104, 55, 76, 1.0);
+}
+
+class GlobalSizes{
+  static final double FONT_SIZE = 30;
+  static final double HORIZONTAL_PADDING = 5;
+  static final double DELIMITER = 2;
+}
+
+class GlobalValues{
+  static final int MAX_DIAPAZON = 2^32-1;
 }
 
 enum NamesWidgets{
@@ -75,36 +86,3 @@ class LoadParams{
   }
 }
 
-// class Id{
-//
-//  static Id _single = Id();
-//
-//  static inst(){
-//    return _single;
-//  }
-//
-//  late String _ID_Generate;
-//  late String _ID_Bound;
-//  late String _ID_Ex;
-//  late String _ID_Hist;
-//
-//  Id setGenerate(String value){
-//    _ID_Generate = value;
-//    return this;
-//  }
-//  Id setBound(String value){
-//    _ID_Bound = value;
-//    return this;
-//  }
-//  Id setEx(String value){
-//    _ID_Ex = value;
-//    return this;
-//  }
-//  Id setHist(String value){
-//    _ID_Hist = value;
-//    return this;
-//  }
-//
-//
-//
-// }

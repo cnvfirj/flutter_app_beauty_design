@@ -37,6 +37,8 @@ dependencies:
   intl: ^0.17.0
 
   shared_preferences: ^2.0.8
+
+  dart_numerics: ^0.0.5
 #  auto_size_text: ^2.1.0
 #  flutter_svg: any
 

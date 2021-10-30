@@ -157,6 +157,7 @@ class _GenerateBigNumber extends _SourceGenerate {
   int _value() {
     _prepared();
     int value = _random().nextInt(_delta);
+
     return _compare(value + _start);
   }
 

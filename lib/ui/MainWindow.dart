@@ -144,7 +144,7 @@ class StateMainWindow extends State<MainWindow>{
     bool r = LoadParams.inst().readinessPos[NamesWidgets.BOUNDARIES]!;
     Pair<double,double>position = r?LoadParams.inst().positions[NamesWidgets.BOUNDARIES]!:recovery.clone();
     return boundaries.winBoundaries(
-        child: child,
+        // child: child,
         mainParams: params,
         position: position,
         recovery: recovery,

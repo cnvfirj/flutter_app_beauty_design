@@ -79,7 +79,7 @@ class WidgetNumberGenerator extends StatelessWidget {
                     },
                   ),
                   Container(
-                    width: 2,
+                    width: GlobalSizes.DELIMITER,
                     color: GlobalColors.COLOR_TEXT,
                   ),
                   IconButton(
@@ -118,14 +118,15 @@ class StateTextGenerator extends State<TextGenerator> {
         (BuildContext context, PresenterGenerator presenter, Widget? child) {
       presenter.setSelectorState(_selectPresent);
       return Container(
-        padding: EdgeInsets.all(5),
+        padding: EdgeInsets.all(GlobalSizes.HORIZONTAL_PADDING),
         child: Center(
             child: _present(presenter.presentIdentificator)
                 ? Text(
                     presenter.getMassage(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: GlobalSizes.FONT_SIZE,
+                      color: GlobalColors.CONOR_FIELDS_TEXT
                     ))
                 : CircularProgressIndicator(
                     color: GlobalColors.COLOR_WIN_GENERATOR,

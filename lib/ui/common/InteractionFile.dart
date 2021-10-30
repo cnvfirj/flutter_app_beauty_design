@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
+import 'package:dart_numerics/dart_numerics.dart';
 import '../generation/actionsGenerator.dart';
 
 class MainPresenter with PresenterGenerator{
@@ -33,8 +34,17 @@ class MainPresenter with PresenterGenerator{
 
     @override
     void actionGenerate() {
+
+      int min = -4294967295~/2;
+      int max = 4294967295~/2;
+      print('min = ${min} max ${max}');
+
+      String from = '$min';
+      String to = '$max';
+
+
       super.actionGenerate();
-      Request('1','3',[1,2,3]).generate((form) => endGenerate(form));
+      Request(from,to,[1,2,3]).generate((form) => endGenerate(form));
     }
 
     @override

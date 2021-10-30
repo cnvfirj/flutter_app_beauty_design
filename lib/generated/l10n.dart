@@ -60,11 +60,31 @@ class S {
     );
   }
 
-  /// `Random values are generated in real-time in the laboratory of Australian National University by measuring vacuum state fluctuations. This service will be used if the internet connection is present.`
-  String get background_text {
+  /// `The search range for a random number cannot exceed 4294967295.`
+  String get background_text_1 {
     return Intl.message(
-      'Random values are generated in real-time in the laboratory of Australian National University by measuring vacuum state fluctuations. This service will be used if the internet connection is present.',
-      name: 'background_text',
+      'The search range for a random number cannot exceed 4294967295.',
+      name: 'background_text_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The minimum search boundary must not be less than -9223372036854775808.`
+  String get background_text_2 {
+    return Intl.message(
+      'The minimum search boundary must not be less than -9223372036854775808.',
+      name: 'background_text_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The maximum search boundary must not be greater than 9223372036854775807.`
+  String get background_text_3 {
+    return Intl.message(
+      'The maximum search boundary must not be greater than 9223372036854775807.',
+      name: 'background_text_3',
       desc: '',
       args: [],
     );

@@ -1,3 +1,4 @@
+import 'package:dart_numerics/dart_numerics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
@@ -55,7 +56,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
 
 class BackgroundMainText extends StatelessWidget {
 
-  final String url = 'https://qrng.anu.edu.au/';
+  // final String url = 'https://qrng.anu.edu.au/';
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class BackgroundMainText extends StatelessWidget {
       Container(
           margin: EdgeInsets.only(top:30,left: 15, right: 15),
           child: Text(
-            S.maybeOf(context)!.background_text,
+            _createMassage(context),
             style: TextStyle(
                 fontSize: 30,
                 foreground: Paint()
@@ -79,25 +80,36 @@ class BackgroundMainText extends StatelessWidget {
                   )),
             textAlign: TextAlign.center,
           )),
-          IconButton(
-              onPressed: (){openLink();},
-              icon: Icon(
-                  Icons.link,
-                   color: Colors.black38,)
-          )
+          // IconButton(
+          //     onPressed: (){openLink();},
+          //     icon: Icon(
+          //         Icons.link,
+          //          color: Colors.black38,)
+          // )
     ]));
   }
 
-
-  void openLink() async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  String _createMassage(BuildContext context){
+    String text1 = S.maybeOf(context)!.background_text_1;
+    String text2 = S.maybeOf(context)!.background_text_2;
+    String text3 = S.maybeOf(context)!.background_text_3;
+    String min = '$int64MinValue';
+    String max = '$int64MaxValue';
+    // print(min);
+    // print(max);
+    //
+    // text2.replaceAll(RegExp('!!!'),'$min');
+    // text3.replaceAll(RegExp('!!!'), '$max');
+    return '$text1 $text2 $text3';
   }
+
+
+  // void openLink() async {
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 }
-//
-// abstract class ActionButton{
-//   void click(int index);
-// }
+
