@@ -100,7 +100,7 @@ class CommonWriteReadPref {
 
   Pair<double, double> readPosition(
       NamesWidgets name, Pair<double, double> recovery) {
-    print('read ${name.toString()}');
+    // print('read ${name.toString()}');
     double? first = _pref.getDouble(GlobalKeys.key(name, 'first'));
     double? second = _pref.getDouble(GlobalKeys.key(name, 'second'));
     if (first != null && second != null)
@@ -110,7 +110,7 @@ class CommonWriteReadPref {
   }
 
   void writePosition(NamesWidgets name, Pair<double, double> pair) {
-    print('write ${name.toString()}');
+    // print('write ${name.toString()}');
     _pref.setDouble(GlobalKeys.key(name, 'first'), pair.first);
     _pref.setDouble(GlobalKeys.key(name, 'second'), pair.second);
   }
