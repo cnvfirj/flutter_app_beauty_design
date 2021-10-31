@@ -7,7 +7,7 @@ import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 import '../common/CommonWidget.dart';
 
 
-CommonParentWidget winExcludes({
+Widget winExcludes({
   required Widget child,
   required Pair<double, double>mainParams,
   required Pair<double,double>position,
@@ -28,7 +28,7 @@ CommonParentWidget winExcludes({
       mainParams.second * BuildCoefficient.H_BUK * 8
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR +
       mainParams.first * BuildCoefficient.H_BUK * 8;
-  return CommonParentWidget(
+  return WidgetTranslate(
     id:NamesWidgets.EXCLUDES,
     child: child,
     bookmark: CommonBookmark(
@@ -36,7 +36,7 @@ CommonParentWidget winExcludes({
       text: text,
       size: Pair(width,mainParams.second),
     ),
-    mainParams: mainParams,
+    // mainParams: mainParams,
     widgetParams: Pair(width,height),
     borderShift: Rect.fromLTRB(0,0,0,mainParams.second-bottom/2),
     position: position,

@@ -1,9 +1,8 @@
-import 'package:dart_numerics/dart_numerics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
+import 'package:flutter_app_beauty_design/ui/common/InteractionFile.dart';
 import 'package:provider/provider.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -15,15 +14,13 @@ typedef ActionButton = Function(int index);
 
 class MainAppBar extends StatelessWidget with PreferredSizeWidget {
   final Pair<double, double> _pair;
-  final ActionButton _actionButton;
 
-  MainAppBar({required Pair<double, double>pair,required ActionButton actionButton}):
-  _pair = pair,
-  _actionButton = actionButton;
+  MainAppBar({required Pair<double, double>pair}):
+  _pair = pair;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CommonObservable>(builder:(_, CommonObservable observable, Widget? child){
+    return Consumer<CommonProvider>(builder:(BuildContext context, CommonProvider provider, Widget? child){
       return AppBar(
         backgroundColor: Colors.orange,
         title: Text(S.maybeOf(context)!.title_app),
@@ -37,7 +34,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
           IconButton(
             onPressed: () {
               // _actionButton(1);
-              observable.action();
+              provider.action();
             },
             icon: Icon(Icons.repeat,color: Colors.white,),
           )
@@ -93,13 +90,6 @@ class BackgroundMainText extends StatelessWidget {
     String text1 = S.maybeOf(context)!.background_text_1;
     String text2 = S.maybeOf(context)!.background_text_2;
     String text3 = S.maybeOf(context)!.background_text_3;
-    String min = '$int64MinValue';
-    String max = '$int64MaxValue';
-    // print(min);
-    // print(max);
-    //
-    // text2.replaceAll(RegExp('!!!'),'$min');
-    // text3.replaceAll(RegExp('!!!'), '$max');
     return '$text1 $text2 $text3';
   }
 

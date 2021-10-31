@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
-import 'package:dart_numerics/dart_numerics.dart';
+import 'package:flutter_app_beauty_design/help/byCode.dart';
+import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../generation/actionsGenerator.dart';
 
 class MainPresenter with PresenterGenerator{
@@ -65,4 +67,52 @@ class MainPresenter with PresenterGenerator{
 
     }
   }
+
+class CommonProvider extends CommonWriteReadPref with CommonObservable {
+  static CommonProvider _single = CommonProvider();
+
+  static CommonProvider inst() => _single;
+
+}
+
+typedef StartAnim = Function();
+mixin CommonObservable {
+  Map<NamesWidgets, StartAnim> _observer = {};
+
+  void observer(StartAnim value, NamesWidgets name) {
+    _observer[name] = value;
+  }
+
+  void action() {
+    for (StartAnim val in _observer.values) {
+      val();
+    }
+  }
+}
+
+class CommonWriteReadPref {
+  late SharedPreferences _pref;
+
+  void init(Function function) async {
+    _pref = await SharedPreferences.getInstance();
+    await function();
+  }
+
+  Pair<double, double> readPosition(
+      NamesWidgets name, Pair<double, double> recovery) {
+    print('read ${name.toString()}');
+    double? first = _pref.getDouble(GlobalKeys.key(name, 'first'));
+    double? second = _pref.getDouble(GlobalKeys.key(name, 'second'));
+    if (first != null && second != null)
+      return Pair(first, second);
+    else
+      return recovery.clone();
+  }
+
+  void writePosition(NamesWidgets name, Pair<double, double> pair) {
+    print('write ${name.toString()}');
+    _pref.setDouble(GlobalKeys.key(name, 'first'), pair.first);
+    _pref.setDouble(GlobalKeys.key(name, 'second'), pair.second);
+  }
+}
 

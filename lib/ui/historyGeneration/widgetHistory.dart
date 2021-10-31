@@ -5,7 +5,7 @@ import 'package:flutter_app_beauty_design/help/constants.dart';
 
 import '../common/CommonWidget.dart';
 
-CommonParentWidget winHistory({
+Widget winHistory({
   required Widget child,
   required Pair<double, double>mainParams,
   required Pair<double,double>position,
@@ -26,7 +26,7 @@ CommonParentWidget winHistory({
       mainParams.second * BuildCoefficient.H_BUK * 12
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR +
       mainParams.first * BuildCoefficient.H_BUK * 12;
-  return CommonParentWidget(
+  return WidgetTranslate(
     id: NamesWidgets.HISTORY,
       child: child,
       bookmark: CommonBookmark(
@@ -34,7 +34,7 @@ CommonParentWidget winHistory({
         text: text,
         size: Pair(width,mainParams.second),
       ),
-      mainParams: mainParams,
+      // mainParams: mainParams,
       widgetParams: Pair(width,height),
       borderShift: Rect.fromLTRB(0,0,0,mainParams.second-bottom/2),
       position: position,

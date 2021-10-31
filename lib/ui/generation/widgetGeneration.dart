@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'actionsGenerator.dart';
 
-CommonParentWidget winGenerator({
+WidgetTranslate winGenerator({
   required Pair<double, double> mainParams,
   required Pair<double, double> position,
   required Pair<double, double> recovery,
@@ -20,26 +20,40 @@ CommonParentWidget winGenerator({
   double bottom = mainParams.first > mainParams.second
       ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR;
-  Rect rect =
-      Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom/2);
-  return CommonParentWidget(
-    id:NamesWidgets.GENERATE,
-    child: Container(
-      color: Colors.white,
-      child: WidgetNumberGenerator(),
-    ),
-    bookmark: CommonBookmark(
-      isCenter: true,
-      text: text,
-      size: Pair(side, mainParams.second),
-    ),
-    mainParams: mainParams,
-    widgetParams: Pair(side, side),
-    borderShift: rect,
-    position: position,
-    recovery: recovery,
-    color: GlobalColors.COLOR_WIN_GENERATOR,
-  );
+  return WidgetTranslate(
+      child: Container(
+        color: Colors.white,
+        child: WidgetNumberGenerator(),
+      ),
+      bookmark: CommonBookmark(
+        isCenter: true,
+        text: text,
+        size: Pair(side, mainParams.second),
+      ),
+      widgetParams: Pair(side, side),
+      borderShift: Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom/2),
+      position: position,
+      recovery: recovery,
+      color: GlobalColors.COLOR_WIN_GENERATOR,
+      id: NamesWidgets.GENERATE);
+  // return CommonParentWidget(
+  //   id:NamesWidgets.GENERATE,
+  //   child: Container(
+  //     color: Colors.white,
+  //     child: WidgetNumberGenerator(),
+  //   ),
+  //   bookmark: CommonBookmark(
+  //     isCenter: true,
+  //     text: text,
+  //     size: Pair(side, mainParams.second),
+  //   ),
+  //   mainParams: mainParams,
+  //   widgetParams: Pair(side, side),
+  //   borderShift: rect,
+  //   position: position,
+  //   recovery: recovery,
+  //   color: GlobalColors.COLOR_WIN_GENERATOR,
+  // );
 }
 
 class WidgetNumberGenerator extends StatelessWidget {

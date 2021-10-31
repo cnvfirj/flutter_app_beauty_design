@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../common/CommonWidget.dart';
 
-CommonParentWidget winBoundaries({
+WidgetTranslate winBoundaries({
   // required Widget child,
   required Pair<double, double> mainParams,
   required Pair<double, double> position,
@@ -26,7 +26,7 @@ CommonParentWidget winBoundaries({
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR +
           mainParams.first * BuildCoefficient.H_BUK * 4;
 
-  return CommonParentWidget(
+  return WidgetTranslate(
     id: NamesWidgets.BOUNDARIES,
     child: WidgetNumberBoundaries(),
     bookmark: CommonBookmark(
@@ -34,7 +34,7 @@ CommonParentWidget winBoundaries({
       text: text,
       size: Pair(width, mainParams.second),
     ),
-    mainParams: mainParams,
+    // mainParams: mainParams,
     widgetParams: Pair(width, height),
     borderShift: Rect.fromLTRB(0, 0, 0, mainParams.second - bottom / 2),
     position: position,
