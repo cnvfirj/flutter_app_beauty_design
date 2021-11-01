@@ -114,7 +114,6 @@ class Request {
     int start = int.parse(from)<int.parse(to)?int.parse(from):int.parse(to);
     int fin = int.parse(from)<int.parse(to)?int.parse(to):int.parse(from);
     _delta = fin - start;
-    print('$_delta ${GlobalValues.MAX_DIAPAZON}');
     if(_delta>GlobalValues.MAX_DIAPAZON)_massage = FormMassage.Correct_Fields;
     // if(_delta==ex.length)_massage = FormMassage.Correct_Ex;
   }
