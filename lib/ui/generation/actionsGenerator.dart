@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
+import 'package:flutter_app_beauty_design/help/constants.dart';
 import 'package:intl/intl.dart';
 
 typedef SelectorState = Function(PresentIdentificator identificator);
@@ -39,6 +40,7 @@ mixin PresenterGenerator{
 }
 
 enum FormMassage{Correct_Fields, Fill_Fields, Correct_Ex, Ready}
+
 class FormGenerate {
 
   static final String App = "Application";
@@ -95,21 +97,26 @@ class Request {
   }
 
   void checkBoundaries() {
-    if (from.length == 0 || to.length == 0)
+    if (from.length == 0 || to.length == 0) {
       _massage = FormMassage.Fill_Fields;
-    else if (from == to) _massage = FormMassage.Correct_Fields;
-    else if ((from.length == 1 && from.substring(0, 1) == "-" ) ||
+    }else if (from == to) {
+      _massage = FormMassage.Correct_Fields;
+    }else if ((from.length == 1 && from.substring(0, 1) == "-" ) ||
         (to.length == 1&&to.substring(0, 1) == "-")) {
         _massage = FormMassage.Correct_Fields;
     }
-    if(_massage==FormMassage.Ready)checkEx();
+    if(_massage==FormMassage.Ready){
+      checkDelta();
+    }
   }
 
-  void checkEx(){
+  void checkDelta(){
     int start = int.parse(from)<int.parse(to)?int.parse(from):int.parse(to);
     int fin = int.parse(from)<int.parse(to)?int.parse(to):int.parse(from);
     _delta = fin - start;
-    if(_delta==ex.length)_massage = FormMassage.Correct_Ex;
+    print('$_delta ${GlobalValues.MAX_DIAPAZON}');
+    if(_delta>GlobalValues.MAX_DIAPAZON)_massage = FormMassage.Correct_Fields;
+    // if(_delta==ex.length)_massage = FormMassage.Correct_Ex;
   }
 }
 
@@ -157,13 +164,20 @@ class _GenerateBigNumber extends _SourceGenerate {
   int _value() {
     _prepared();
     int value = _random().nextInt(_delta);
-
-    return _compare(value + _start);
+    int start = value + _start;
+    return _compare(start);
   }
-
+  late int _index = 0;
   int _compare(int value) {
+    if(_index == 2){
+      _massage = FormMassage.Correct_Ex;
+      return 0;
+    }
     if (_excludes.contains(value)) return _compare(value + 1);
-    if (value > _end) return _compare(_start);
+    if (value > _end) {
+      _index +=1;
+      return _compare(_start);
+    }
     return value;
   }
 

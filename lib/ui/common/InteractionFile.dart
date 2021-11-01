@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundaries.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../generation/actionsGenerator.dart';
 
-class MainPresenter with PresenterGenerator{
+class MainPresenter with PresenterGenerator, PresenterBoundaries{
 
-    static late MainPresenter _single = MainPresenter();
+    static MainPresenter _single = MainPresenter();
 
 
     late BuildContext _context;
@@ -24,8 +25,13 @@ class MainPresenter with PresenterGenerator{
       return this;
     }
 
+
     PresenterGenerator generator(){
        return _single;
+    }
+
+    PresenterBoundaries boundaries(){
+      return _single;
     }
 
     @override
@@ -36,17 +42,9 @@ class MainPresenter with PresenterGenerator{
 
     @override
     void actionGenerate() {
-
-      int min = -4294967295~/2;
-      int max = 4294967295~/2;
-      print('min = ${min} max ${max}');
-
-      String from = '$min';
-      String to = '$max';
-
-
       super.actionGenerate();
-      Request(from,to,[1,2,3]).generate((form) => endGenerate(form));
+        Request(from,to,[1,2,3]).generate((form) => endGenerate(form));
+
     }
 
     @override
@@ -66,9 +64,24 @@ class MainPresenter with PresenterGenerator{
       super.endGenerate(form);
 
     }
+
+  @override
+  void setBound(String title, String value) {
+     if(title==S.maybeOf(_context)!.from) from = value;
+     else if(title==S.maybeOf(_context)!.to)to = value;
   }
+}
+
+
+
+
+
+
+
+
 
 class CommonProvider extends CommonWriteReadPref with CommonObservable {
+
   static CommonProvider _single = CommonProvider();
 
   static CommonProvider inst() => _single;

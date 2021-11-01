@@ -3,12 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundaries.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../common/CommonWidget.dart';
 
 WidgetTranslate winBoundaries({
-  // required Widget child,
   required Pair<double, double> mainParams,
   required Pair<double, double> position,
   required Pair<double, double> recovery,
@@ -44,73 +45,74 @@ WidgetTranslate winBoundaries({
 }
 
 class WidgetNumberBoundaries extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(
       color: GlobalColors.COLOR_TEXT,
       child: Row(
         children: [
-          Expanded(
-              child:
-                  _InputBoundFields(S.maybeOf(context)!.from)),
+          Expanded(child: _InputBoundFields(S.maybeOf(context)!.from)),
           Container(
             width: GlobalSizes.DELIMITER,
             color: GlobalColors.COLOR_WIN_BOUND,
           ),
-          Expanded(
-              child: _InputBoundFields(S.maybeOf(context)!.to))
+          Expanded(child: _InputBoundFields(S.maybeOf(context)!.to))
         ],
       ),
     );
   }
-
-
 }
 
-class _InputBoundFields extends StatefulWidget{
+class _InputBoundFields extends StatefulWidget {
   final String _note;
-  _InputBoundFields( this._note);
-  @override
-  State createState() =>_InputBoundFieldsState();
-}
 
+  _InputBoundFields(this._note);
+
+  @override
+  State createState() => _InputBoundFieldsState();
+}
 
 class _InputBoundFieldsState extends State<_InputBoundFields> {
-
   late TextEditingController _controller;
   late FocusNode _focus;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding:
-            EdgeInsets.symmetric(horizontal: GlobalSizes.HORIZONTAL_PADDING),
-        child: TextField(
-          // initialValue: widget._value,
-            style: TextStyle(
-                fontSize: GlobalSizes.FONT_SIZE,
-                color: GlobalColors.CONOR_FIELDS_TEXT),
-            decoration: InputDecoration(
-              labelText: widget._note,
-            ),
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
-            ],
-            controller:_controller,
-            focusNode: _focus,
-            enableInteractiveSelection: false));
+    return Consumer(builder:
+        (BuildContext context, PresenterBoundaries presenter, Widget? child) {
+      return Container(
+          padding:
+              EdgeInsets.symmetric(horizontal: GlobalSizes.HORIZONTAL_PADDING),
+          child: TextField(
+              // initialValue: widget._value,
+              style: TextStyle(
+                  fontSize: GlobalSizes.FONT_SIZE,
+                  color: GlobalColors.CONOR_FIELDS_TEXT),
+              decoration: InputDecoration(
+                labelText: widget._note,
+              ),
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9-]')),
+              ],
+              controller: _controller
+                ..addListener(() {
+                  _listenController();
+                  presenter.setBound(widget._note, _controller.text);
+                }),
+              focusNode: _focus,
+              enableInteractiveSelection: false));
+    });
   }
-
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController()..addListener(_listenController);
-    _focus = FocusNode()..addListener(() {
-      if(!_focus.hasFocus)_writePref();
-    });
+    _controller = TextEditingController();
+    _focus = FocusNode()
+      ..addListener(() {
+        if (!_focus.hasFocus) _writePref();
+      });
     _readPref();
   }
 
@@ -118,39 +120,44 @@ class _InputBoundFieldsState extends State<_InputBoundFields> {
   void dispose() {
     _controller.dispose();
     _focus.dispose();
-     super.dispose();
+    super.dispose();
   }
 
-  void _readPref() async{
+  void _readPref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? text = pref.getString(_getKey());
-    if(text!=null)_controller.text = text;
+    if (text != null) _controller.text = text;
   }
 
-  void _writePref()async{
+  void _writePref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(_getKey(), _controller.text);
   }
 
-  String _getKey(){
+  String _getKey() {
     return '_InputBoundFieldsState${widget._note}';
   }
 
-  void _listenController(){
-    if(_field().length>1){
-      if(_field().endsWith('-'))_cutEndText();
-      if(_field().length>11&&_field().startsWith(RegExp(r'[-]'))) _cutEndText();
-      if(_field().length>10&&!_field().startsWith(RegExp(r'[-]'))) _cutEndText();
+  void _listenController() {
+    if (_field().length > 1) {
+      if (_field().endsWith('-')) _cutEndText();
+      if (_field().length > 11 && _field().startsWith(RegExp(r'[-]')))
+        _cutEndText();
+      if (_field().length > 10 && !_field().startsWith(RegExp(r'[-]')))
+        _cutEndText();
     }
   }
 
-  void _cutEndText(){
-    _controller.text = _field().substring(0,_field().length-1);
+  /*отсекаем последнее введенное значение (
+  * это может быть минус и/или большее по длине значение
+  * после чего убираем фокусировку с текстового поля.
+  * Это убирает клавиатуру.*/
+  void _cutEndText() {
+    _controller.text = _field().substring(0, _field().length - 1);
     FocusScope.of(context).requestFocus(new FocusNode());
   }
 
-  String _field(){
+  String _field() {
     return _controller.text;
   }
-
 }

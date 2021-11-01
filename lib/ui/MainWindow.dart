@@ -17,6 +17,7 @@ import 'package:flutter_app_beauty_design/ui/historyGeneration/widgetHistory.dar
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import 'generationBoundaries/actionsBoundaries.dart';
 import 'mainWidget/window.dart';
 
 class MainApp extends StatelessWidget {
@@ -55,6 +56,9 @@ class StateMainWindow extends State<MainWindow> {
           Provider<PresenterGenerator>(
               create: (BuildContext context) =>
                   MainPresenter.inst().context(context).generator()),
+          Provider<PresenterBoundaries>(
+            create: (_)=>MainPresenter.inst().boundaries(),
+          ),
           Provider<CommonProvider>(
             create: (_) => CommonProvider.inst(),
           ),

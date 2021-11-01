@@ -39,7 +39,7 @@ class GlobalSizes{
 }
 
 class GlobalValues{
-  static final int MAX_DIAPAZON = 2^32-1;
+  static final int MAX_DIAPAZON = 4294967295;
 }
 
 class GlobalKeys{
