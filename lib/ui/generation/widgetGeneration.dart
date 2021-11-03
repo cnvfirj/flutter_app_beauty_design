@@ -31,33 +31,15 @@ WidgetTranslate winGenerator({
         size: Pair(side, mainParams.second),
       ),
       widgetParams: Pair(side, side),
-      borderShift: Rect.fromLTRB(0, 0, mainParams.first - side, mainParams.second - bottom/2),
+      borderShift: Rect.fromLTRB(
+          0, 0, mainParams.first - side, mainParams.second - bottom / 2),
       position: position,
       recovery: recovery,
       color: GlobalColors.COLOR_WIN_GENERATOR,
       id: NamesWidgets.GENERATE);
-  // return CommonParentWidget(
-  //   id:NamesWidgets.GENERATE,
-  //   child: Container(
-  //     color: Colors.white,
-  //     child: WidgetNumberGenerator(),
-  //   ),
-  //   bookmark: CommonBookmark(
-  //     isCenter: true,
-  //     text: text,
-  //     size: Pair(side, mainParams.second),
-  //   ),
-  //   mainParams: mainParams,
-  //   widgetParams: Pair(side, side),
-  //   borderShift: rect,
-  //   position: position,
-  //   recovery: recovery,
-  //   color: GlobalColors.COLOR_WIN_GENERATOR,
-  // );
 }
 
 class WidgetNumberGenerator extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final Pair<double, double> pair = Pair(
@@ -81,37 +63,45 @@ class WidgetNumberGenerator extends StatelessWidget {
               height: h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  IconButton(
-                    iconSize: h / 2,
-                    icon: Icon(
-                      Icons.all_inclusive,
-                      color: GlobalColors.COLOR_TEXT,
-                    ),
-                    onPressed: () {
-                      presenter.actionGenerate();
-                    },
-                  ),
+                  Expanded(
+                      child: Material(
+                          color: GlobalColors.COLOR_WIN_GENERATOR,
+                          child: InkWell(
+                            splashColor: Colors.black38,
+                            onTap: () {
+                              presenter.actionGenerate();
+                            },
+                            child: Icon(
+                              Icons.all_inclusive,
+                              color: GlobalColors.COLOR_TEXT,
+                            ),
+                          ))),
                   Container(
                     width: GlobalSizes.DELIMITER,
                     color: GlobalColors.COLOR_TEXT,
                   ),
-                  IconButton(
-                    iconSize: h / 2,
-                    icon: Icon(
-                      Icons.add,
-                      color: GlobalColors.COLOR_TEXT,
-                    ),
-                    onPressed: () {
-                      presenter.actionAddEx();
-                    },
-                  ),
+                  Expanded(
+                      child: Material(
+                          color: GlobalColors.COLOR_WIN_GENERATOR,
+                          child: InkWell(
+                            splashColor: Colors.black38,
+                            onTap: () {
+                              presenter.actionAddEx();
+                            },
+                            child: Icon(
+                              Icons.add,
+                              color: GlobalColors.COLOR_TEXT,
+                            ),
+                          ))),
                 ],
               ))
         ],
       );
     });
   }
+
   void _tapText() {
     /*при нажатиии на текстовое поле*/
     /*точнее на контейнер в котором оно находится*/
@@ -120,7 +110,6 @@ class WidgetNumberGenerator extends StatelessWidget {
 }
 
 class TextGenerator extends StatefulWidget {
-
   @override
   State createState() => StateTextGenerator();
 }
@@ -135,13 +124,11 @@ class StateTextGenerator extends State<TextGenerator> {
         padding: EdgeInsets.all(GlobalSizes.HORIZONTAL_PADDING),
         child: Center(
             child: _present(presenter.presentIdentificator)
-                ? Text(
-                    presenter.getMassage(),
+                ? Text(presenter.getMassage(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: GlobalSizes.FONT_SIZE,
-                      color: GlobalColors.CONOR_FIELDS_TEXT
-                    ))
+                        fontSize: GlobalSizes.FONT_SIZE,
+                        color: GlobalColors.CONOR_FIELDS_TEXT))
                 : CircularProgressIndicator(
                     color: GlobalColors.COLOR_WIN_GENERATOR,
                   )),
@@ -160,4 +147,3 @@ class StateTextGenerator extends State<TextGenerator> {
       return true;
   }
 }
-
