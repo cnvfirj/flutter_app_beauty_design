@@ -47,23 +47,38 @@ class FormGenerate {
   static final String Net = "Internet";
   static final String Non = 'NoN';
 
-
   String source = Non;
   final int number;
   String date = Non;
-  final FormMassage massage;
+  final String _massage;
+
+  late int from;
+  late int to;
 
 
-  FormGenerate(this.number, this.massage);
+  FormGenerate(this.number, FormMassage massage):_massage = massage.toString();
 
   FormGenerate setSource(String v) {
     source = v;
     return this;
   }
 
+  FormGenerate setBoundaries(int from, int to){
+    this.from = from;
+    this.to = to;
+    return this;
+  }
+
   FormGenerate setDate(String v) {
     date = v;
     return this;
+  }
+
+  FormMassage get massage{
+      for(FormMassage m in FormMassage.values){
+        if(m.toString()==_massage)return m;
+      }
+      return FormMassage.Ready;
   }
 
 }
@@ -133,11 +148,11 @@ class _MassageFormer {
     _generate._generate((number) {
            ready(
               FormGenerate(number, _generate._massage)
+                  .setBoundaries(_generate._from, _generate._to)
                   .setSource(_source)
                   .setDate(DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now())));
     });
   }
-
 }
 
 class _GenerateBigNumber extends _SourceGenerate {

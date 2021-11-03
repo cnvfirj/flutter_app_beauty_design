@@ -124,16 +124,6 @@ class StateWidgetTranslate extends State<WidgetTranslate> {
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _animRecovery() {
     setState(() {
       widget._duration = WidgetTranslate.DURATION_2;
