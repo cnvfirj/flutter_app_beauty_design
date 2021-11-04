@@ -59,7 +59,7 @@ class WidgetNumberGenerator extends StatelessWidget {
             onTap: _tapText,
           )),
           Container(
-              color: GlobalColors.COLOR_WIN_GENERATOR,
+              // color: GlobalColors.COLOR_WIN_GENERATOR,
               height: h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

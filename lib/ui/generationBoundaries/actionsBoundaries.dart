@@ -1,4 +1,3 @@
-import 'package:flutter_app_beauty_design/help/constants.dart';
 
 mixin PresenterBoundaries {
   String _from = '';

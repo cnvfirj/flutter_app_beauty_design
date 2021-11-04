@@ -14,5 +14,10 @@
   "massage_blank_fields_boundaries": "Set the boundaries of number generation",
   "massage_error_fields_boundaries": "Adjust the number generation boundaries",
   "massage_error_ex": "Adjust the list of exclusions",
-  "massage_blank_boundaries": "Enter the search range"
+  "massage_blank_boundaries": "Enter the search range",
+
+  "massage_ex_add": "Exception added",
+  "massage_ex_no_add": "No exception added"
+
+
 }

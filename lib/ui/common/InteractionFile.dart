@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundaries.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../generation/actionsGenerator.dart';
 
-class MainPresenter with PresenterGenerator, PresenterBoundaries{
+class MainPresenter with PresenterGenerator, PresenterBoundaries, PresenterExList{
 
     static MainPresenter _single = MainPresenter();
-
 
     late BuildContext _context;
 
@@ -19,18 +19,20 @@ class MainPresenter with PresenterGenerator, PresenterBoundaries{
        return _single;
     }
 
-
   MainPresenter context(BuildContext context){
       _context = context;
       return this;
     }
-
 
     PresenterGenerator generator(){
        return _single;
     }
 
     PresenterBoundaries boundaries(){
+      return _single;
+    }
+
+    PresenterExList ex(){
       return _single;
     }
 
@@ -43,26 +45,31 @@ class MainPresenter with PresenterGenerator, PresenterBoundaries{
     @override
     void actionGenerate() {
       super.actionGenerate();
+      patternExclude(FormGenerate(0,FormMassage.Generate_Number));
         Request(from,to,[1,2,3]).generate((form) => endGenerate(form));
-
     }
 
     @override
     void actionShare() {
 
     }
+
     @override
     void actionAddEx() {
-
+        createExclude((massage){
+          _massage = massage;
+          viewMassage();
+        });
     }
+
     @override
     void endGenerate(FormGenerate form){
+      patternExclude(form);
       if(form.massage==FormMassage.Ready)_massage = form.number.toString();
       else if(form.massage==FormMassage.Correct_Ex)_massage = S.maybeOf(_context)!.massage_error_ex;
       else if(form.massage==FormMassage.Fill_Fields)_massage = S.maybeOf(_context)!.massage_blank_fields_boundaries;
       else if(form.massage==FormMassage.Correct_Fields)_massage = S.maybeOf(_context)!.massage_error_fields_boundaries;
       super.endGenerate(form);
-
     }
 
   @override
@@ -70,15 +77,19 @@ class MainPresenter with PresenterGenerator, PresenterBoundaries{
      if(title==S.maybeOf(_context)!.from) from = value;
      else if(title==S.maybeOf(_context)!.to)to = value;
   }
+
+  @override
+  String createAddingMassage() {
+    return S.maybeOf(_context)!.massage_ex_add;
+  }
+
+  @override
+  String createAlarmMassage(FormMassage m) {
+    return S.maybeOf(_context)!.massage_ex_no_add;
+  }
+  
+  
 }
-
-
-
-
-
-
-
-
 
 class CommonProvider extends CommonWriteReadPref with CommonObservable {
 

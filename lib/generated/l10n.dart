@@ -199,6 +199,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Exception added`
+  String get massage_ex_add {
+    return Intl.message(
+      'Exception added',
+      name: 'massage_ex_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No exception added`
+  String get massage_ex_no_add {
+    return Intl.message(
+      'No exception added',
+      name: 'massage_ex_no_add',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

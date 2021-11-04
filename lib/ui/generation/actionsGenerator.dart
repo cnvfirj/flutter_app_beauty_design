@@ -13,6 +13,7 @@ mixin PresenterGenerator{
   late SelectorState _selectorState;
   PresentIdentificator _presentIdentificator = PresentIdentificator.Text;
 
+
   void setSelectorState(SelectorState value) => _selectorState = value;
 
   SelectorState get selectorState => _selectorState;
@@ -32,6 +33,11 @@ mixin PresenterGenerator{
     selectorState(PresentIdentificator.Text);
   }
 
+  void viewMassage(){
+    savePresentIdentificator(PresentIdentificator.Text);
+    selectorState(PresentIdentificator.Text);
+  }
+
   String getMassage();
 
   void actionShare();
@@ -39,7 +45,7 @@ mixin PresenterGenerator{
   void actionAddEx();
 }
 
-enum FormMassage{Correct_Fields, Fill_Fields, Correct_Ex, Ready}
+enum FormMassage{Generate_Number,Correct_Fields, Fill_Fields, Correct_Ex, Ready}
 
 class FormGenerate {
 
