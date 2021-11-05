@@ -14,8 +14,8 @@ class MainDataBase{
 
   static MainDataBase _single = MainDataBase();
 
-  static final String NAME_DB = 'databasenumbers.db';
-  static final String TABLE_EX = 'tableex';
+  static final String NAME_DB = 'databasernumbers.db';
+  static final String TABLE_EX = 'tableexr';
   static final String TABLE_HIST = 'tablehist';
 
   MainDataBase();
@@ -31,7 +31,7 @@ class MainDataBase{
             onCreate: (Database db, int version){
                db.execute(_table(table));
             },
-            version: 1);
+            version: 2);
   }
   
   Future<Database>openDB()async{
@@ -40,9 +40,9 @@ class MainDataBase{
 
   String _table(String name){
     if(name==TABLE_EX){
-      return 'CREATE TABLE $TABLE_EX(id INTEGER PRIMARY KEY, number INTEGER, date STRING, source STRING)';
+      return 'CREATE TABLE $TABLE_EX(id INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, date STRING, source STRING)';
     }else{
-      return 'CREATE TABLE $TABLE_EX(id INTEGER PRIMARY KEY, number INTEGER, date STRING, source STRING)';
+      return 'CREATE TABLE $TABLE_EX(id INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, date STRING, source STRING)';
     }
   }
 

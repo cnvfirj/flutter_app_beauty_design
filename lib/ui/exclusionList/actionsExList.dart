@@ -23,13 +23,15 @@ mixin PresenterExList {
       function(createAddingMassage());
     }
 
-    // MainDataBase.inst().models(MainDataBase.TABLE_EX).then(
-    //         (value) {
-    //           print('length db ${value.length}');
-    //           for(CommonModel m in value){
-    //             print('add id in ${(m as ModelEx).number}');
-    //           }
-    //     });
+    MainDataBase.inst().models(MainDataBase.TABLE_EX).then(
+            (value) {
+              print('length db ${value.length}');
+              for(CommonModel m in value){
+                print('add id in ${(m as ModelEx).id}');
+                print('add number in ${(m as ModelEx).number}');
+
+              }
+        });
   }
 
   String createAlarmMassage(FormMassage m);
