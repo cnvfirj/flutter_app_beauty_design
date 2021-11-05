@@ -19,7 +19,7 @@ class ModelEx extends CommonModel{
   int get number => _number;
 
   @override
-  CommonModel fromJson(json) {
+  CommonModel fromJson(Map<String,dynamic> json) {
     return ModelEx(number:json['number'], date:json['date'], source:json['source']).addId(json['id']);
   }
 

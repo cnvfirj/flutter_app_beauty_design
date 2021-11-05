@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 abstract class CommonModel{
   int? _id;
-  CommonModel fromJson(json);
+  CommonModel fromJson(Map<String,dynamic> json);
   Map<String,dynamic>toMap();
 
   int? get id => _id;
@@ -15,6 +15,7 @@ abstract class CommonModel{
     return this;
   }
 }
+
 class MainDataBase{
 
   static MainDataBase _single = MainDataBase();
@@ -58,8 +59,8 @@ class MainDataBase{
   // }
 
   Future<void>insert(String table,CommonModel model)async{
-    openTable(table).then((value){
-      value.insert(table, model.toMap());
+    openTable(table).then((Database db)async{
+      int id =  await db.insert(table, model.toMap());
     });
   }
 
@@ -67,7 +68,6 @@ class MainDataBase{
       final db = await openTable(table);
       final List<Map<String,dynamic>> maps = await db.query(table);
       return List.generate(maps.length, (i) {
-        print('list id ${maps[i]['id']} value ${maps[i]['number']}');
         return ModelEx(number: maps[i]['number'], date:maps[i]['date'], source: maps[i]['source']).addId(maps[i]['id']);
       });
   }
