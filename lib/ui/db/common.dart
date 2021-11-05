@@ -9,6 +9,11 @@ abstract class CommonModel{
   Map<String,dynamic>toMap();
 
   int? get id => _id;
+
+  CommonModel addId(int value) {
+    _id = value;
+    return this;
+  }
 }
 class MainDataBase{
 
@@ -40,7 +45,7 @@ class MainDataBase{
 
   String _table(String name){
     if(name==TABLE_EX){
-      return 'CREATE TABLE $TABLE_EX(id INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, date STRING, source STRING)';
+      return 'CREATE TABLE $TABLE_EX(id INTEGER PRIMARY KEY NOT NULL AUTOINCREMENT, number INTEGER, date STRING, source STRING)';
     }else{
       return 'CREATE TABLE $TABLE_EX(id INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, date STRING, source STRING)';
     }
@@ -62,6 +67,7 @@ class MainDataBase{
       final db = await openTable(table);
       final List<Map<String,dynamic>> maps = await db.query(table);
       return List.generate(maps.length, (i) {
+        print('list id ${maps[i]['id']} value ${maps[i]['number']}');
         return ModelEx(number: maps[i]['number'], date:maps[i]['date'], source: maps[i]['source']).addId(maps[i]['id']);
       });
   }

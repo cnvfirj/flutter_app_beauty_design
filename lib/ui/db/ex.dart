@@ -2,7 +2,7 @@
 import 'package:flutter_app_beauty_design/ui/db/common.dart';
 
 class ModelEx extends CommonModel{
-  int? _id;
+
   final int _number;
   final String _date;
   final String _source;
@@ -11,11 +11,6 @@ class ModelEx extends CommonModel{
   _number = number,
   _date = date,
   _source = source;
-
-  ModelEx addId(int id){
-    _id = id;
-    return this;
-  }
 
   String get source => _source;
 
