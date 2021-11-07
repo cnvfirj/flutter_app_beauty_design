@@ -1,11 +1,12 @@
 
-import 'package:flutter_app_beauty_design/ui/db/common.dart';
+import 'package:flutter_app_beauty_design/ui/db/commonFloor.dart';
+import 'package:flutter_app_beauty_design/ui/db/commonSQL.dart';
 
-class ModelEx extends CommonModel{
+class ModelExSQL extends CommonModel{
   final String _date;
   final String _source;
 
-  ModelEx({required int number, required String date, required String source}):
+  ModelExSQL({required int number, required String date, required String source}):
   // _number = number,
   _date = date,
   _source = source,
@@ -17,12 +18,16 @@ class ModelEx extends CommonModel{
 
   @override
   CommonModel fromJson(Map<String,dynamic> json) {
-    return ModelEx(number:json['number'], date:json['date'], source:json['source']).addId(json['id']);
+    return ModelExSQL(number:json['number'], date:json['date'], source:json['source']).addId(json['id']);
   }
 
   @override
   Map<String, dynamic> toMap() {
     return {'number':number,'date':_date,'source':_source};
   }
+}
+
+class ModelExFloor{
+
 }
 

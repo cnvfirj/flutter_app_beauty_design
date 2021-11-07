@@ -1,4 +1,4 @@
-import 'package:flutter_app_beauty_design/ui/db/common.dart';
+import 'package:flutter_app_beauty_design/ui/db/commonSQL.dart';
 import 'package:flutter_app_beauty_design/ui/db/ex.dart';
 import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 

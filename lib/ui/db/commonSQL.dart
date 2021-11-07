@@ -1,5 +1,4 @@
 
-import 'package:flutter_app_beauty_design/ui/db/ex.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:synchronized/synchronized.dart';
