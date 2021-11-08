@@ -66,7 +66,7 @@ class _$MainDatabase extends MainDatabase {
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -82,7 +82,9 @@ class _$MainDatabase extends MainDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `NumberEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `number` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `ex` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `number` INTEGER NOT NULL, `source` TEXT NOT NULL)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `hist` (`from` INTEGER NOT NULL, `to` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `number` INTEGER NOT NULL, `source` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -99,17 +101,44 @@ class _$MainDatabase extends MainDatabase {
 class _$NumberDao extends NumberDao {
   _$NumberDao(this.database, this.changeListener)
       : _queryAdapter = QueryAdapter(database),
-        _numberEntityInsertionAdapter = InsertionAdapter(
+        _exEntityInsertionAdapter = InsertionAdapter(
             database,
-            'NumberEntity',
-            (NumberEntity item) =>
-                <String, Object?>{'id': item.id, 'number': item.number}),
-        _numberEntityDeletionAdapter = DeletionAdapter(
+            'ex',
+            (ExEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'number': item.number,
+                  'source': item.source
+                }),
+        _histEntityInsertionAdapter = InsertionAdapter(
             database,
-            'NumberEntity',
+            'hist',
+            (HistEntity item) => <String, Object?>{
+                  'from': item.from,
+                  'to': item.to,
+                  'id': item.id,
+                  'number': item.number,
+                  'source': item.source
+                }),
+        _exEntityDeletionAdapter = DeletionAdapter(
+            database,
+            'ex',
             ['id'],
-            (NumberEntity item) =>
-                <String, Object?>{'id': item.id, 'number': item.number});
+            (ExEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'number': item.number,
+                  'source': item.source
+                }),
+        _histEntityDeletionAdapter = DeletionAdapter(
+            database,
+            'hist',
+            ['id'],
+            (HistEntity item) => <String, Object?>{
+                  'from': item.from,
+                  'to': item.to,
+                  'id': item.id,
+                  'number': item.number,
+                  'source': item.source
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -117,25 +146,74 @@ class _$NumberDao extends NumberDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<NumberEntity> _numberEntityInsertionAdapter;
+  final InsertionAdapter<ExEntity> _exEntityInsertionAdapter;
 
-  final DeletionAdapter<NumberEntity> _numberEntityDeletionAdapter;
+  final InsertionAdapter<HistEntity> _histEntityInsertionAdapter;
+
+  final DeletionAdapter<ExEntity> _exEntityDeletionAdapter;
+
+  final DeletionAdapter<HistEntity> _histEntityDeletionAdapter;
 
   @override
-  Future<List<NumberEntity>> allNumbers() async {
-    return _queryAdapter.queryList('SELECT * FROM NumberEntity',
-        mapper: (Map<String, Object?> row) =>
-            NumberEntity(row['id'] as int?, number: row['number'] as int));
+  Future<List<ExEntity>> allNumbersEx() async {
+    return _queryAdapter.queryList('SELECT * FROM ex',
+        mapper: (Map<String, Object?> row) => ExEntity(
+            number: row['number'] as int, source: row['source'] as String));
   }
 
   @override
-  Future<int> insertNumber(NumberEntity entity) {
-    return _numberEntityInsertionAdapter.insertAndReturnId(
+  Future<List<HistEntity>> allNumbersHist() async {
+    return _queryAdapter.queryList('SELECT * FROM hist',
+        mapper: (Map<String, Object?> row) => HistEntity(
+            number: row['number'] as int,
+            source: row['source'] as String,
+            from: row['from'] as int,
+            to: row['to'] as int));
+  }
+
+  @override
+  Future<List<int>> valuesEx() async {
+    return await _queryAdapter.queryList('SELECT number FROM ex',
+        mapper: (Map<String, Object?>row)=>row['number']as int);
+  }
+
+  @override
+  Future<ExEntity?> findExEntityToNumber(int number) async {
+    return _queryAdapter.query('SELECT * FROM ex WHERE number = ?1',
+        mapper: (Map<String, Object?> row) => ExEntity(
+            number: row['number'] as int, source: row['source'] as String),
+        arguments: [number]);
+  }
+
+  @override
+  Future<int> insertEx(ExEntity entity) {
+    return _exEntityInsertionAdapter.insertAndReturnId(
         entity, OnConflictStrategy.abort);
   }
 
   @override
-  Future<void> deleteAll(List<NumberEntity> list) async {
-    await _numberEntityDeletionAdapter.deleteList(list);
+  Future<int> insertHist(HistEntity entity) {
+    return _histEntityInsertionAdapter.insertAndReturnId(
+        entity, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> allDeleteEx(List<ExEntity> list) async {
+    await _exEntityDeletionAdapter.deleteList(list);
+  }
+
+  @override
+  Future<void> allDeleteHist(List<HistEntity> list) async {
+    await _histEntityDeletionAdapter.deleteList(list);
+  }
+
+  @override
+  Future<void> deleteEx(ExEntity entity) async {
+    await _exEntityDeletionAdapter.delete(entity);
+  }
+
+  @override
+  Future<void> deleteHist(HistEntity entity) async {
+    await _histEntityDeletionAdapter.delete(entity);
   }
 }

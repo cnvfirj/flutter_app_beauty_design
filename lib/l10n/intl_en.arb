@@ -17,7 +17,8 @@
   "massage_blank_boundaries": "Enter the search range",
 
   "massage_ex_add": "Exception added",
-  "massage_ex_no_add": "No exception added"
+  "massage_ex_no_add": "No exception added",
+  "massage_ex_fill": "The exception is already in the list"
 
 
 }

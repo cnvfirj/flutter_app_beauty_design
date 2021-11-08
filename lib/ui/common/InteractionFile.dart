@@ -7,75 +7,89 @@ import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundar
 import 'package:shared_preferences/shared_preferences.dart';
 import '../generation/actionsGenerator.dart';
 
-class MainPresenter with PresenterGenerator, PresenterBoundaries, PresenterExList{
+class MainPresenter
+    with PresenterGenerator, PresenterBoundaries, PresenterExList {
+  static MainPresenter _single = MainPresenter();
 
-    static MainPresenter _single = MainPresenter();
+  late BuildContext _context;
 
-    late BuildContext _context;
+  String _massage = "-";
 
-    String _massage = "-";
+  static MainPresenter inst() {
+    return _single;
+  }
 
-    static MainPresenter inst() {
-       return _single;
-    }
+  MainPresenter context(BuildContext context) {
+    _context = context;
+    return this;
+  }
 
-  MainPresenter context(BuildContext context){
-      _context = context;
-      return this;
-    }
+  PresenterGenerator generator() {
+    return _single;
+  }
 
-    PresenterGenerator generator(){
-       return _single;
-    }
+  PresenterBoundaries boundaries() {
+    return _single;
+  }
 
-    PresenterBoundaries boundaries(){
-      return _single;
-    }
+  PresenterExList ex() {
+    return _single;
+  }
 
-    PresenterExList ex(){
-      return _single;
-    }
+  @override
+  String getMassage() {
+    if (_massage == "-")
+      _massage = S.maybeOf(_context)!.massage_blank_field_generator;
+    return _massage;
+  }
 
-    @override
-    String getMassage(){
-      if(_massage=="-")_massage =  S.maybeOf(_context)!.massage_blank_field_generator;
-      return _massage;
-    }
+  @override
+  void actionGenerate() {
+    super.actionGenerate();
+    /*регистрируем в исключениях начало генерации числа.
+    * обнуляем оставшееся значение*/
+    patternExclude(FormGenerate(0, FormMassage.Generate_Number));
+    /*даем запрос в бд и извлекаем значения исключений*/
+    listValuesEx().then((list) {
+      Request(from, to, list).generate((form) => endGenerate(form));
+    });
+  }
 
-    @override
-    void actionGenerate() {
-      super.actionGenerate();
-      patternExclude(FormGenerate(0,FormMassage.Generate_Number));
-        Request(from,to,[1,2,3]).generate((form) => endGenerate(form));
-    }
+  @override
+  void actionShare() {}
 
-    @override
-    void actionShare() {
+  @override
+  void actionAddEx() {
+    createExclude(
+      (massage) {
+        _massage = massage;
+        viewMassage();
+      },
+      'Generated Application',
+    );
+  }
 
-    }
-
-    @override
-    void actionAddEx() {
-        createExclude((massage){
-          _massage = massage;
-          viewMassage();
-        });
-    }
-
-    @override
-    void endGenerate(FormGenerate form){
-      patternExclude(form);
-      if(form.massage==FormMassage.Ready)_massage = form.number.toString();
-      else if(form.massage==FormMassage.Correct_Ex)_massage = S.maybeOf(_context)!.massage_error_ex;
-      else if(form.massage==FormMassage.Fill_Fields)_massage = S.maybeOf(_context)!.massage_blank_fields_boundaries;
-      else if(form.massage==FormMassage.Correct_Fields)_massage = S.maybeOf(_context)!.massage_error_fields_boundaries;
-      super.endGenerate(form);
-    }
+  @override
+  void endGenerate(FormGenerate form) {
+    /*регистрируем в исключениях конец генерации числа.
+    * его значение*/
+    patternExclude(form);
+    if (form.massage == FormMassage.Ready)
+      _massage = form.number.toString();
+    else if (form.massage == FormMassage.Correct_Ex)
+      _massage = S.maybeOf(_context)!.massage_error_ex;
+    else if (form.massage == FormMassage.Fill_Fields)
+      _massage = S.maybeOf(_context)!.massage_blank_fields_boundaries;
+    else if (form.massage == FormMassage.Correct_Fields)
+      _massage = S.maybeOf(_context)!.massage_error_fields_boundaries;
+    super.endGenerate(form);
+  }
 
   @override
   void setBound(String title, String value) {
-     if(title==S.maybeOf(_context)!.from) from = value;
-     else if(title==S.maybeOf(_context)!.to)to = value;
+    if (title == S.maybeOf(_context)!.from)
+      from = value;
+    else if (title == S.maybeOf(_context)!.to) to = value;
   }
 
   @override
@@ -87,19 +101,16 @@ class MainPresenter with PresenterGenerator, PresenterBoundaries, PresenterExLis
   String createAlarmMassage(FormMassage m) {
     return S.maybeOf(_context)!.massage_ex_no_add;
   }
-  
-  
 }
 
 class CommonProvider extends CommonWriteReadPref with CommonObservable {
-
   static CommonProvider _single = CommonProvider();
 
   static CommonProvider inst() => _single;
-
 }
 
 typedef StartAnim = Function();
+
 mixin CommonObservable {
   Map<NamesWidgets, StartAnim> _observer = {};
 
@@ -138,4 +149,3 @@ class CommonWriteReadPref {
     _pref.setDouble(GlobalKeys.key(name, 'second'), pair.second);
   }
 }
-

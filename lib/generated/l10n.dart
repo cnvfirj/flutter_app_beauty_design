@@ -219,6 +219,16 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get massage_ex_fill {
+    return Intl.message(
+      '',
+      name: 'massage_ex_fill',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -11,6 +11,7 @@ enum PresentIdentificator { Text, Progress }
 mixin PresenterGenerator{
 
   late SelectorState _selectorState;
+
   PresentIdentificator _presentIdentificator = PresentIdentificator.Text;
 
 
@@ -45,7 +46,7 @@ mixin PresenterGenerator{
   void actionAddEx();
 }
 
-enum FormMassage{Generate_Number,Correct_Fields, Fill_Fields, Correct_Ex, Ready}
+enum FormMassage{Generate_Number,Correct_Fields, Fill_Fields, Correct_Ex, Fill_Ex,Ready}
 
 class FormGenerate {
 
