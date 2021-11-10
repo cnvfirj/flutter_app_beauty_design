@@ -18,7 +18,9 @@
 
   "massage_ex_add": "Exception added",
   "massage_ex_no_add": "No exception added",
-  "massage_ex_fill": "The exception is already in the list"
+  "massage_ex_fill": "The exception is already in the list",
+
+  "background_text_list_ex": "The list of excludes is empty"
 
 
 }

@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
+import 'package:flutter_app_beauty_design/ui/common/CommonList.dart';
 
 import '../common/CommonWidget.dart';
 
 
 Widget winExcludes({
-  required Widget child,
+  // required Widget child,
   required Pair<double, double>mainParams,
   required Pair<double,double>position,
   required Pair<double,double> recovery,
@@ -30,7 +30,7 @@ Widget winExcludes({
       mainParams.first * BuildCoefficient.H_BUK * 8;
   return WidgetTranslate(
     id:NamesWidgets.EXCLUDES,
-    child: child,
+    child: WidgetListEx(),
     bookmark: CommonBookmark(
       isCenter: false,
       text: text,
@@ -44,3 +44,21 @@ Widget winExcludes({
     color: GlobalColors.COLOR_WIN_EX,
   );
 }
+
+
+class WidgetListEx extends StatelessWidget{
+
+
+  @override
+  Widget build(BuildContext context) {
+    return CommonGridView(
+      columns: 2,
+      axis: Axis.horizontal,
+      marginCol: 1,
+      marginRow: 1,
+      aspectRatio: 1/1,
+
+    );
+  }
+}
+

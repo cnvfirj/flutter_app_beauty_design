@@ -229,6 +229,16 @@ class S {
       args: [],
     );
   }
+
+  /// `The list of excludes is empty`
+  String get background_text_list_ex {
+    return Intl.message(
+      'The list of excludes is empty',
+      name: 'background_text_list_ex',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

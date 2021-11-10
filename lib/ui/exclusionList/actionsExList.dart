@@ -10,12 +10,31 @@ import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 *
 * */
 
-typedef UpdateList = Function();
+typedef ObserverGridView = Function(List<ExEntity> list);
+
 mixin PresenterExList {
+  ObserverGridView? _observerGridView;
+  List<ExEntity>_list = [];
+
   FormGenerate _form = FormGenerate(0, FormMassage.Generate_Number);
+
+  void setObserver(ObserverGridView observer) {
+    bool primary = _observerGridView==null;
+    _observerGridView = observer;
+    if(primary)CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
+      _observerGridView!(list);
+    });
+  }
 
   void patternExclude(FormGenerate form) {
     _form = form;
+  }
+
+  void scanTable() {
+    CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
+
+      if(_observerGridView!=null)_observerGridView!(list);
+    });
   }
 
   void createExclude(Function function, String source) {
@@ -38,6 +57,13 @@ mixin PresenterExList {
               .insertEx(ExEntity(number: _form.number, source: source))
               .then((id) {
             function(createAddingMassageEx());
+            /*указываем что список исключений в бд изменен*/
+            CommonDatabase.inst()
+                .db.numberDao
+                .allNumbersEx()
+                .then((list) {
+              _observerGridView!(list);
+            });
           });
         } else {
           /*если есть, то выводим алярм сообщение*/
@@ -55,6 +81,8 @@ mixin PresenterExList {
   Future<List<int>> listValuesEx() async {
     return await CommonDatabase.inst().db.numberDao.valuesEx();
   }
+
+  List<ExEntity>getList()=>_list;
 
   String createAlarmMassageEx(FormMassage m);
 

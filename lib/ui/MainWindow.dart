@@ -4,6 +4,7 @@ import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 import 'package:flutter_app_beauty_design/ui/common/InteractionFile.dart';
+import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
 
 import 'package:flutter_app_beauty_design/ui/exclusionList/widgetExList.dart'
     as excludes;
@@ -58,6 +59,9 @@ class StateMainWindow extends State<MainWindow> {
                   MainPresenter.inst().context(context).generator()),
           Provider<PresenterBoundaries>(
             create: (_)=>MainPresenter.inst().boundaries(),
+          ),
+          Provider<PresenterExList>(
+            create: (_)=>MainPresenter.inst().ex()..scanTable(),
           ),
           Provider<CommonProvider>(
             create: (_) => CommonProvider.inst(),
@@ -128,12 +132,12 @@ class StateMainWindow extends State<MainWindow> {
 
   Widget _excludes(Pair<double, double> params, BuildContext context,
       Pair<double, double> position) {
-    Widget child = Container(
-      color: Colors.black12,
-    );
+    // Widget child = Container(
+    //   color: Colors.black12,
+    // );
     Pair<double, double> recovery = _startPositionEx(params);
     return excludes.winExcludes(
-        child: child,
+        // child: child,
         mainParams: params,
         position: position,
         recovery: recovery,

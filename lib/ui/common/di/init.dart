@@ -1,5 +1,6 @@
 
 
+import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/ui/db/commonFloor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,6 +46,7 @@ class InitPref{
 }
 
 class InitDB{
+
    MainDatabase? _database;
 
    Future<MainDatabase?>initDatabase()async{

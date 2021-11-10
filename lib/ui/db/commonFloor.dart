@@ -21,10 +21,6 @@ class CommonDatabase{
 
   MainDatabase get db => _database;
 
-  // Future<MainDatabase>db()async{
-  //    if(_database==null) _database = await $FloorMainDatabase.databaseBuilder('data.db').build();
-  //    return await $FloorMainDatabase.databaseBuilder('data.db').build();
-  // }
 }
 
 
