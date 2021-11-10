@@ -77,12 +77,7 @@ class BackgroundMainText extends StatelessWidget {
                   )),
             textAlign: TextAlign.center,
           )),
-          // IconButton(
-          //     onPressed: (){openLink();},
-          //     icon: Icon(
-          //         Icons.link,
-          //          color: Colors.black38,)
-          // )
+
     ]));
   }
 

@@ -54,8 +54,8 @@ class WidgetListEx extends StatelessWidget{
     return CommonGridView(
       columns: 2,
       axis: Axis.horizontal,
-      marginCol: 1,
-      marginRow: 1,
+      marginCol: 0.1,
+      marginRow: 0.1,
       aspectRatio: 1/1,
 
     );

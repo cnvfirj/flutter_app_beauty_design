@@ -38,7 +38,6 @@ class StateCommonGridView extends State<CommonGridView>{
     return Consumer<PresenterExList>(builder:(BuildContext context, PresenterExList presenter, Widget? child){
 
       presenter.setObserver((list){
-        print('state ${list.length}');
         setState(() {
           widget._list = list;
         });
