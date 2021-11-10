@@ -220,10 +220,10 @@ class S {
     );
   }
 
-  /// ``
+  /// `The exception is already in the list`
   String get massage_ex_fill {
     return Intl.message(
-      '',
+      'The exception is already in the list',
       name: 'massage_ex_fill',
       desc: '',
       args: [],

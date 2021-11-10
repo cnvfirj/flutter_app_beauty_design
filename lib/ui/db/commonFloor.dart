@@ -1,21 +1,30 @@
 
 import 'dart:async';
 import 'package:floor/floor.dart';
+import 'package:flutter_app_beauty_design/ui/common/di/init.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 part 'commonFloor.g.dart';
 
 /*flutter packages pub run build_runner build*/
 class CommonDatabase{
-  static CommonDatabase _single = CommonDatabase();
+  static CommonDatabase? _single;
 
-  static CommonDatabase inst()=>_single;
-
-  MainDatabase? _database;
-
-  Future<MainDatabase>db()async{
-     if(_database==null) _database = await $FloorMainDatabase.databaseBuilder('data.db').build();
-     return _database!;
+  static CommonDatabase inst(){
+    if(_single==null)_single = CommonDatabase(InjectPreparationWork.instance().database());
+    return _single!;
   }
+
+  final MainDatabase _database;
+
+  /*inject*/
+  CommonDatabase(this._database);
+
+  MainDatabase get db => _database;
+
+  // Future<MainDatabase>db()async{
+  //    if(_database==null) _database = await $FloorMainDatabase.databaseBuilder('data.db').build();
+  //    return await $FloorMainDatabase.databaseBuilder('data.db').build();
+  // }
 }
 
 

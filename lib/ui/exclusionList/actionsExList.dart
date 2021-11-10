@@ -21,38 +21,42 @@ mixin PresenterExList {
   void createExclude(Function function, String source) {
     /*формируем исключение только когда генерация готова*/
     if (_form.massage != FormMassage.Ready)
-      function(createAlarmMassage(_form.massage));
+      function(createAlarmMassageEx(_form.massage));
     else {
       /*если генерация готова, то проверяем результат по базе*/
-      CommonDatabase.inst().db().then((d) {
-        d.numberDao.findExEntityToNumber(_form.number).then((entity) {
-          /*если в базе результата нет, то добавляем его*/
-          if (entity == null) {
-            d.numberDao
-                .insertEx(ExEntity(number: _form.number, source: source))
-                .then((id) {
-              function(createAddingMassage());
-            });
-          } else {
-            /*если есть, то выводим алярм сообщение*/
-            function(createAlarmMassage(FormMassage.Fill_Ex));
-          }
-        });
+      CommonDatabase.inst()
+          .db
+          .numberDao
+          .findExEntityToNumber(_form.number)
+          .then((entity) {
+        // d.numberDao.findExEntityToNumber(_form.number).then((entity) {
+        /*если в базе результата нет, то добавляем его*/
+        if (entity == null) {
+          CommonDatabase.inst()
+              .db
+              .numberDao
+              .insertEx(ExEntity(number: _form.number, source: source))
+              .then((id) {
+            function(createAddingMassageEx());
+          });
+        } else {
+          /*если есть, то выводим алярм сообщение*/
+          function(createAlarmMassageEx(FormMassage.Fill_Ex));
+          // }
+        }
       });
     }
   }
 
   Future<List<ExEntity>> listEntityEx() async {
-    final d = await CommonDatabase.inst().db();
-    return await d.numberDao.allNumbersEx();
+    return await CommonDatabase.inst().db.numberDao.allNumbersEx();
   }
 
   Future<List<int>> listValuesEx() async {
-    final d = await CommonDatabase.inst().db();
-    return await d.numberDao.valuesEx();
+    return await CommonDatabase.inst().db.numberDao.valuesEx();
   }
 
-  String createAlarmMassage(FormMassage m);
+  String createAlarmMassageEx(FormMassage m);
 
-  String createAddingMassage();
+  String createAddingMassageEx();
 }

@@ -40,7 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Adjust the number generation boundaries"),
         "massage_ex_add":
             MessageLookupByLibrary.simpleMessage("Exception added"),
-        "massage_ex_fill": MessageLookupByLibrary.simpleMessage(""),
+        "massage_ex_fill": MessageLookupByLibrary.simpleMessage(
+            "The exception is already in the list"),
         "massage_ex_no_add":
             MessageLookupByLibrary.simpleMessage("No exception added"),
         "title_app": MessageLookupByLibrary.simpleMessage("Any Randomizer"),

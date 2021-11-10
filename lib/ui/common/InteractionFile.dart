@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/common/di/init.dart';
 import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundaries.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,7 +57,9 @@ class MainPresenter
   }
 
   @override
-  void actionShare() {}
+  void actionShare() {
+
+  }
 
   @override
   void actionAddEx() {
@@ -93,20 +96,29 @@ class MainPresenter
   }
 
   @override
-  String createAddingMassage() {
+  String createAddingMassageEx() {
     return S.maybeOf(_context)!.massage_ex_add;
   }
 
   @override
-  String createAlarmMassage(FormMassage m) {
+  String createAlarmMassageEx(FormMassage m) {
     return S.maybeOf(_context)!.massage_ex_no_add;
   }
 }
 
 class CommonProvider extends CommonWriteReadPref with CommonObservable {
-  static CommonProvider _single = CommonProvider();
+  static CommonProvider? _single;
 
-  static CommonProvider inst() => _single;
+  static CommonProvider inst(){
+    if(_single==null){
+      /**/
+      _single = CommonProvider(InjectPreparationWork.instance().preferences());
+    }
+    return _single!;
+  }
+
+  /*inject*/
+  CommonProvider(SharedPreferences preferences):super(preferences);
 }
 
 typedef StartAnim = Function();
@@ -125,13 +137,20 @@ mixin CommonObservable {
   }
 }
 
-class CommonWriteReadPref {
-  late SharedPreferences _pref;
 
-  void init(Function function) async {
-    _pref = await SharedPreferences.getInstance();
-    await function();
-  }
+class CommonWriteReadPref{
+
+  final SharedPreferences _pref;
+
+
+  CommonWriteReadPref(this._pref);
+
+  // void init(Function function) async {
+  //   _pref = await SharedPreferences.getInstance();
+  //   await function();
+  // }
+  //
+  SharedPreferences get pref =>_pref;
 
   Pair<double, double> readPosition(
       NamesWidgets name, Pair<double, double> recovery) {
@@ -144,7 +163,6 @@ class CommonWriteReadPref {
   }
 
   void writePosition(NamesWidgets name, Pair<double, double> pair) {
-    // print('write ${name.toString()}');
     _pref.setDouble(GlobalKeys.key(name, 'first'), pair.first);
     _pref.setDouble(GlobalKeys.key(name, 'second'), pair.second);
   }
