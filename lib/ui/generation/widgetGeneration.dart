@@ -14,16 +14,19 @@ WidgetTranslate winGenerator({
   required Pair<double, double> recovery,
   required String text,
 }) {
-  double side = mainParams.first < mainParams.second
+  final double side = mainParams.first < mainParams.second
       ? mainParams.first / 2
       : mainParams.second / 2;
-  double bottom = mainParams.first > mainParams.second
+  final double bottom = mainParams.first > mainParams.second
       ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR;
+  final double h = mainParams.first > mainParams.second
+      ? mainParams.first * BuildCoefficient.H_BUK
+      : mainParams.second * BuildCoefficient.H_BUK;
   return WidgetTranslate(
       child: Container(
         color: Colors.white,
-        child: WidgetNumberGenerator(),
+        child: WidgetNumberGenerator(h),
       ),
       bookmark: CommonBookmark(
         isCenter: true,
@@ -40,13 +43,13 @@ WidgetTranslate winGenerator({
 }
 
 class WidgetNumberGenerator extends StatelessWidget {
+  final double _heightBottom;
+
+
+  WidgetNumberGenerator(this._heightBottom);
+
   @override
   Widget build(BuildContext context) {
-    final Pair<double, double> pair = Pair(
-        MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
-    double h = pair.first > pair.second
-        ? pair.first * BuildCoefficient.H_BUK
-        : pair.second * BuildCoefficient.H_BUK;
 
     return Consumer<PresenterGenerator>(builder:
         (BuildContext context, PresenterGenerator presenter, Widget? child) {
@@ -60,7 +63,7 @@ class WidgetNumberGenerator extends StatelessWidget {
           )),
           Container(
               // color: GlobalColors.COLOR_WIN_GENERATOR,
-              height: h,
+              height: _heightBottom,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
