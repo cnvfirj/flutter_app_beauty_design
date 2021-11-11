@@ -22,6 +22,7 @@ mixin PresenterExList {
     bool primary = _observerGridView==null;
     _observerGridView = observer;
     if(primary)CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
+      _list = list;
       _observerGridView!(list);
     });
   }
@@ -32,8 +33,10 @@ mixin PresenterExList {
 
   void scanTable() {
     CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
-
-      if(_observerGridView!=null)_observerGridView!(list);
+      _list = list;
+      if(_observerGridView!=null){
+        _observerGridView!(list);
+      }
     });
   }
 
@@ -62,6 +65,7 @@ mixin PresenterExList {
                 .db.numberDao
                 .allNumbersEx()
                 .then((list) {
+              _list = list;
               _observerGridView!(list);
             });
           });

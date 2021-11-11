@@ -13,7 +13,7 @@ class CommonGridView extends StatefulWidget{
   final double _aspectRatio;
   final double _marginCol;
   final double _marginRow;
-  List<ExEntity>_list = [];
+  // List<ExEntity>_list = [];
 
   CommonGridView({
     required Axis axis,
@@ -39,7 +39,7 @@ class StateCommonGridView extends State<CommonGridView>{
 
       presenter.setObserver((list){
         setState(() {
-          widget._list = list;
+          // widget._list = list;
         });
       });
 
@@ -47,9 +47,9 @@ class StateCommonGridView extends State<CommonGridView>{
         color: GlobalColors.COLOR_TEXT,
         child:Stack(
           children: [
-            Text(_createMassage(context,widget._list.length),textAlign: TextAlign.center,),
+            Text(_createMassage(context,presenter.getList().length),textAlign: TextAlign.center,),
             GridView.builder(
-              itemCount: widget._list.length,
+              itemCount: presenter.getList().length,
               scrollDirection: widget._axis,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: widget._columns,
@@ -60,7 +60,7 @@ class StateCommonGridView extends State<CommonGridView>{
               ),
               itemBuilder: (BuildContext context, int index) {
                 return Card(
-                  child: Text(widget._list[index].number.toString()),
+                  child: Text(presenter.getList()[index].number.toString()),
                 );
               },
 
@@ -71,8 +71,16 @@ class StateCommonGridView extends State<CommonGridView>{
     });
   }
 
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
   String _createMassage(BuildContext context,int i){
     if(i==0)return S.maybeOf(context)!.background_text_list_ex;
     return '';
   }
+
 }
