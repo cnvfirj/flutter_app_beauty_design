@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/common/CommonList.dart';
 import 'package:flutter_app_beauty_design/ui/common/di/init.dart';
 import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundaries.dart';
+import 'package:flutter_app_beauty_design/ui/historyGeneration/actionsHistory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../generation/actionsGenerator.dart';
 
 class MainPresenter
-    with PresenterGenerator, PresenterBoundaries, PresenterExList {
+    with PresenterGenerator, PresenterBoundaries, PresenterExList, PresenterHistory{
   static MainPresenter _single = MainPresenter();
 
   late BuildContext _context;
@@ -104,6 +106,7 @@ class MainPresenter
   String createAlarmMassageEx(FormMassage m) {
     return S.maybeOf(_context)!.massage_ex_no_add;
   }
+
 }
 
 class CommonProvider extends CommonWriteReadPref with CommonObservable {

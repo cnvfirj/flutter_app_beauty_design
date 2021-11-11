@@ -18,6 +18,7 @@ import 'package:flutter_app_beauty_design/ui/historyGeneration/widgetHistory.dar
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import 'common/CommonList.dart';
 import 'generationBoundaries/actionsBoundaries.dart';
 import 'mainWidget/window.dart';
 
@@ -60,8 +61,11 @@ class StateMainWindow extends State<MainWindow> {
           Provider<PresenterBoundaries>(
             create: (_)=>MainPresenter.inst().boundaries(),
           ),
+          // Provider<ActionsList>(
+          //     create: (_)=>MainPresenter.inst().actionsList(),
+          // ),
           Provider<PresenterExList>(
-            create: (_)=>MainPresenter.inst().ex()..scanTable(),
+            create: (_)=>MainPresenter.inst().ex(),
           ),
           Provider<CommonProvider>(
             create: (_) => CommonProvider.inst(),

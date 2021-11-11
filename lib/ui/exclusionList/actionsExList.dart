@@ -1,3 +1,4 @@
+import 'package:flutter_app_beauty_design/ui/common/CommonList.dart';
 import 'package:flutter_app_beauty_design/ui/db/commonFloor.dart';
 import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 
@@ -13,30 +14,32 @@ import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 typedef ObserverGridView = Function(List<ExEntity> list);
 
 mixin PresenterExList {
-  ObserverGridView? _observerGridView;
-  List<ExEntity>_list = [];
+  final ActionsList<ExEntity> _actions =
+      ActionsList(CommonDatabase.inst().db.numberDao.allNumbersEx());
 
   FormGenerate _form = FormGenerate(0, FormMassage.Generate_Number);
 
+  ActionsList get actionsList => _actions;
+
   void setObserver(ObserverGridView observer) {
-    bool primary = _observerGridView==null;
-    _observerGridView = observer;
-    if(primary)CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
-      _list = list;
-      _observerGridView!(list);
-    });
+    _actions.setObserver(observer);
   }
 
   void patternExclude(FormGenerate form) {
     _form = form;
   }
 
-  void scanTable() {
-    CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
-      _list = list;
-      if(_observerGridView!=null){
-        _observerGridView!(list);
-      }
+  void clearTable() {
+    print('clear');
+    listEntityEx().then((list) {
+      print('list ${list.length}');
+      /*не работает удаление*/
+      CommonDatabase.inst().db.numberDao.allDeleteEx(list).then((_) {
+        print('list2 ${list.length}');
+        CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
+          _actions.setChange(list);
+        });
+      });
     });
   }
 
@@ -46,27 +49,15 @@ mixin PresenterExList {
       function(createAlarmMassageEx(_form.massage));
     else {
       /*если генерация готова, то проверяем результат по базе*/
-      CommonDatabase.inst()
-          .db
-          .numberDao
-          .findExEntityToNumber(_form.number)
-          .then((entity) {
-        // d.numberDao.findExEntityToNumber(_form.number).then((entity) {
+      findEntity(_form.number).then((entity) {
         /*если в базе результата нет, то добавляем его*/
         if (entity == null) {
-          CommonDatabase.inst()
-              .db
-              .numberDao
-              .insertEx(ExEntity(number: _form.number, source: source))
+          insertEntity(ExEntity(number: _form.number, source: source))
               .then((id) {
             function(createAddingMassageEx());
             /*указываем что список исключений в бд изменен*/
-            CommonDatabase.inst()
-                .db.numberDao
-                .allNumbersEx()
-                .then((list) {
-              _list = list;
-              _observerGridView!(list);
+            listEntityEx().then((list) {
+              _actions.setChange(list);
             });
           });
         } else {
@@ -78,15 +69,23 @@ mixin PresenterExList {
     }
   }
 
-  Future<List<ExEntity>> listEntityEx() async {
-    return await CommonDatabase.inst().db.numberDao.allNumbersEx();
+  Future<List<int>> listValuesEx() {
+    return CommonDatabase.inst().db.numberDao.valuesEx();
   }
 
-  Future<List<int>> listValuesEx() async {
-    return await CommonDatabase.inst().db.numberDao.valuesEx();
+  Future<List<ExEntity>> listEntityEx() {
+    return CommonDatabase.inst().db.numberDao.allNumbersEx();
   }
 
-  List<ExEntity>getList()=>_list;
+  Future<ExEntity?> findEntity(int number) {
+    return CommonDatabase.inst().db.numberDao.findExEntityToNumber(number);
+  }
+
+  Future<int> insertEntity(ExEntity entity) {
+    return CommonDatabase.inst().db.numberDao.insertEx(entity);
+  }
+
+  List<ExEntity> getList() => _actions.getList();
 
   String createAlarmMassageEx(FormMassage m);
 

@@ -23,6 +23,11 @@ class CommonDatabase{
 
 }
 
+/*  @override
+  Future<List<int>> valuesEx() async {
+    return await _queryAdapter.queryList('SELECT number FROM ex',
+        mapper: (Map<String, Object?>row)=>row['number']as int);
+  }*/
 
 /*https://floor.codes/getting-started*/
 @Database(version: 2,entities: [ExEntity, HistEntity])

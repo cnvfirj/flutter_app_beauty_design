@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 import 'package:flutter_app_beauty_design/ui/common/CommonList.dart';
+import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
+import 'package:provider/provider.dart';
 
 import '../common/CommonWidget.dart';
 
@@ -21,9 +23,9 @@ Widget winExcludes({
 
   final double bottom = mainParams.first > mainParams.second
       ? mainParams.first * BuildCoefficient.H_BOTTOM_BAR +
-          mainParams.second * BuildCoefficient.H_BUK * 8
+      mainParams.second * BuildCoefficient.H_BUK * 8
       : mainParams.second * BuildCoefficient.H_BOTTOM_BAR +
-          mainParams.first * BuildCoefficient.H_BUK * 8;
+      mainParams.first * BuildCoefficient.H_BUK * 8;
 
   final double h = mainParams.first > mainParams.second
       ? mainParams.first * BuildCoefficient.H_BUK
@@ -53,51 +55,57 @@ class WidgetListEx extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Column(children: [
-      Expanded(child:
-      CommonGridView(
-        columns: 2,
-        axis: Axis.horizontal,
-        marginCol: 0.1,
-        marginRow: 0.1,
-        aspectRatio: 1 / 1,
-      )),
-        Container(
-            // color: GlobalColors.COLOR_WIN_GENERATOR,
-            height: _heightBottom,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                    child: Material(
-                        color: GlobalColors.COLOR_WIN_EX,
-                        child: InkWell(
-                          splashColor: Colors.black38,
-                          onTap: () {},
-                          child: Icon(
-                            Icons.add,
-                            color: GlobalColors.COLOR_TEXT,
-                          ),
-                        ))),
-                Container(
-                  width: GlobalSizes.DELIMITER,
-                  color: GlobalColors.COLOR_TEXT,
-                ),
-                Expanded(
-                    child: Material(
-                        color: GlobalColors.COLOR_WIN_EX,
-                        child: InkWell(
-                          splashColor: Colors.black38,
-                          onTap: () {},
-                          child: Icon(
-                            Icons.clear,
-                            color: GlobalColors.COLOR_TEXT,
-                          ),
-                        ))),
+    return Consumer < PresenterExList > (builder:
+        (BuildContext context, PresenterExList presenter, Widget? child){
+           return Column(children: [
+             Provider<ActionsList>(
+               create: (_)=>presenter.actionsList,
+               child:  Expanded(
+                   child: CommonGridView(
+                     columns: 2,
+                     axis: Axis.horizontal,
+                     marginCol: 0.1,
+                     marginRow: 0.1,
+                     aspectRatio: 1 / 1,
+                   )),),
+              Container(
+                 // color: GlobalColors.COLOR_WIN_GENERATOR,
+                   height: _heightBottom,
+                   child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                       children: [
+                         Expanded(
+                             child: Material(
+                                 color: GlobalColors.COLOR_WIN_EX,
+                                 child: InkWell(
+                                   splashColor: Colors.black38,
+                                   onTap: () {},
+                                   child: Icon(
+                                     Icons.add,
+                                     color: GlobalColors.COLOR_TEXT,
+                                   ),
+                                 ))),
+                         Container(
+                           width: GlobalSizes.DELIMITER,
+                           color: GlobalColors.COLOR_TEXT,
+                         ),
+                         Expanded(
+                             child: Material(
+                                 color: GlobalColors.COLOR_WIN_EX,
+                                 child: InkWell(
+                                   splashColor: Colors.black38,
+                                   onTap: () {
+                                     presenter.clearTable();
+                                   },
+                                   child: Icon(
+                                     Icons.clear,
+                                     color: GlobalColors.COLOR_TEXT,
+                                   ),
+                                 ))),
+                       ]))
 
-      ]))
-     ]);
+           ]);
+    });
   }
 }
