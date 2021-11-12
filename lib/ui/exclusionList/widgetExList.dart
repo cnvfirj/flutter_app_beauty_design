@@ -88,7 +88,7 @@ class WidgetListEx extends StatelessWidget {
                                  ))),
                          Container(
                            width: GlobalSizes.DELIMITER,
-                           color: GlobalColors.COLOR_TEXT,
+                           color: GlobalColors.COLOR_BACKGROUND_WIDGET,
                          ),
                          Expanded(
                              child: Material(

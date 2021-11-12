@@ -24,8 +24,9 @@ class BuildCoefficient{
 
 class GlobalColors{
   static final Color COLOR_MAIN_FONT = Color.fromRGBO(226, 226, 226, 1.0);
-  static final Color COLOR_TEXT = Colors.white;
-  static final Color CONOR_FIELDS_TEXT = Colors.black;
+  static final Color COLOR_TEXT = Color.fromRGBO(255, 255, 255, 1.0);
+  static final Color COLOR_BACKGROUND_WIDGET = Color.fromRGBO(255, 255, 255, 1.0);
+  static final Color COLOR_WIDGET_TEXT = Colors.black;
   static final Color COLOR_WIN_GENERATOR = Color.fromRGBO(62, 130, 151, 1.0);
   static final Color COLOR_WIN_BOUND = Color.fromRGBO(58, 53, 128, 1.0);
   static final Color COLOR_WIN_EX = Color.fromRGBO(128, 46, 46, 1.0);

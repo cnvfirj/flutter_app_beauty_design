@@ -43,10 +43,13 @@ class StateCommonGridView extends State<CommonGridView>{
       });
 
       return Container(
-        color: GlobalColors.COLOR_TEXT,
+        color: GlobalColors.COLOR_BACKGROUND_WIDGET,
         child:Stack(
           children: [
-            Text(_createMassage(context,actions.getList().length),textAlign: TextAlign.center,),
+            Container(
+              alignment: Alignment.center,
+                child:Text(_createMassage(context,actions.getList().length),textAlign: TextAlign.center,)
+            ),
             GridView.builder(
               itemCount: actions.getList().length,
               scrollDirection: widget._axis,
@@ -62,7 +65,6 @@ class StateCommonGridView extends State<CommonGridView>{
                   child: Text(actions.getList()[index].number.toString()),
                 );
               },
-
             ),
           ],
         )

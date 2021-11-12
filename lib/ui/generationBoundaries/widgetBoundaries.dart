@@ -48,7 +48,7 @@ class WidgetNumberBoundaries extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: GlobalColors.COLOR_TEXT,
+      color: GlobalColors.COLOR_BACKGROUND_WIDGET,
       child: Row(
         children: [
           Expanded(child: _InputBoundFields(S.maybeOf(context)!.from)),
@@ -87,7 +87,7 @@ class _InputBoundFieldsState extends State<_InputBoundFields> {
               // initialValue: widget._value,
               style: TextStyle(
                   fontSize: GlobalSizes.FONT_SIZE,
-                  color: GlobalColors.CONOR_FIELDS_TEXT),
+                  color: GlobalColors.COLOR_WIDGET_TEXT),
               decoration: InputDecoration(
                 labelText: widget._note,
               ),
