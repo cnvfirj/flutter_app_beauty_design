@@ -61,9 +61,6 @@ class StateMainWindow extends State<MainWindow> {
           Provider<PresenterBoundaries>(
             create: (_)=>MainPresenter.inst().boundaries(),
           ),
-          // Provider<ActionsList>(
-          //     create: (_)=>MainPresenter.inst().actionsList(),
-          // ),
           Provider<PresenterExList>(
             create: (_)=>MainPresenter.inst().ex(),
           ),

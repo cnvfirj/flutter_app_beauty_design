@@ -30,17 +30,6 @@ mixin PresenterExList {
   }
 
   void clearTable() {
-    print('clear');
-    // listEntityEx().then((list) {
-    //   print('list ${list.length}');
-    //   /*не работает удаление*/
-    //   CommonDatabase.inst().db.numberDao.allDeleteEx(list).then((_) {
-    //     print('list2 ${list.length}');
-    //     CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
-    //       _actions.setChange(list);
-    //     });
-    //   });
-    // });
      _database().clearEx().then((_){
        listEntityEx().then((list){
          _actions.setChange(list);
