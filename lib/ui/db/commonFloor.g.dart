@@ -174,7 +174,7 @@ class _$NumberDao extends NumberDao {
   @override
   Future<List<int>> valuesEx() async {
     return await _queryAdapter.queryList('SELECT number FROM ex',
-        mapper: (Map<String, Object?>row)=>row['number']as int);
+        mapper: (Map<String, Object?>row) => row['number'] as int);
   }
 
   @override
@@ -183,6 +183,16 @@ class _$NumberDao extends NumberDao {
         mapper: (Map<String, Object?> row) => ExEntity(
             number: row['number'] as int, source: row['source'] as String),
         arguments: [number]);
+  }
+
+  @override
+  Future<void> clearEx() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM ex');
+  }
+
+  @override
+  Future<void> clearHist() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM hist');
   }
 
   @override

@@ -75,6 +75,12 @@ abstract class NumberDao{
   @Query('SELECT * FROM ex WHERE number = :number')
   Future<ExEntity?>findExEntityToNumber(int number);
 
+  @Query('DELETE FROM ex')
+  Future<void>clearEx();
+
+  @Query('DELETE FROM hist')
+  Future<void>clearHist();
+
   @insert
   Future<int>insertEx(ExEntity entity);
 
@@ -86,8 +92,6 @@ abstract class NumberDao{
 
   @delete
   Future<void> allDeleteHist(List<HistEntity>list);
-
-
 
   @delete
   Future<void> deleteEx(ExEntity entity);

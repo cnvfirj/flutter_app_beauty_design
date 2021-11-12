@@ -31,16 +31,21 @@ mixin PresenterExList {
 
   void clearTable() {
     print('clear');
-    listEntityEx().then((list) {
-      print('list ${list.length}');
-      /*не работает удаление*/
-      CommonDatabase.inst().db.numberDao.allDeleteEx(list).then((_) {
-        print('list2 ${list.length}');
-        CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
-          _actions.setChange(list);
-        });
-      });
-    });
+    // listEntityEx().then((list) {
+    //   print('list ${list.length}');
+    //   /*не работает удаление*/
+    //   CommonDatabase.inst().db.numberDao.allDeleteEx(list).then((_) {
+    //     print('list2 ${list.length}');
+    //     CommonDatabase.inst().db.numberDao.allNumbersEx().then((list) {
+    //       _actions.setChange(list);
+    //     });
+    //   });
+    // });
+     _database().clearEx().then((_){
+       listEntityEx().then((list){
+         _actions.setChange(list);
+       });
+     });
   }
 
   void createExclude(Function function, String source) {
@@ -70,19 +75,23 @@ mixin PresenterExList {
   }
 
   Future<List<int>> listValuesEx() {
-    return CommonDatabase.inst().db.numberDao.valuesEx();
+    return _database().valuesEx();
   }
 
   Future<List<ExEntity>> listEntityEx() {
-    return CommonDatabase.inst().db.numberDao.allNumbersEx();
+    return _database().allNumbersEx();
   }
 
   Future<ExEntity?> findEntity(int number) {
-    return CommonDatabase.inst().db.numberDao.findExEntityToNumber(number);
+    return _database().findExEntityToNumber(number);
   }
 
   Future<int> insertEntity(ExEntity entity) {
-    return CommonDatabase.inst().db.numberDao.insertEx(entity);
+    return _database().insertEx(entity);
+  }
+
+  NumberDao _database(){
+    return CommonDatabase.inst().db.numberDao;
   }
 
   List<ExEntity> getList() => _actions.getList();
