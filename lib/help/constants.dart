@@ -65,49 +65,4 @@ enum NamesWidgets{
   HISTORY
 }
 
-// class LoadParams{
-//
-//   static final LoadParams _single = LoadParams();
-//
-//   static LoadParams inst()=>_single;
-//
-//   final Map<NamesWidgets,Pair<double,double>> _positions = {};
-//   final Map<NamesWidgets,bool>_readinessPos = {};
-//
-//
-//   Map<NamesWidgets, Pair<double, double>> get positions => _positions;
-//   Map<NamesWidgets, bool> get readinessPos => _readinessPos;
-//
-//   void reed(Function function)async{
-//     SharedPreferences pref = await SharedPreferences.getInstance();
-//      for(NamesWidgets name in NamesWidgets.values) {
-//       _readPositions(name, pref);
-//     }
-//     await function();
-//   }
-//
-//   void _readWidgetsPositions(NamesWidgets name, final SharedPreferences pref){
-//     _readinessPos[name]=false;
-//     double? first = pref.getDouble(GlobalKeys.key(name,'first'));
-//     double? second = pref.getDouble(GlobalKeys.key(name,'second'));
-//     if(first!=null&&second!=null){
-//       _positions[name]=Pair(first,second);
-//       _readinessPos[name]=true;
-//     }
-//   }
-//
-//   void _readPositions(NamesWidgets name, final SharedPreferences pref){
-//     _readinessPos[name]=false;
-//     double? first = pref.getDouble(_keyPosition(name.toString(),'first'));
-//     double? second = pref.getDouble(_keyPosition(name.toString(),'second'));
-//     if(first!=null&&second!=null){
-//       _positions[name]=Pair(first,second);
-//       _readinessPos[name]=true;
-//     }
-//   }
-//
-//   String _keyPosition(String name, String pair){
-//     return '${CommonParentWidget.PREF}$name$pair';
-//   }
-// }
 
