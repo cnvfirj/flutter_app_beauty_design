@@ -52,7 +52,9 @@ class MainWindow extends StatefulWidget {
 }
 
 class StateMainWindow extends State<MainWindow> {
+
   void _selectorDialogAddEx(bool visible) {
+    if(widget._visibleDialogAdd!=visible)
     setState(() {
       widget._visibleDialogAdd = visible;
     });
@@ -139,7 +141,7 @@ class StateMainWindow extends State<MainWindow> {
         mainParams: params,
         position: position,
         recovery: recovery,
-        text: S.maybeOf(context)!.widget_generator);
+        text: S.maybeOf(context)!.widget_add_exclude);
   }
 
   Widget _generation(Pair<double, double> params, BuildContext context,
@@ -189,10 +191,7 @@ class StateMainWindow extends State<MainWindow> {
   Pair<double, double> _startPositionDialogAddEx(Pair<double, double> params) {
     double indent =
         params.first < params.second ? params.first / 4 : params.second / 4;
-    double bottom = params.first < params.second
-        ? params.second - params.first / 4
-        : params.first - params.second / 4;
-    return Pair(bottom, indent);
+    return Pair(indent*3, indent);
   }
 
   Pair<double, double> _startPositionGenerate(Pair<double, double> params) {

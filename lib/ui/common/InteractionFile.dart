@@ -25,7 +25,6 @@ class MainPresenter
   }
 
 
-
   MainPresenter context(BuildContext context) {
     _context = context;
     return this;
@@ -80,6 +79,7 @@ class MainPresenter
         _massage = massage;
         viewMassage();
       },
+
       GlobalKeySource.KEY_APP_GENERATE,
     );
   }
@@ -127,15 +127,26 @@ class MainPresenter
   }
 
   @override
-  void addValueToDB(String value) {
-    patternExclude(FormGenerate(int.parse(value),FormMassage.Ready));
-    createExclude((massage){
-      print(massage);
-    }, GlobalKeySource.KEY_MAN_GENERATE);
+  void addValueToDB() {
+    if(tempValue()!=null){
+      FormGenerate form;
+      if(tempValue()!.length>0&&!tempValue()!.endsWith('-')){
+        form = FormGenerate(int.parse(tempValue()!),FormMassage.Ready);
+      }else{
+        form = FormGenerate(0,FormMassage.Correct_Fill_Ex);
+      }
+      patternExclude(form);
+      createExclude((massage){
+        setTempValue(null);
+        print(massage);
+      }, GlobalKeySource.KEY_MAN_GENERATE);
+    }
+
   }
 
   @override
   void exit() {
+    setTempValue(null);
     _selectorDialogAddEx(false);
   }
   /*ex mix*/

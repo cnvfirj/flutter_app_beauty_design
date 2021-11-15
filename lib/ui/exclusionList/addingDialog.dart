@@ -44,7 +44,6 @@ typedef ListenValue = Function(String value);
 
 class AddExclude extends StatelessWidget {
   final double _heightBottom;
-  String _enterValue = '';
 
   AddExclude(this._heightBottom);
 
@@ -53,9 +52,10 @@ class AddExclude extends StatelessWidget {
     return Consumer<PresenterExList>(builder:
         (BuildContext context, PresenterExList presenter, Widget? child) {
       return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InputExclude(S.maybeOf(context)!.enter, (value) {
-            _enterValue = value;
+            presenter.setTempValue(value);
           }),
           Container(
               height: _heightBottom,
@@ -86,7 +86,7 @@ class AddExclude extends StatelessWidget {
                           child: InkWell(
                             splashColor: Colors.black38,
                             onTap: () {
-                              presenter.addValueToDB(_enterValue);
+                              presenter.addValueToDB();
                             },
                             child: Icon(
                               Icons.add,
@@ -113,7 +113,7 @@ class InputExclude extends StatefulWidget {
 
 class _InputExcludeState extends State<InputExclude> {
   late TextEditingController _controller;
-  late FocusNode _focus;
+  // late FocusNode _focus;
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class _InputExcludeState extends State<InputExclude> {
                 _listenController();
                 widget._listenValue(_controller.text);
               }),
-            focusNode: _focus,
+            // focusNode: _focus,
             enableInteractiveSelection: false));
   }
 
@@ -144,13 +144,13 @@ class _InputExcludeState extends State<InputExclude> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    _focus = FocusNode();
+    // _focus = FocusNode();
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _focus.dispose();
+    // _focus.dispose();
     super.dispose();
   }
 

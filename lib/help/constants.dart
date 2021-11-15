@@ -48,7 +48,7 @@ class GlobalKeys{
   static final String KEY_POS_BOUNDARIES = 'Position_Common_Widget_Boundaries';
   static final String KEY_POS_EXDLUDES = 'Position_Common_Widget_Excludes';
   static final String KEY_POS_HISTORY = 'Position_Common_Widget_History';
-  static final String KEY_POS_DIALOG_ADD_EX = 'Position_Common_Widget_Add_Exclude';
+  static final String KEY_POS_DIALOG_ADD_EX = 'Position_Common_Widget_Add_Ex';
 
   static String key(NamesWidgets name, String prefix){
     if(name==NamesWidgets.GENERATE)return '$prefix${GlobalKeys.KEY_POS_GENERATE}';

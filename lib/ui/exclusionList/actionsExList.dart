@@ -15,6 +15,8 @@ typedef ObserverGridView = Function(List<ExEntity> list);
 
 mixin PresenterExList {
 
+  String? _tempValue;
+
   final ActionsList<ExEntity> _actions =
       ActionsList(CommonDatabase.inst().db.numberDao.allNumbersEx());
 
@@ -22,8 +24,16 @@ mixin PresenterExList {
 
   ActionsList get actionsList => _actions;
 
+  String? tempValue(){
+    return _tempValue;
+  }
+
   void setObserver(ObserverGridView observer) {
     _actions.setObserver(observer);
+  }
+
+  void setTempValue(String? value){
+    _tempValue = value;
   }
 
   void patternExclude(FormGenerate form) {
@@ -88,7 +98,7 @@ mixin PresenterExList {
 
   void manualExcludeEntry();
 
-  void addValueToDB(String value);
+  void addValueToDB();
 
   void exit();
 

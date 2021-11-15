@@ -46,7 +46,15 @@ mixin PresenterGenerator{
   void actionAddEx();
 }
 
-enum FormMassage{Generate_Number,Correct_Fields, Fill_Fields, Correct_Ex, Fill_Ex,Ready}
+enum FormMassage{
+  Generate_Number,
+  Correct_Fields,
+  Fill_Fields,
+  Correct_Ex,
+  Correct_Fill_Ex,
+  Fill_Ex,
+  Ready
+}
 
 class FormGenerate {
 
