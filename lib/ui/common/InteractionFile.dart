@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/common/CommonList.dart';
 import 'package:flutter_app_beauty_design/ui/common/di/init.dart';
+import 'package:flutter_app_beauty_design/ui/dialogs/exDialog.dart';
 import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundaries.dart';
 import 'package:flutter_app_beauty_design/ui/historyGeneration/actionsHistory.dart';
@@ -16,14 +16,23 @@ class MainPresenter
 
   late BuildContext _context;
 
+  late Function _callback;
+
   String _massage = "-";
 
   static MainPresenter inst() {
     return _single;
   }
 
+
+
   MainPresenter context(BuildContext context) {
     _context = context;
+    return this;
+  }
+
+  MainPresenter callback(Function function){
+    _callback  = function;
     return this;
   }
 
@@ -39,6 +48,7 @@ class MainPresenter
     return _single;
   }
 
+  /*gen mix*/
   @override
   String getMassage() {
     if (_massage == "-")
@@ -90,13 +100,17 @@ class MainPresenter
     super.endGenerate(form);
   }
 
+  /*gen mox*/
+
+  /*bound mix*/
   @override
   void setBound(String title, String value) {
-    if (title == S.maybeOf(_context)!.from)
-      from = value;
+    if (title == S.maybeOf(_context)!.from) from = value;
     else if (title == S.maybeOf(_context)!.to) to = value;
   }
+  /*bound mix*/
 
+  /*ex mix*/
   @override
   String createAddingMassageEx() {
     return S.maybeOf(_context)!.massage_ex_add;
@@ -106,6 +120,20 @@ class MainPresenter
   String createAlarmMassageEx(FormMassage m) {
     return S.maybeOf(_context)!.massage_ex_no_add;
   }
+
+  @override
+  void manualExcludeEntry() {
+
+    _callback();
+    // if(!Navigator.canPop(_context)){
+    //   showDialog(
+    //       builder: dialogAddEx,
+    //       context: _context).then((value){
+    //         print('$value');
+    //   });
+    // }
+  }
+  /*ex mix*/
 
 }
 
@@ -148,11 +176,6 @@ class CommonWriteReadPref{
 
   CommonWriteReadPref(this._pref);
 
-  // void init(Function function) async {
-  //   _pref = await SharedPreferences.getInstance();
-  //   await function();
-  // }
-  //
   SharedPreferences get pref =>_pref;
 
   Pair<double, double> readPosition(

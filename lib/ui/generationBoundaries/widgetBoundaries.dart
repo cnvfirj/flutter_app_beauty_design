@@ -51,28 +51,28 @@ class WidgetNumberBoundaries extends StatelessWidget {
       color: GlobalColors.COLOR_BACKGROUND_WIDGET,
       child: Row(
         children: [
-          Expanded(child: _InputBoundFields(S.maybeOf(context)!.from)),
+          Expanded(child: InputBoundFields(S.maybeOf(context)!.from)),
           Container(
             width: GlobalSizes.DELIMITER,
             color: GlobalColors.COLOR_WIN_BOUND,
           ),
-          Expanded(child: _InputBoundFields(S.maybeOf(context)!.to))
+          Expanded(child: InputBoundFields(S.maybeOf(context)!.to))
         ],
       ),
     );
   }
 }
 
-class _InputBoundFields extends StatefulWidget {
+class InputBoundFields extends StatefulWidget {
   final String _note;
 
-  _InputBoundFields(this._note);
+  InputBoundFields(this._note);
 
   @override
   State createState() => _InputBoundFieldsState();
 }
 
-class _InputBoundFieldsState extends State<_InputBoundFields> {
+class _InputBoundFieldsState extends State<InputBoundFields> {
   late TextEditingController _controller;
   late FocusNode _focus;
 

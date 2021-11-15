@@ -14,6 +14,7 @@ import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 typedef ObserverGridView = Function(List<ExEntity> list);
 
 mixin PresenterExList {
+
   final ActionsList<ExEntity> _actions =
       ActionsList(CommonDatabase.inst().db.numberDao.allNumbersEx());
 
@@ -84,6 +85,8 @@ mixin PresenterExList {
   }
 
   List<ExEntity> getList() => _actions.getList();
+
+  void manualExcludeEntry();
 
   String createAlarmMassageEx(FormMassage m);
 

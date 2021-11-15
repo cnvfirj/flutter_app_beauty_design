@@ -47,7 +47,11 @@ class MainWindow extends StatefulWidget {
 }
 
 class StateMainWindow extends State<MainWindow> {
-  late List<Widget> _children;
+
+
+  void dialogAddEx(){
+    print('add ex');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,7 @@ class StateMainWindow extends State<MainWindow> {
         providers: [
           Provider<PresenterGenerator>(
               create: (BuildContext context) =>
-                  MainPresenter.inst().context(context).generator()),
+                  MainPresenter.inst().context(context).callback(dialogAddEx).generator()),
           Provider<PresenterBoundaries>(
             create: (_)=>MainPresenter.inst().boundaries(),
           ),

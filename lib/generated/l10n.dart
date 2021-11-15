@@ -130,6 +130,16 @@ class S {
     );
   }
 
+  /// `Entering a value`
+  String get widget_add_exclude {
+    return Intl.message(
+      'Entering a value',
+      name: 'widget_add_exclude',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `from`
   String get from {
     return Intl.message(
@@ -145,6 +155,16 @@ class S {
     return Intl.message(
       'to',
       name: 'to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enter`
+  String get enter {
+    return Intl.message(
+      'enter',
+      name: 'enter',
       desc: '',
       args: [],
     );

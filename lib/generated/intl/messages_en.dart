@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Maximum search boundary is limited by value 9999999999."),
         "background_text_list_ex": MessageLookupByLibrary.simpleMessage(
             "The list of excludes is empty"),
+        "enter": MessageLookupByLibrary.simpleMessage("enter"),
         "from": MessageLookupByLibrary.simpleMessage("from"),
         "massage_blank_boundaries":
             MessageLookupByLibrary.simpleMessage("Enter the search range"),
@@ -48,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No exception added"),
         "title_app": MessageLookupByLibrary.simpleMessage("Any Randomizer"),
         "to": MessageLookupByLibrary.simpleMessage("to"),
+        "widget_add_exclude":
+            MessageLookupByLibrary.simpleMessage("Entering a value"),
         "widget_boundaries":
             MessageLookupByLibrary.simpleMessage("Search boundaries"),
         "widget_excluded":

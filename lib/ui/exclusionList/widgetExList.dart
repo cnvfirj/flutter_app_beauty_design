@@ -80,7 +80,9 @@ class WidgetListEx extends StatelessWidget {
                                  color: GlobalColors.COLOR_WIN_EX,
                                  child: InkWell(
                                    splashColor: Colors.black38,
-                                   onTap: () {},
+                                   onTap: () {
+                                     presenter.manualExcludeEntry();
+                                   },
                                    child: Icon(
                                      Icons.add,
                                      color: GlobalColors.COLOR_TEXT,

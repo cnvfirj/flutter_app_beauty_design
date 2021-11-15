@@ -48,11 +48,13 @@ class GlobalKeys{
   static final String KEY_POS_BOUNDARIES = 'Position_Common_Widget_Boundaries';
   static final String KEY_POS_EXDLUDES = 'Position_Common_Widget_Excludes';
   static final String KEY_POS_HISTORY = 'Position_Common_Widget_History';
+  static final String KEY_POS_DIALOG_ADD_EX = 'Position_Common_Widget_Add_Ex';
 
   static String key(NamesWidgets name, String prefix){
     if(name==NamesWidgets.GENERATE)return '$prefix${GlobalKeys.KEY_POS_GENERATE}';
     else if(name==NamesWidgets.BOUNDARIES)return '$prefix${GlobalKeys.KEY_POS_BOUNDARIES}';
     else if(name==NamesWidgets.EXCLUDES)return '$prefix${GlobalKeys.KEY_POS_EXDLUDES}';
+    else if(name==NamesWidgets.DIALOG_ADD_EX)return '$prefix${GlobalKeys.KEY_POS_DIALOG_ADD_EX}';
     else return '$prefix${GlobalKeys.KEY_POS_HISTORY}';
   }
 
@@ -62,7 +64,8 @@ enum NamesWidgets{
   GENERATE,
   BOUNDARIES,
   EXCLUDES,
-  HISTORY
+  HISTORY,
+  DIALOG_ADD_EX
 }
 
 
