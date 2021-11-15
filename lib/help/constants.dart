@@ -48,7 +48,7 @@ class GlobalKeys{
   static final String KEY_POS_BOUNDARIES = 'Position_Common_Widget_Boundaries';
   static final String KEY_POS_EXDLUDES = 'Position_Common_Widget_Excludes';
   static final String KEY_POS_HISTORY = 'Position_Common_Widget_History';
-  static final String KEY_POS_DIALOG_ADD_EX = 'Position_Common_Widget_Add_Ex';
+  static final String KEY_POS_DIALOG_ADD_EX = 'Position_Common_Widget_Add_Exclude';
 
   static String key(NamesWidgets name, String prefix){
     if(name==NamesWidgets.GENERATE)return '$prefix${GlobalKeys.KEY_POS_GENERATE}';
@@ -57,7 +57,11 @@ class GlobalKeys{
     else if(name==NamesWidgets.DIALOG_ADD_EX)return '$prefix${GlobalKeys.KEY_POS_DIALOG_ADD_EX}';
     else return '$prefix${GlobalKeys.KEY_POS_HISTORY}';
   }
+}
 
+class GlobalKeySource{
+  static final String KEY_APP_GENERATE = 'Generated Application';
+  static final String KEY_MAN_GENERATE = 'Generated Manual';
 }
 
 enum NamesWidgets{

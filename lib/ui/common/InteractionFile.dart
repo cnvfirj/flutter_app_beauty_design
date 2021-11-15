@@ -16,7 +16,7 @@ class MainPresenter
 
   late BuildContext _context;
 
-  late Function _callback;
+  late Function _selectorDialogAddEx;
 
   String _massage = "-";
 
@@ -31,8 +31,8 @@ class MainPresenter
     return this;
   }
 
-  MainPresenter callback(Function function){
-    _callback  = function;
+  MainPresenter selectorDialogAddEx(Function function){
+    _selectorDialogAddEx  = function;
     return this;
   }
 
@@ -80,7 +80,7 @@ class MainPresenter
         _massage = massage;
         viewMassage();
       },
-      'Generated Application',
+      GlobalKeySource.KEY_APP_GENERATE,
     );
   }
 
@@ -123,15 +123,20 @@ class MainPresenter
 
   @override
   void manualExcludeEntry() {
+     _selectorDialogAddEx(true);
+  }
 
-    _callback();
-    // if(!Navigator.canPop(_context)){
-    //   showDialog(
-    //       builder: dialogAddEx,
-    //       context: _context).then((value){
-    //         print('$value');
-    //   });
-    // }
+  @override
+  void addValueToDB(String value) {
+    patternExclude(FormGenerate(int.parse(value),FormMassage.Ready));
+    createExclude((massage){
+      print(massage);
+    }, GlobalKeySource.KEY_MAN_GENERATE);
+  }
+
+  @override
+  void exit() {
+    _selectorDialogAddEx(false);
   }
   /*ex mix*/
 

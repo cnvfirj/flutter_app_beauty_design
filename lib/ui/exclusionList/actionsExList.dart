@@ -88,6 +88,10 @@ mixin PresenterExList {
 
   void manualExcludeEntry();
 
+  void addValueToDB(String value);
+
+  void exit();
+
   String createAlarmMassageEx(FormMassage m);
 
   String createAddingMassageEx();
