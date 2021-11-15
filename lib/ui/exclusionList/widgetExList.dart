@@ -106,7 +106,6 @@ class WidgetListEx extends StatelessWidget {
                                    ),
                                  ))),
                        ]))
-
            ]);
     });
   }
