@@ -27,8 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Minimum search boundary is limited by value -9999999999."),
         "background_text_3": MessageLookupByLibrary.simpleMessage(
             "Maximum search boundary is limited by value 9999999999."),
-        "background_text_list_ex": MessageLookupByLibrary.simpleMessage(
-            "The list of excludes is empty"),
+        "background_text_list_ex":
+            MessageLookupByLibrary.simpleMessage("The list is empty"),
         "enter": MessageLookupByLibrary.simpleMessage("enter"),
         "from": MessageLookupByLibrary.simpleMessage("from"),
         "massage_blank_boundaries":

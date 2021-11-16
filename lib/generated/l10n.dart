@@ -250,10 +250,10 @@ class S {
     );
   }
 
-  /// `The list of excludes is empty`
+  /// `The list is empty`
   String get background_text_list_ex {
     return Intl.message(
-      'The list of excludes is empty',
+      'The list is empty',
       name: 'background_text_list_ex',
       desc: '',
       args: [],
