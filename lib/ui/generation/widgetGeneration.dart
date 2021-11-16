@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonBottomPanel.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'actionsGenerator.dart';
@@ -61,45 +62,15 @@ class WidgetNumberGenerator extends StatelessWidget {
             child: TextGenerator(),
             onTap: _tapText,
           )),
-          Container(
-              // color: GlobalColors.COLOR_WIN_GENERATOR,
-              height: _heightBottom,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                      child: Material(
-                          color: GlobalColors.COLOR_WIN_GENERATOR,
-                          child: InkWell(
-                            splashColor: Colors.black38,
-                            onTap: () {
-                              presenter.actionGenerate();
-                            },
-                            child: Icon(
-                              Icons.all_inclusive,
-                              color: GlobalColors.COLOR_TEXT,
-                            ),
-                          ))),
-                  Container(
-                    width: GlobalSizes.DELIMITER,
-                    color: GlobalColors.COLOR_BACKGROUND_WIDGET,
-                  ),
-                  Expanded(
-                      child: Material(
-                          color: GlobalColors.COLOR_WIN_GENERATOR,
-                          child: InkWell(
-                            splashColor: Colors.black38,
-                            onTap: () {
-                              presenter.actionAddEx();
-                            },
-                            child: Icon(
-                              Icons.add,
-                              color: GlobalColors.COLOR_TEXT,
-                            ),
-                          ))),
-                ],
-              ))
+          TwoBottomButtonsPanel(
+              heightBottom: _heightBottom,
+              color: GlobalColors.COLOR_WIN_GENERATOR,
+              one: presenter.actionGenerate,
+              two: presenter.actionAddEx,
+              icons: [
+                Icons.create,
+                Icons.add
+              ])
         ],
       );
     });

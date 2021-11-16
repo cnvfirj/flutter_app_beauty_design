@@ -17,6 +17,7 @@ import 'package:flutter_app_beauty_design/ui/generation/widgetGeneration.dart'
     as generator;
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/widgetBoundaries.dart'
     as boundaries;
+import 'package:flutter_app_beauty_design/ui/historyGeneration/actionsHistory.dart';
 import 'package:flutter_app_beauty_design/ui/historyGeneration/widgetHistory.dart'
     as history;
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -53,6 +54,7 @@ class MainWindow extends StatefulWidget {
 
 class StateMainWindow extends State<MainWindow> {
 
+
   void _selectorDialogAddEx(bool visible) {
     if(widget._visibleDialogAdd!=visible)
     setState(() {
@@ -74,8 +76,11 @@ class StateMainWindow extends State<MainWindow> {
           ),
           Provider<PresenterExList>(
             create: (_) => MainPresenter.inst()
-                .selectorDialogAddEx(_selectorDialogAddEx)
+                .selectorDialogAddEx(_selectorDialogAddEx)//переключатель состояния диалога ввода исключений
                 .ex(),
+          ),
+          Provider<PresenterHistory>(
+            create: (_) =>MainPresenter.inst().hist(),
           ),
           Provider<CommonProvider>(
             create: (_) => CommonProvider.inst(),
@@ -99,6 +104,7 @@ class StateMainWindow extends State<MainWindow> {
             ]))));
   }
 
+  /*если надо добавляем диалог ручного ввода исключений*/
   List<Widget> _checkDialogEx(
       Pair<double, double> params, CommonProvider provider) {
     if (widget._visibleDialogAdd)
@@ -156,12 +162,8 @@ class StateMainWindow extends State<MainWindow> {
 
   Widget _history(Pair<double, double> params, BuildContext context,
       Pair<double, double> position) {
-    Widget child = Container(
-      color: Colors.black12,
-    );
     Pair<double, double> recovery = _startPositionHistory(params);
     return history.winHistory(
-        child: child,
         mainParams: params,
         position: position,
         recovery: recovery,

@@ -7,7 +7,7 @@ import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundar
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../common/CommonWidget.dart';
+import '../common/commonWidget.dart';
 
 WidgetTranslate winBoundaries({
   required Pair<double, double> mainParams,

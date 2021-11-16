@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
-import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BuildCoefficient{

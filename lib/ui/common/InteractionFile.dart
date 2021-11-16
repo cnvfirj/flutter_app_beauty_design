@@ -36,15 +36,19 @@ class MainPresenter
   }
 
   PresenterGenerator generator() {
-    return _single;
+    return this;
   }
 
   PresenterBoundaries boundaries() {
-    return _single;
+    return this;
   }
 
   PresenterExList ex() {
-    return _single;
+    return this;
+  }
+
+  PresenterHistory hist(){
+    return this;
   }
 
   /*gen mix*/
@@ -150,6 +154,18 @@ class MainPresenter
     _selectorDialogAddEx(false);
   }
   /*ex mix*/
+
+  /*hist mix*/
+  @override
+  void clearListHistory() {
+
+  }
+
+  @override
+  void sortListHistory() {
+
+  }
+  /*hist mix*/
 
 }
 

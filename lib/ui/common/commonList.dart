@@ -35,10 +35,9 @@ class StateCommonGridView extends State<CommonGridView>{
   @override
   Widget build(BuildContext context) {
     return Consumer<ActionsList>(builder:(BuildContext context, ActionsList actions, Widget? child){
-
       actions.setObserver((list){
         setState(() {
-          // widget._list = list;
+          print('StateCommonGridView list state ');
         });
       });
 
@@ -91,7 +90,6 @@ class StateCommonGridView extends State<CommonGridView>{
 class ActionsList<T extends ExEntity> {
 
   Function(List<T> list)? _observerGridView;
-  // late Function(Future<List<T>> future) _loaderList;
   List<T>_list = [];
 
   final Future<List<T>> _loader;
@@ -102,7 +100,8 @@ class ActionsList<T extends ExEntity> {
   void setObserver(Function(List<T> list) observer) {
     bool primary = _observerGridView==null;
     _observerGridView = observer;
-    if(primary)_loader.then((list) {
+    if(primary)
+      _loader.then((list) {
       setChange(list);
     });
   }

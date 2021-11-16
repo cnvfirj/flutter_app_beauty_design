@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_beauty_design/ui/MainWindow.dart';
-import 'package:flutter_app_beauty_design/ui/common/InteractionFile.dart';
+import 'package:flutter_app_beauty_design/ui/mainWindow.dart';
 import 'package:flutter_app_beauty_design/ui/common/di/init.dart';
 
 void main() {

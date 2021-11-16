@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/common/CommonList.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonBottomPanel.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonList.dart';
+import 'package:flutter_app_beauty_design/ui/db/commonFloor.dart';
 import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
 import 'package:provider/provider.dart';
 
-import '../common/CommonWidget.dart';
+import '../common/commonWidget.dart';
 
 Widget winExcludes({
-  // required Widget child,
   required Pair<double, double> mainParams,
   required Pair<double, double> position,
   required Pair<double, double> recovery,
@@ -39,7 +40,6 @@ Widget winExcludes({
       text: text,
       size: Pair(width, mainParams.second),
     ),
-    // mainParams: mainParams,
     widgetParams: Pair(width, height),
     borderShift: Rect.fromLTRB(0, 0, 0, mainParams.second - bottom / 2),
     position: position,
@@ -59,7 +59,13 @@ class WidgetListEx extends StatelessWidget {
         (BuildContext context, PresenterExList presenter, Widget? child){
            return Column(children: [
              Provider<ActionsList>(
-               create: (_)=>presenter.actionsList,
+               create: (_){
+                 ActionsList<ExEntity> _actions =
+                 ActionsList(CommonDatabase.inst().db.numberDao.allNumbersEx());
+                 presenter.setActionsEx(_actions);
+                 return _actions;
+
+               },
                child:  Expanded(
                    child: CommonGridView(
                      columns: 2,
@@ -68,44 +74,15 @@ class WidgetListEx extends StatelessWidget {
                      marginRow: 0.1,
                      aspectRatio: 1 / 1,
                    )),),
-              Container(
-                 // color: GlobalColors.COLOR_WIN_GENERATOR,
-                   height: _heightBottom,
-                   child: Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                       children: [
-                         Expanded(
-                             child: Material(
-                                 color: GlobalColors.COLOR_WIN_EX,
-                                 child: InkWell(
-                                   splashColor: Colors.black38,
-                                   onTap: () {
-                                     presenter.manualExcludeEntry();
-                                   },
-                                   child: Icon(
-                                     Icons.add,
-                                     color: GlobalColors.COLOR_TEXT,
-                                   ),
-                                 ))),
-                         Container(
-                           width: GlobalSizes.DELIMITER,
-                           color: GlobalColors.COLOR_BACKGROUND_WIDGET,
-                         ),
-                         Expanded(
-                             child: Material(
-                                 color: GlobalColors.COLOR_WIN_EX,
-                                 child: InkWell(
-                                   splashColor: Colors.black38,
-                                   onTap: () {
-                                     presenter.clearTable();
-                                   },
-                                   child: Icon(
-                                     Icons.clear,
-                                     color: GlobalColors.COLOR_TEXT,
-                                   ),
-                                 ))),
-                       ]))
+             TwoBottomButtonsPanel(
+                 heightBottom: _heightBottom,
+                 color: GlobalColors.COLOR_WIN_EX,
+                 one: presenter.clearTable,
+                 two: presenter.manualExcludeEntry,
+                 icons: [
+                   Icons.clear,
+                   Icons.add
+                 ])
            ]);
     });
   }

@@ -1,4 +1,4 @@
-import 'package:flutter_app_beauty_design/ui/common/CommonList.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonList.dart';
 import 'package:flutter_app_beauty_design/ui/db/commonFloor.dart';
 import 'package:flutter_app_beauty_design/ui/generation/actionsGenerator.dart';
 
@@ -17,19 +17,22 @@ mixin PresenterExList {
 
   String? _tempValue;
 
-  final ActionsList<ExEntity> _actions =
-      ActionsList(CommonDatabase.inst().db.numberDao.allNumbersEx());
+  late ActionsList<ExEntity> _actions;
 
   FormGenerate _form = FormGenerate(0, FormMassage.Generate_Number);
 
   ActionsList get actionsList => _actions;
 
+
   String? tempValue(){
     return _tempValue;
   }
 
-  void setObserver(ObserverGridView observer) {
-    _actions.setObserver(observer);
+  // void setObserver(ObserverGridView observer) {
+  //   _actions.setObserver(observer);
+  // }
+  void setActionsEx(ActionsList<ExEntity> actions){
+    _actions = actions;
   }
 
   void setTempValue(String? value){

@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
-import 'package:flutter_app_beauty_design/ui/common/CommonWidget.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonBottomPanel.dart';
+import 'package:flutter_app_beauty_design/ui/common/commonWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'actionsExList.dart';
@@ -57,44 +58,15 @@ class AddExclude extends StatelessWidget {
           InputExclude(S.maybeOf(context)!.enter, (value) {
             presenter.setTempValue(value);
           }),
-          Container(
-              height: _heightBottom,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                      child: Material(
-                          color: GlobalColors.COLOR_WIN_EX,
-                          child: InkWell(
-                            splashColor: Colors.black38,
-                            onTap: () {
-                              presenter.exit();
-                            },
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: GlobalColors.COLOR_TEXT,
-                            ),
-                          ))),
-                  Container(
-                    width: GlobalSizes.DELIMITER,
-                    color: GlobalColors.COLOR_BACKGROUND_WIDGET,
-                  ),
-                  Expanded(
-                      child: Material(
-                          color: GlobalColors.COLOR_WIN_EX,
-                          child: InkWell(
-                            splashColor: Colors.black38,
-                            onTap: () {
-                              presenter.addValueToDB();
-                            },
-                            child: Icon(
-                              Icons.add,
-                              color: GlobalColors.COLOR_TEXT,
-                            ),
-                          ))),
-                ],
-              ))
+          TwoBottomButtonsPanel(
+              heightBottom: _heightBottom,
+              color: GlobalColors.COLOR_WIN_EX,
+              one: presenter.exit,
+              two: presenter.addValueToDB,
+              icons: [
+                Icons.arrow_back,
+                Icons.add
+              ])
         ],
       );
     });
