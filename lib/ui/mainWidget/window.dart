@@ -22,7 +22,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Consumer<CommonProvider>(builder:(BuildContext context, CommonProvider provider, Widget? child){
       return AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: GlobalColors.COLOE_APP_BAR,
         title: Text(S.maybeOf(context)!.title_app),
         elevation: 30,
         shape: RoundedRectangleBorder(

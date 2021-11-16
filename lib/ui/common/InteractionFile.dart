@@ -187,10 +187,15 @@ class CommonProvider extends CommonWriteReadPref with CommonObservable {
 typedef StartAnim = Function();
 
 mixin CommonObservable {
+
   Map<NamesWidgets, StartAnim> _observer = {};
 
   void observer(StartAnim value, NamesWidgets name) {
     _observer[name] = value;
+  }
+
+  void dispose(NamesWidgets name){
+     _observer.remove(name);
   }
 
   void action() {

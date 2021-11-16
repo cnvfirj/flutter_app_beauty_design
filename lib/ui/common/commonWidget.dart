@@ -83,12 +83,15 @@ class WidgetTranslate extends StatefulWidget {
 }
 
 class StateWidgetTranslate extends State<WidgetTranslate> {
+
+  late CommonProvider _provider;
   @override
   Widget build(BuildContext context) {
     return Consumer(builder:
         (BuildContext context, CommonProvider provider, Widget? child) {
-
+      _provider = provider;
       provider.observer(() => _animRecovery(), widget._id);
+      // provider.state()
       return AnimatedPositioned(
         top: widget._position.first,
         left: widget._position.second,
@@ -153,4 +156,9 @@ class StateWidgetTranslate extends State<WidgetTranslate> {
     }
   }
 
+  @override
+  void dispose() {
+    _provider.dispose(widget._id);
+     super.dispose();
+  }
 }
