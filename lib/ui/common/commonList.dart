@@ -83,9 +83,11 @@ class StateCommonGridView extends State<CommonGridView>{
 
 }
 
-
+enum Sort{Range_Up, Range_Down, Id_Up, Id_Down}
 
 class ActionsList<T extends ExEntity> {
+
+  Sort _sort = Sort.Range_Up;
 
   Function(List<T> list)? _observerGridView;
   List<T>_list = [];
@@ -110,8 +112,15 @@ class ActionsList<T extends ExEntity> {
     });
   }
 
+  void selectorSort(){
+    int index  = Sort.values.indexOf(_sort);
+    index++;
+    if(index>=Sort.values.length)index = 0;
+    _sort = Sort.values[index];
+  }
+
   void setChange(List<T> list){
-    _list = list;
+    _list = _sortList(list);
     if(_observerGridView!=null){
       _observerGridView!(list);
     }
@@ -119,6 +128,19 @@ class ActionsList<T extends ExEntity> {
 
   List<T>getList(){
     return _list;
+  }
+
+  List<T> _sortList(List<T>list){
+    if(_sort==Sort.Id_Down){
+      list.sort((a,b)=>a.id!.compareTo(b.id!));
+    }else if(_sort==Sort.Id_Up){
+      list.sort((a,b)=>b.id!.compareTo(a.id!));
+    }else if(_sort==Sort.Range_Up){
+      list.sort((a,b)=>a.number.compareTo(b.number));
+    }else if(_sort==Sort.Range_Down){
+      list.sort((a,b)=>b.number.compareTo(a.number));
+    }
+    return list;
   }
 
 }
