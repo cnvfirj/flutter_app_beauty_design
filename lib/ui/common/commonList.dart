@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
+import 'package:flutter_app_beauty_design/ui/common/itemList.dart';
 import 'package:flutter_app_beauty_design/ui/db/commonFloor.dart';
 import 'package:provider/provider.dart';
 
@@ -58,9 +59,12 @@ class StateCommonGridView extends State<CommonGridView>{
                 childAspectRatio: widget._aspectRatio,
               ),
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  child: Text(actions.getList()[index].number.toString()),
+                return ItemTtranslate<ExEntity>(
+                  entity:actions.getList()[index]
                 );
+                // return Card(
+                //   child: Text(actions.getList()[index].number.toString()),
+                // );
               },
             ),
           ],
@@ -90,6 +94,7 @@ class ActionsList<T extends ExEntity> {
   Sort _sort = Sort.Range_Up;
 
   Function(List<T> list)? _observerGridView;
+
   List<T>_list = [];
 
   final Future<List<T>> _loader;
@@ -141,6 +146,10 @@ class ActionsList<T extends ExEntity> {
       list.sort((a,b)=>b.number.compareTo(a.number));
     }
     return list;
+  }
+
+  Type typeOf(){
+    return T;
   }
 
 }
