@@ -93,6 +93,7 @@ class MainPresenter
     /*регистрируем в исключениях конец генерации числа.
     * его значение*/
     patternExclude(form);
+    addValueToHist(form);
     if (form.massage == FormMassage.Ready)
       _massage = form.number.toString();
     else if (form.massage == FormMassage.Correct_Ex)

@@ -57,10 +57,10 @@ mixin PresenterExList {
       function(createAlarmMassageEx(_form.massage));
     else {
       /*если генерация готова, то проверяем результат по базе*/
-      findEntity(_form.number).then((entity) {
+      findEntityEx(_form.number).then((entity) {
         /*если в базе результата нет, то добавляем его*/
         if (entity == null) {
-          insertEntity(ExEntity(number: _form.number, source: source))
+          insertEntityEx(ExEntity(number: _form.number, source: source))
               .then((id) {
             function(createAddingMassageEx());
             /*указываем что список исключений в бд изменен*/
@@ -85,11 +85,11 @@ mixin PresenterExList {
     return _database().allNumbersEx();
   }
 
-  Future<ExEntity?> findEntity(int number) {
+  Future<ExEntity?> findEntityEx(int number) {
     return _database().findExEntityToNumber(number);
   }
 
-  Future<int> insertEntity(ExEntity entity) {
+  Future<int> insertEntityEx(ExEntity entity) {
     return _database().insertEx(entity);
   }
 
