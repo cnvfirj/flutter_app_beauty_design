@@ -158,13 +158,16 @@ class _$NumberDao extends NumberDao {
   Future<List<ExEntity>> allNumbersEx() async {
     return _queryAdapter.queryList('SELECT * FROM ex',
         mapper: (Map<String, Object?> row) => ExEntity(
-            number: row['number'] as int, source: row['source'] as String));
+            id: row['id'] as int?,
+            number: row['number'] as int,
+            source: row['source'] as String));
   }
 
   @override
   Future<List<HistEntity>> allNumbersHist() async {
     return _queryAdapter.queryList('SELECT * FROM hist',
         mapper: (Map<String, Object?> row) => HistEntity(
+            id: row['id'] as int?,
             number: row['number'] as int,
             source: row['source'] as String,
             from: row['from'] as int,
@@ -174,14 +177,16 @@ class _$NumberDao extends NumberDao {
   @override
   Future<List<int>> valuesEx() async {
     return await _queryAdapter.queryList('SELECT number FROM ex',
-        mapper: (Map<String, Object?>row) => row['number'] as int);
+        mapper: (Map<String, Object?>row)=>row['number']as int);
   }
 
   @override
   Future<ExEntity?> findExEntityToNumber(int number) async {
     return _queryAdapter.query('SELECT * FROM ex WHERE number = ?1',
         mapper: (Map<String, Object?> row) => ExEntity(
-            number: row['number'] as int, source: row['source'] as String),
+            id: row['id'] as int?,
+            number: row['number'] as int,
+            source: row['source'] as String),
         arguments: [number]);
   }
 

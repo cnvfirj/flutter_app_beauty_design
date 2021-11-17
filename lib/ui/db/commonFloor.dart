@@ -23,11 +23,13 @@ class CommonDatabase{
 
 }
 
-/*  @override
+/*
+ @override
   Future<List<int>> valuesEx() async {
     return await _queryAdapter.queryList('SELECT number FROM ex',
         mapper: (Map<String, Object?>row)=>row['number']as int);
-  }*/
+  }
+  */
 
 /*https://floor.codes/getting-started*/
 @Database(version: 2,entities: [ExEntity, HistEntity])
@@ -46,7 +48,7 @@ class ExEntity{
   @ColumnInfo(name:'source')
   final String source;
 
-  ExEntity({required this.number,required this.source});
+  ExEntity({this.id,required this.number,required this.source});
 }
 
 @Entity(tableName: 'hist')
@@ -56,8 +58,8 @@ class HistEntity extends ExEntity{
   @ColumnInfo(name: 'to')
   final int to;
 
-  HistEntity({required int number,required String source,required this.from, required this.to}):
-  super(number: number,source: source);
+  HistEntity({int?id,required int number,required String source,required this.from, required this.to}):
+  super(id:id,number: number,source: source);
 }
 
 @dao

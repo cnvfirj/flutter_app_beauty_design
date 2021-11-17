@@ -157,15 +157,15 @@ class MainPresenter
   /*ex mix*/
 
   /*hist mix*/
-  @override
-  void clearListHistory() {
+  // @override
+  // void clearListHistory() {
+  //
+  // }
 
-  }
-
-  @override
-  void sortListHistory() {
-
-  }
+  // @override
+  // void sortListHistory() {
+  //
+  // }
   /*hist mix*/
 
 }

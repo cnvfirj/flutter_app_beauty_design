@@ -36,9 +36,7 @@ class StateCommonGridView extends State<CommonGridView>{
   Widget build(BuildContext context) {
     return Consumer<ActionsList>(builder:(BuildContext context, ActionsList actions, Widget? child){
       actions.setObserver((list){
-        setState(() {
-          print('StateCommonGridView list state ');
-        });
+        setState(() {});
       });
 
       return Container(

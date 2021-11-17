@@ -61,7 +61,7 @@ class WidgetListHist extends StatelessWidget {
           children: [
             Provider<ActionsList>(
               create: (_) {
-                ActionsList<HistEntity> _actions =
+                final ActionsList<HistEntity> _actions =
                 ActionsList(CommonDatabase.inst().db.numberDao.allNumbersHist());
                 presenter.setActionsHist(_actions);
                 return _actions;
