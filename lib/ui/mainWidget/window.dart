@@ -36,7 +36,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
               // _actionButton(1);
               provider.action();
             },
-            icon: Icon(Icons.hdr_auto_outlined,color: Colors.white,),
+            icon: Icon(IconData(0xf1b8,fontFamily: 'MyFlutterIconsApp'),color: Colors.white,),
           )
           // icon: Icon(Icons.ac_unit))
         ],

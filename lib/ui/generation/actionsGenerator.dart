@@ -274,7 +274,7 @@ abstract class _SourceGenerate {
 
   void _generate(GetNumber number) {
     /*Задержка для эмуляции длительности процесса*/
-    Future.delayed(const Duration(seconds: 2),(){
+    Future.delayed(const Duration(milliseconds: 500),(){
         _future().then((value) => number(value));
     });
 
