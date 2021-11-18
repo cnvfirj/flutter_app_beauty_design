@@ -68,7 +68,7 @@ class WidgetNumberGenerator extends StatelessWidget {
               one: presenter.actionGenerate,
               two: presenter.actionAddEx,
               icons: [
-                IconData(0xf0eb,fontFamily: 'MyFlutterIconsApp'),
+                CustomIcons.lamp,
                 Icons.add
               ])
         ],

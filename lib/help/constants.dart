@@ -72,5 +72,9 @@ enum NamesWidgets{
   HISTORY,
   DIALOG_ADD_EX
 }
+class CustomIcons{
+  static const IconData rebut = IconData(0xf1b8, fontFamily: 'MyFlutterIconsApp');
+  static const IconData lamp = IconData(0xf0eb, fontFamily: 'MyFlutterIconsApp');
+}
 
 
