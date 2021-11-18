@@ -34,7 +34,11 @@ mixin PresenterExList {
   }
 
   void tapAction(ExEntity entity){
-    print('tap ${entity.number}');
+    deleteItemEx(entity).then((_){
+      listEntityEx().then((list) {
+        _actions.setChange(list);
+      });
+    });
   }
 
   void setTempValue(String? value){
@@ -93,6 +97,10 @@ mixin PresenterExList {
 
   Future<int> insertEntityEx(ExEntity entity) {
     return _database().insertEx(entity);
+  }
+
+  Future<void>deleteItemEx(ExEntity entity){
+    return _database().deleteEx(entity);
   }
 
   NumberDao _database(){
