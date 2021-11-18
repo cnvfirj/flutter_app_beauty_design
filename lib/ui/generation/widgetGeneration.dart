@@ -68,7 +68,7 @@ class WidgetNumberGenerator extends StatelessWidget {
               one: presenter.actionGenerate,
               two: presenter.actionAddEx,
               icons: [
-                Icons.create,
+                Icons.handyman_rounded,
                 Icons.add
               ])
         ],

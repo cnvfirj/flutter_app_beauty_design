@@ -80,11 +80,11 @@ class WidgetListHist extends StatelessWidget {
             TwoBottomButtonsPanel(
                 heightBottom: _heightBottom,
                 color: GlobalColors.COLOR_WIN_HIST,
-                one: presenter.sortListHistory,
-                two: presenter.clearListHistory,
+                one: presenter.clearListHistory,
+                two: presenter.sortListHistory,
                 icons: [
-                  Icons.sort,
-                  Icons.clear
+                  Icons.clear,
+                  Icons.sort
                 ])
           ],
         );

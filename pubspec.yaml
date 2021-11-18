@@ -70,6 +70,11 @@ flutter:
     - family: Lobster
       fonts:
         - asset: fonts/Lobster-Regular.ttf
+    - family: MyFlutterIconsApp
+      fonts:
+        - asset: fonts/MyFlutterIconsApp.ttf
+
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
