@@ -64,17 +64,4 @@ mixin PresenterHistory {
     });
   }
 
-  // List<HistEntity> _sortList(List<HistEntity>list){
-  //   /*someObjects.sort((a, b) => a.someProperty.compareTo(b.someProperty));*/
-  //   if(_sort==Sort.Id_Down){
-  //     list.sort((a,b)=>a.id!.compareTo(b.id!));
-  //   }else if(_sort==Sort.Id_Up){
-  //     list.sort((a,b)=>b.id!.compareTo(a.id!));
-  //   }else if(_sort==Sort.Range_Up){
-  //     list.sort((a,b)=>a.number.compareTo(b.number));
-  //   }else if(_sort==Sort.Range_Down){
-  //     list.sort((a,b)=>b.number.compareTo(a.number));
-  //   }
-  //   return list;
-  // }
 }

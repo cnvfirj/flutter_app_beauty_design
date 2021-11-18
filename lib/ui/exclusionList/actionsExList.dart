@@ -28,11 +28,13 @@ mixin PresenterExList {
     return _tempValue;
   }
 
-  // void setObserver(ObserverGridView observer) {
-  //   _actions.setObserver(observer);
-  // }
   void setActionsEx(ActionsList<ExEntity> actions){
     _actions = actions;
+    _actions.setTapItem(tapAction);
+  }
+
+  void tapAction(ExEntity entity){
+    print('tap ${entity.number}');
   }
 
   void setTempValue(String? value){

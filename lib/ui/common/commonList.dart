@@ -13,7 +13,6 @@ class CommonGridView extends StatefulWidget{
   final double _aspectRatio;
   final double _marginCol;
   final double _marginRow;
-  // List<ExEntity>_list = [];
 
   CommonGridView({
     required Axis axis,
@@ -60,24 +59,15 @@ class StateCommonGridView extends State<CommonGridView>{
               ),
               itemBuilder: (BuildContext context, int index) {
                 return ItemTtranslate<ExEntity>(
+                  tapItem: actions.tapItem(),
                   entity:actions.getList()[index]
                 );
-                // return Card(
-                //   child: Text(actions.getList()[index].number.toString()),
-                // );
               },
             ),
           ],
         )
       );
     });
-  }
-
-
-  @override
-  void initState() {
-    super.initState();
-
   }
 
   String _createMassage(BuildContext context,int i){
@@ -95,6 +85,8 @@ class ActionsList<T extends ExEntity> {
 
   Function(List<T> list)? _observerGridView;
 
+  TapItem? _tapItem;
+
   List<T>_list = [];
 
   final Future<List<T>> _loader;
@@ -110,6 +102,8 @@ class ActionsList<T extends ExEntity> {
       setChange(list);
     });
   }
+
+  void setTapItem(TapItem tap)=>_tapItem = tap;
 
   void scanTable() {
     _loader.then((list) {
@@ -148,8 +142,8 @@ class ActionsList<T extends ExEntity> {
     return list;
   }
 
-  Type typeOf(){
-    return T;
-  }
+  TapItem? tapItem()=>_tapItem;
+
+
 
 }
