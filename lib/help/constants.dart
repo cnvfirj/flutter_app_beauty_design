@@ -73,8 +73,16 @@ enum NamesWidgets{
   DIALOG_ADD_EX
 }
 class CustomIcons{
-  static const IconData rebut = IconData(0xf1b8, fontFamily: 'MyFlutterIconsApp');
-  static const IconData lamp = IconData(0xf0eb, fontFamily: 'MyFlutterIconsApp');
+  // static const IconData rebut = IconData(0xf1b8, fontFamily: 'MyFlutterIconsApp');
+  // static const IconData lamp = IconData(0xf0eb, fontFamily: 'MyFlutterIconsApp');
+  static const IconData lamp = IconData(0xf0eb, fontFamily: 'MyFlutterApp');
+  static const IconData rebut = IconData(0xe800, fontFamily: 'MyFlutterIconsApp');
+  static const IconData back = IconData(0xe801, fontFamily: 'MyFlutterIconsApp');
+  static const IconData sort = IconData(0xf0dc, fontFamily: 'MyFlutterIconsApp');
+  static const IconData clear = IconData(0xe803, fontFamily: 'MyFlutterIconsApp');
+  static const IconData add = IconData(0xe802, fontFamily: 'MyFlutterIconsApp');
+
+
 }
 
 

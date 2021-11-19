@@ -83,8 +83,8 @@ class WidgetListHist extends StatelessWidget {
                 one: presenter.clearListHistory,
                 two: presenter.sortListHistory,
                 icons: [
-                  Icons.clear,
-                  Icons.sort
+                  CustomIcons.clear,
+                  CustomIcons.sort
                 ])
           ],
         );

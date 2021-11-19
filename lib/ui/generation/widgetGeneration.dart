@@ -69,7 +69,7 @@ class WidgetNumberGenerator extends StatelessWidget {
               two: presenter.actionAddEx,
               icons: [
                 CustomIcons.lamp,
-                Icons.add
+                CustomIcons.add
               ])
         ],
       );

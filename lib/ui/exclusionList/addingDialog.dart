@@ -64,8 +64,8 @@ class AddExclude extends StatelessWidget {
               one: presenter.exit,
               two: presenter.addValueToDB,
               icons: [
-                Icons.arrow_back,
-                Icons.add
+                CustomIcons.back,
+                CustomIcons.add
               ])
         ],
       );
@@ -85,7 +85,6 @@ class InputExclude extends StatefulWidget {
 
 class _InputExcludeState extends State<InputExclude> {
   late TextEditingController _controller;
-  // late FocusNode _focus;
 
   @override
   Widget build(BuildContext context) {

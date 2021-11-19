@@ -3,7 +3,6 @@ import 'package:flutter_app_beauty_design/generated/l10n.dart';
 import 'package:flutter_app_beauty_design/help/byCode.dart';
 import 'package:flutter_app_beauty_design/help/constants.dart';
 import 'package:flutter_app_beauty_design/ui/common/di/init.dart';
-import 'package:flutter_app_beauty_design/ui/dialogs/exDialog.dart';
 import 'package:flutter_app_beauty_design/ui/exclusionList/actionsExList.dart';
 import 'package:flutter_app_beauty_design/ui/generationBoundaries/actionsBoundaries.dart';
 import 'package:flutter_app_beauty_design/ui/historyGeneration/actionsHistory.dart';

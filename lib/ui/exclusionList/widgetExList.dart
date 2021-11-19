@@ -80,8 +80,8 @@ class WidgetListEx extends StatelessWidget {
                  one: presenter.clearTable,
                  two: presenter.manualExcludeEntry,
                  icons: [
-                   Icons.clear,
-                   Icons.add
+                   CustomIcons.clear,
+                   CustomIcons.add
                  ])
            ]);
     });
