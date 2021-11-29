@@ -61,7 +61,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
-    - assets/values/
   fonts:
     - family: Monserat
       fonts:
