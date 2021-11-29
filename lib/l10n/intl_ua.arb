@@ -1,0 +1,27 @@
+{
+  "title_app": "Any Randomizer",
+  "background_text_1": "Діапазон пошуку випадкового числа не може перевищувати 4294967295.",
+  "background_text_2": "Мінімальна межа пошуку обмежена значенням -9999999999.",
+  "background_text_3": "Максимальна межа пошуку обмежена значенням 9999999999.",
+
+  "widget_generator": "Генератор чисел",
+  "widget_history" : "Історія сгенерованих чисел",
+  "widget_excluded" : "Виключені значення",
+  "widget_boundaries" : "Межі пошуку",
+  "widget_add_exclude" : "Введи значення",
+  "from" : "від",
+  "to" :"до",
+  "enter": "Готово",
+  "massage_blank_field_generator": "Згенеруй випадкове число",
+  "massage_blank_fields_boundaries": "Встановіть межі генерації чисел",
+  "massage_error_fields_boundaries": "Налаштуй межі генерації чисел",
+  "massage_error_ex": "Відкоригуй список виключень",
+  "massage_blank_boundaries": "Введи діапазон пошуку",
+
+  "massage_ex_add": "Виключення додано",
+  "massage_ex_no_add": "Виключення не додано",
+  "massage_ex_fill": "Виключення вже є у списку",
+
+  "background_text_list_ex": "Список порожній"
+  
+}
