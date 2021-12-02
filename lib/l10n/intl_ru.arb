@@ -1,0 +1,27 @@
+{
+  "title_app": "Any Randomizer",
+  "background_text_1": "Диапазон поиска не должен превышать 4294967295.",
+  "background_text_2": "Минимальная граница поиска -9999999999.",
+  "background_text_3": "Максимальная граница поиска 9999999999.",
+
+  "widget_generator": "Генератор чисел",
+  "widget_history" : "История сгенерированых чисел",
+  "widget_excluded" : "Исключенные значения",
+  "widget_boundaries" : "Границы поиска",
+  "widget_add_exclude" : "Введи значение",
+  "from" : "от",
+  "to" :"до",
+  "enter": "ввод",
+  "massage_blank_field_generator": "Сгенерируй случайное сичло",
+  "massage_blank_fields_boundaries": "Установи границы генерации чисел",
+  "massage_error_fields_boundaries": "Настрой границы генерации чисел",
+  "massage_error_ex": "Откорректируй список исключений",
+  "massage_blank_boundaries": "Введи диапазон поиска",
+
+  "massage_ex_add": "Исключение добавлено",
+  "massage_ex_no_add": "Исключение не добавлено",
+  "massage_ex_fill": "Исключение уже есть в списке",
+
+  "background_text_list_ex": "Список пустой"
+
+}
