@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Максимальна межа пошуку обмежена значенням 9999999999."),
         "background_text_list_ex":
             MessageLookupByLibrary.simpleMessage("Список порожній"),
-        "enter": MessageLookupByLibrary.simpleMessage("Готово"),
+        "enter": MessageLookupByLibrary.simpleMessage("ввід"),
         "from": MessageLookupByLibrary.simpleMessage("від"),
         "massage_blank_boundaries":
             MessageLookupByLibrary.simpleMessage("Введи діапазон пошуку"),

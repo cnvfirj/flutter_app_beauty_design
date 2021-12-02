@@ -1,4 +1,4 @@
-package com.cnvfirj.flutter_app_beauty_design;
+package com.kittendevelop.randomnumber;
 
 import io.flutter.embedding.android.FlutterActivity;
 

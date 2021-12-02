@@ -6,9 +6,5 @@ void main() {
   InjectPreparationWork.instance().ready((){
     runApp(MainApp());
   });
-  // WidgetsFlutterBinding.ensureInitialized();
-  // CommonProvider.inst().init((){
-  //   runApp(MainApp());
-  // });
 }
 

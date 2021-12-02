@@ -23,7 +23,7 @@ class BuildCoefficient{
 }
 
 class GlobalColors{
-  static final Color COLOE_APP_BAR = Color.fromRGBO(172, 87, 57, 1.0);
+  static final Color COLOE_APP_BAR = Color.fromRGBO(117, 58, 160, 1.0);
   static final Color COLOR_MAIN_FONT = Color.fromRGBO(226, 226, 226, 1.0);
   static final Color COLOR_TEXT = Color.fromRGBO(255, 255, 255, 1.0);
   static final Color COLOR_BACKGROUND_WIDGET = Color.fromRGBO(255, 255, 255, 1.0);
